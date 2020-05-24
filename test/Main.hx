@@ -34,30 +34,30 @@ class Main {
 
 	static function outputUnitTests() {
 		Sys.println("\n[output unit tests]");
-		final stdout = new StdOut();
-		stdout.int(10).space().int(20).lf();
-		stdout.char("A".code).lf();
-		stdout.float(1.5).lf();
+		final cout = new CharOut();
+		cout.int(10).space().int(20).lf();
+		cout.char("A".code).lf();
+		cout.float(1.5).lf();
 		var int64Value:Int64 = 0;
 		for (i in 0...1000)
 			int64Value += 1000000000;
-		stdout.int64(int64Value).lf();
-		stdout.flush();
+		cout.int64(int64Value).lf();
+		cout.flush();
 	}
 
 	static function outputSpeed() {
 		Sys.println("\n[output speed]");
 		Timer.measure(() -> {
-			final stdout = new StdOut();
-			stdout.int(10000).lf();
+			final cout = new CharOut();
+			cout.int(10000).lf();
 			var i = 0;
 			while (i < 20000) {
-				stdout.int(i).space();
+				cout.int(i).space();
 				++i;
-				stdout.int(i).lf();
+				cout.int(i).lf();
 				++i;
 			}
-			stdout.flush();
+			cout.flush();
 		});
 	}
 }

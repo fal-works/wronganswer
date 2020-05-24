@@ -1,82 +1,5 @@
 package wronganswer;
 
-typedef StringBufferData = #if java java.lang.StringBuilder #else StringBuf #end;
-
-@:forward(length, toString)
-abstract StringBuffer(StringBufferData) from StringBufferData {
-	public inline function new(capacity = 1024) {
-		this = new StringBufferData(#if java capacity #end);
-	}
-
-	public inline function str(s:String):CharOut
-		return #if java this.append(s); #else addDynamic(s); #end
-
-	public inline function int(v:Int):CharOut
-		return #if java this.append(v); #else addDynamic(v); #end
-
-	public inline function float(v:Float):CharOut
-		return #if java this.append(v); #else addDynamic(v); #end
-
-	public inline function int64(v:haxe.Int64):CharOut
-		return #if java this.append(v); #else addDynamic(Std.string(v)); #end
-
-	public inline function char(code:Int):CharOut {
-		#if java
-		return this.appendCodePoint(code);
-		#else
-		this.addChar(code);
-		return this;
-		#end
-	}
-
-	public inline function lf():CharOut
-		return char("\n".code);
-
-	public inline function space():CharOut
-		return char(" ".code);
-
-	#if !java
-	inline function addDynamic(v:Dynamic):CharOut {
-		this.add(v);
-		return this;
-	}
-	#end
-}
-
-@:forward
-abstract CharOut(StringBuffer) from StringBuffer {
-	public inline function new(capacity = 1024) {
-		this = new StringBuffer(capacity);
-	}
-
-	public inline function flush():Void {
-		#if js
-		(untyped process).stdout.write(this.toString());
-		#else
-		Sys.print(this.toString());
-		#end
-	}
-
-	public inline function flushln():Void {
-		#if js
-		(untyped process).stdout.write(this.toString() + "\n");
-		#else
-		Sys.println(this.toString());
-		#end
-	}
-}
-
-enum abstract Delimiter(Int) to Int {
-	final LF = "\n".code;
-	final SP = " ".code;
-	final HT = "\t".code;
-	final Slash = "/".code;
-	final BackSlash = "\\".code;
-	final Pipe = "|".code;
-	final Comma = ",".code;
-	final Dot = ".".code;
-}
-
 class CharIn {
 	#if java
 	final stdin = Sys.stdin();
@@ -186,4 +109,81 @@ class CharIn {
 		this.stdin.close();
 		#end
 	}
+}
+
+@:forward
+abstract CharOut(StringBuffer) from StringBuffer {
+	public inline function new(capacity = 1024) {
+		this = new StringBuffer(capacity);
+	}
+
+	public inline function flush():Void {
+		#if js
+		js.Node.process.stdout.write(this.toString());
+		#else
+		Sys.print(this.toString());
+		#end
+	}
+
+	public inline function flushln():Void {
+		#if js
+		js.Node.process.stdout.write(this.toString() + "\n");
+		#else
+		Sys.println(this.toString());
+		#end
+	}
+}
+
+enum abstract Delimiter(Int) to Int {
+	final LF = "\n".code;
+	final SP = " ".code;
+	final HT = "\t".code;
+	final Slash = "/".code;
+	final BackSlash = "\\".code;
+	final Pipe = "|".code;
+	final Comma = ",".code;
+	final Dot = ".".code;
+}
+
+typedef StringBufferData = #if java java.lang.StringBuilder #else StringBuf #end;
+
+@:forward(length, toString)
+abstract StringBuffer(StringBufferData) from StringBufferData {
+	public inline function new(capacity = 1024) {
+		this = new StringBufferData(#if java capacity #end);
+	}
+
+	public inline function str(s:String):CharOut
+		return #if java this.append(s); #else addDynamic(s); #end
+
+	public inline function int(v:Int):CharOut
+		return #if java this.append(v); #else addDynamic(v); #end
+
+	public inline function float(v:Float):CharOut
+		return #if java this.append(v); #else addDynamic(v); #end
+
+	public inline function int64(v:haxe.Int64):CharOut
+		return #if java this.append(v); #else addDynamic(Std.string(v)); #end
+
+	public inline function char(code:Int):CharOut {
+		#if java
+		return this.appendCodePoint(code);
+		#else
+		this.addChar(code);
+		return this;
+		#end
+	}
+
+	public inline function lf():CharOut
+		return char("\n".code);
+
+	public inline function space():CharOut
+		return char(" ".code);
+
+	#if !java
+	inline function addDynamic(v:Dynamic):CharOut {
+		this.add(v);
+		return this;
+	}
+	#end
 }

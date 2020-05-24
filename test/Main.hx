@@ -4,15 +4,20 @@ import wronganswer.WrongAnswer;
 
 class Main {
 	static function main() {
-		// inputUnitTests();
-		inputSpeed();
-		// outputUnitTests();
+		inputUnitTests();
+		// inputSpeed();
+		outputUnitTests();
 		// outputSpeed();
 	}
 
 	static function inputUnitTests() {
+		Sys.println("\n[input unit tests]");
 		final cin = new CharIn(32);
-		Sys.println(cin.int(LF));
+		Sys.println('count: ${cin.int(LF)}');
+		Sys.println('string: ${cin.str(LF)}');
+		Sys.println('float: ${cin.float(LF)}');
+		Sys.println('zero: ${cin.int(SP)}');
+		Sys.println('one: ${cin.int(LF)}');
 		cin.close();
 	}
 
@@ -22,6 +27,8 @@ class Main {
 			final cin = new CharIn(32);
 			final count = cin.int(LF);
 			Sys.println('count: $count');
+			Sys.println('string: ${cin.str(LF)}');
+			Sys.println('float: ${cin.float(LF)}');
 			var lastNumber = 0;
 			for (i in 0...count) {
 				cin.int(SP);

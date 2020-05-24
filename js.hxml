@@ -1,0 +1,3 @@
+common.hxml
+--js test_out/main.js
+--cmd node test_out/main.js < test/testdata.txt

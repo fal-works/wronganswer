@@ -2,3 +2,4 @@
 --class-path test
 --main Main
 --library wronganswer
+# --debug

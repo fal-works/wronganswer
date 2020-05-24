@@ -1,7 +1,5 @@
 package wronganswer;
 
-import haxe.Int64;
-
 typedef StringBufferData = #if java java.lang.StringBuilder #else StringBuf #end;
 
 @:forward(length, toString)
@@ -19,7 +17,7 @@ abstract StringBuffer(StringBufferData) from StringBufferData {
 	public inline function float(v:Float):CharOut
 		return #if java this.append(v); #else addDynamic(v); #end
 
-	public inline function int64(v:Int64):CharOut
+	public inline function int64(v:haxe.Int64):CharOut
 		return #if java this.append(v); #else addDynamic(Std.string(v)); #end
 
 	public inline function char(code:Int):CharOut {
@@ -86,11 +84,11 @@ enum abstract Delimiter(Int) to Int {
 class CharIn {
 	#if js
 	final byteBox = js.node.Buffer.alloc(1);
-	#elseif java
-	final stdin = Sys.stdin();
-	final byteArray:java.NativeArray<java.types.Int8>;
 	#else
 	final stdin = Sys.stdin();
+	#if java
+	final byteArray:java.NativeArray<java.types.Int8>;
+	#end
 	#end
 
 	public extern inline function new(bufferCapacity:Int) {
@@ -146,7 +144,7 @@ class CharIn {
 		try {
 			while ((currentByte = stdin.readByte()) != delimiter)
 				byteArray[index++] = currentByte;
-		} catch (e) {}
+		} catch (e:haxe.io.Eof) {}
 
 		try {
 			return new String(byteArray, 0, index, "UTF-8");
@@ -155,8 +153,17 @@ class CharIn {
 		}
 	}
 	#else
-	public inline function str(delimiter:Delimiter):String
-		return this.stdin.readUntil(delimiter);
+	public inline function str(delimiter:Delimiter):String {
+		final stdin = this.stdin;
+		var currentByte:Int;
+		var result = "";
+		try {
+			while ((currentByte = stdin.readByte()) != delimiter) {
+				result += String.fromCharCode(currentByte);
+			}
+		} catch (e:haxe.io.Eof) {}
+		return result;
+	}
 	#end
 
 	public inline function int(delimiter:Delimiter):Int {

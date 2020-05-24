@@ -52,20 +52,16 @@ abstract CharOut(StringBuffer) from StringBuffer {
 	public inline function flush():Void {
 		#if js
 		(untyped process).stdout.write(this.toString());
-		#elseif sys
-		Sys.print(this.toString());
 		#else
-		throw "Unsupported operation.";
+		Sys.print(this.toString());
 		#end
 	}
 
 	public inline function flushln():Void {
 		#if js
 		(untyped process).stdout.write(this.toString() + "\n");
-		#elseif sys
-		Sys.println(this.toString());
 		#else
-		throw "Unsupported operation.";
+		Sys.println(this.toString());
 		#end
 	}
 }
@@ -82,13 +78,13 @@ enum abstract Delimiter(Int) to Int {
 }
 
 class CharIn {
-	#if js
+	#if java
+	final stdin = Sys.stdin();
+	final byteArray:java.NativeArray<java.types.Int8>;
+	#elseif js
 	final byteBox = js.node.Buffer.alloc(1);
 	#else
 	final stdin = Sys.stdin();
-	#if java
-	final byteArray:java.NativeArray<java.types.Int8>;
-	#end
 	#end
 
 	public extern inline function new(bufferCapacity:Int) {
@@ -119,22 +115,7 @@ class CharIn {
 		return charCode - "0".code;
 	}
 
-	#if js
-	public inline function str(delimiter:Delimiter):String {
-		final byteBox = this.byteBox;
-		inline function readByte()
-			return if (js.node.Fs.readSync(0, byteBox, 0, 1, null) != 0) byteBox[0] else 0;
-
-		var currentByte = readByte();
-		var result = "";
-		while (currentByte != delimiter && currentByte != 0) {
-			result += String.fromCharCode(currentByte);
-			currentByte = readByte();
-		}
-
-		return result;
-	}
-	#elseif java
+	#if java
 	public inline function str(delimiter:Delimiter):String {
 		final stdin = this.stdin;
 		final byteArray = this.byteArray;
@@ -152,15 +133,29 @@ class CharIn {
 			throw e;
 		}
 	}
+	#elseif js
+	public inline function str(delimiter:Delimiter):String {
+		final byteBox = this.byteBox;
+		inline function readByte()
+			return if (js.node.Fs.readSync(0, byteBox, 0, 1, null) != 0) byteBox[0] else 0;
+
+		var currentByte = readByte();
+		var result = "";
+		while (currentByte != delimiter && currentByte != 0) {
+			result += String.fromCharCode(currentByte);
+			currentByte = readByte();
+		}
+
+		return result;
+	}
 	#else
 	public inline function str(delimiter:Delimiter):String {
 		final stdin = this.stdin;
 		var currentByte:Int;
 		var result = "";
 		try {
-			while ((currentByte = stdin.readByte()) != delimiter) {
+			while ((currentByte = stdin.readByte()) != delimiter)
 				result += String.fromCharCode(currentByte);
-			}
 		} catch (e:haxe.io.Eof) {}
 		return result;
 	}

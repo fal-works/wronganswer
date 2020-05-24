@@ -11,24 +11,24 @@ class Main {
 	}
 
 	static function inputUnitTests() {
-		// final input = Sys.stdin();
-		// // final a = input.readUntil(" ".code);
-		// final a = input.readLine();
-		// input.close();
+		final cin = new CharIn(32);
+		Sys.println(cin.int(LF));
+		cin.close();
 	}
 
 	static function inputSpeed() {
 		Sys.println("\n[input speed]");
 		Timer.measure(() -> {
-			final stdin = Sys.stdin();
-			final count = Std.parseInt(stdin.readLine());
-			for (i in 0...count - 1) {
-				stdin.readUntil(" ".code);
-				stdin.readUntil("\n".code);
+			final cin = new CharIn(32);
+			final count = cin.int(LF);
+			Sys.println('count: $count');
+			var lastNumber = 0;
+			for (i in 0...count) {
+				cin.int(SP);
+				lastNumber = cin.int(LF);
 			}
-			stdin.readUntil(" ".code);
-			final lastNumber = stdin.readLine();
-			trace("last number: " + lastNumber);
+			Sys.println('last number: $lastNumber');
+			cin.close();
 		});
 	}
 

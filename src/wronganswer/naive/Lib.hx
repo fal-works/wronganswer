@@ -3,7 +3,7 @@ package wronganswer.naive;
 private typedef CharInData = #if js js.node.buffer.Buffer #else haxe.io.Input #end;
 
 abstract CharIn(CharInData) {
-  public extern inline function new() {
+	public extern inline function new() {
 		#if java
 		this = Sys.stdin();
 		#elseif js
@@ -11,7 +11,7 @@ abstract CharIn(CharInData) {
 		#else
 		this = Sys.stdin();
 		#end
-  }
+	}
 
 	public inline function byte() {
 		#if js
@@ -20,21 +20,9 @@ abstract CharIn(CharInData) {
 		#else
 		return this.readByte();
 		#end
-  }
+	}
 
-	public inline function char()
-		return String.fromCharCode(byte());
-
-	public inline function digit() {
-		final charCode = byte();
-		#if debug
-		if (charCode < "0".code || charCode > "9".code)
-			throw 'Failed to get digit. Character code: $charCode';
-		#end
-		return charCode - "0".code;
-  }
-
-  public inline function line() {
+	public inline function line() {
 		#if js
 		final readSync = js.node.Fs.readSync;
 		var result = "";
@@ -50,7 +38,13 @@ abstract CharIn(CharInData) {
 		#else
 		return this.readLine();
 		#end
-  }
+	}
+
+	public inline function lineSplit(delimiter:String = " ")
+		return StringTools.trim(line()).split(delimiter);
+
+	public inline function lineSplitInt(?delimiter:String)
+		return lineSplit(delimiter).map(Extensions.atoi);
 }
 
 class Extensions {
@@ -67,10 +61,10 @@ class Extensions {
 
 	@:pure
 	public static inline function atof(s:String):Float {
-		return #if java
-			java.lang.Double.DoubleClass.parseDouble(s);
-		#else
-			Std.parseFloat(s);
-		#end
+		return #if java java.lang.Double.DoubleClass.parseDouble(s); #else Std.parseFloat(s); #end
 	}
+
+	@:pure
+	public static inline function itoa(i:Int):String
+		return String.fromCharCode(i);
 }

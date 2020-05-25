@@ -19,7 +19,7 @@ class Main {
 		Sys.println('count: ${cin.line()}');
 		Sys.println('string: ${cin.line()}');
 		Sys.println('float: ${cin.line()}');
-		Sys.println('line split: ${cin.line().split(" ")}');
+		Sys.println('line split: ${cin.lineSplitInt()}');
 	}
 
 	static function inputUnitTests() {

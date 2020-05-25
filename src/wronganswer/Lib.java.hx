@@ -1,7 +1,9 @@
 package wronganswer;
 
 abstract CharIn(haxe.io.Input) {
+	#if !macro
 	static var byteArray:java.NativeArray<java.types.Int8>;
+	#end
 
 	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
@@ -14,7 +16,9 @@ abstract CharIn(haxe.io.Input) {
 
 	public extern inline function new(bufferCapacity:Int) {
 		this = Sys.stdin();
+		#if !macro
 		byteArray = new java.NativeArray(bufferCapacity);
+		#end
 	}
 
 	public inline function byte():Int
@@ -100,9 +104,12 @@ enum abstract Delimiter(Int) to Int {
 }
 
 @:forward(length, toString)
-abstract StringBuffer(java.lang.StringBuilder) from java.lang.StringBuilder {
+abstract StringBuffer(#if macro Dynamic #else java.lang.StringBuilder #end)
+#if !macro from java.lang.StringBuilder
+#end
+{
 	public inline function new(capacity = 1024) {
-		this = new java.lang.StringBuilder(capacity);
+		this = #if macro null; #else new java.lang.StringBuilder(capacity); #end
 	}
 
 	public inline function str(s:String):CharOut
@@ -132,10 +139,10 @@ class Ut {
 		return macro null;
 
 	@:pure public static inline function atoi(s:String):Int
-		return java.lang.Integer.parseInt(s, 10);
+		return #if macro 0; #else java.lang.Integer.parseInt(s, 10); #end
 
 	@:pure public static inline function atof(s:String):Float
-		return java.lang.Double.DoubleClass.parseDouble(s);
+		return #if macro 0; #else java.lang.Double.DoubleClass.parseDouble(s); #end
 
 	@:pure public static inline function itoa(i:Int):String
 		return String.fromCharCode(i);

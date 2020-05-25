@@ -1,6 +1,6 @@
 package wronganswer;
 
-abstract CharIn(js.node.buffer.Buffer) {
+abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
 			case " ".code | "\t".code | "\n".code | "\r".code:
@@ -14,7 +14,9 @@ abstract CharIn(js.node.buffer.Buffer) {
 		this = js.node.Buffer.alloc(1);
 
 	public inline function byte():Int {
+		#if !macro
 		js.node.Fs.readSync(0, this, 0, 1, null);
+		#end
 		return this[0];
 	}
 
@@ -31,8 +33,9 @@ abstract CharIn(js.node.buffer.Buffer) {
 	}
 
 	public inline function token():String {
-		final readSync = js.node.Fs.readSync;
 		var result = "";
+		#if !macro
+		final readSync = js.node.Fs.readSync;
 		while (true) {
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
@@ -41,13 +44,15 @@ abstract CharIn(js.node.buffer.Buffer) {
 				break;
 			result += String.fromCharCode(currentByte);
 		}
+		#end
 
 		return result;
 	}
 
 	public inline function str(delimiter:Delimiter):String {
-		final readSync = js.node.Fs.readSync;
 		var result = "";
+		#if !macro
+		final readSync = js.node.Fs.readSync;
 		while (true) {
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
@@ -56,6 +61,7 @@ abstract CharIn(js.node.buffer.Buffer) {
 				break;
 			result += String.fromCharCode(currentByte);
 		}
+		#end
 
 		return StringTools.rtrim(result);
 	}

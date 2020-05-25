@@ -44,7 +44,7 @@ abstract CharIn(CharInData) {
 		final charCode = byte();
 		#if debug
 		if (charCode < "0".code || charCode > "9".code)
-			throw 'Failed get digit. Character code: $charCode';
+			throw 'Failed to get digit. Character code: $charCode';
 		#end
 		return charCode - "0".code;
 	}

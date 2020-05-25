@@ -38,5 +38,5 @@ class Ut {
 		return macro null;
 
 	@:pure public static inline function atoi(s:String):Int
-		return #if macro 0; #else java.lang.Integer.parseInt(s, 10); #end
+		return Std.parseInt(s);
 }

@@ -1,37 +1,49 @@
 import haxe.Int64;
 import haxe.Timer;
 import wronganswer.Lib;
+import wronganswer.naive.Lib.CharIn as NaiveCharIn;
 
 class Main {
 	static function main() {
 		// inputUnitTests();
-		inputSpeed();
-		outputUnitTests();
+		// inputSpeed();
+		naiveInputUnitTests();
+
+		// outputUnitTests();
 		// outputSpeed();
+	}
+
+	static function naiveInputUnitTests() {
+		Sys.println("\n[naive input unit tests]");
+		final cin = new NaiveCharIn();
+		Sys.println('count: ${cin.line()}');
+		Sys.println('string: ${cin.line()}');
+		Sys.println('float: ${cin.line()}');
+		Sys.println('line split: ${cin.line().split(" ")}');
 	}
 
 	static function inputUnitTests() {
 		Sys.println("\n[input unit tests]");
 		final cin = new CharIn(32);
-		Sys.println('count: ${cin.int(LF)}');
+		Sys.println('count: ${cin.int()}');
 		Sys.println('string: ${cin.str(LF)}');
-		Sys.println('float: ${cin.float(LF)}');
-		Sys.println('zero: ${cin.int(SP)}');
-		Sys.println('one: ${cin.int(LF)}');
+		Sys.println('float: ${cin.float()}');
+		Sys.println('zero: ${cin.int()}');
+		Sys.println('one: ${cin.int()}');
 	}
 
 	static function inputSpeed() {
 		Sys.println("\n[input speed]");
 		Timer.measure(() -> {
 			final cin = new CharIn(32);
-			final count = cin.int(LF);
+			final count = cin.int();
 			Sys.println('count: $count');
 			Sys.println('string: ${cin.str(LF)}');
-			Sys.println('float: ${cin.float(LF)}');
+			Sys.println('float: ${cin.float()}');
 			var lastNumber = 0;
 			for (i in 0...count) {
-				cin.int(SP);
-				lastNumber = cin.int(LF);
+				cin.int();
+				lastNumber = cin.int();
 			}
 			Sys.println('last number: $lastNumber');
 		});

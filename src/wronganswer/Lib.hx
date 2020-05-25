@@ -7,6 +7,16 @@ abstract CharIn(CharInData) {
 	static var byteArray:java.NativeArray<java.types.Int8>;
 	#end
 
+	@:pure
+	static inline function isWhiteSpace(characterCode:Int):Bool {
+		return switch characterCode {
+			case " ".code | "\t".code | "\n".code | "\r".code:
+				true;
+			default:
+				false;
+		}
+	}
+
 	public extern inline function new(bufferCapacity:Int) {
 		#if java
 		this = Sys.stdin();
@@ -40,6 +50,58 @@ abstract CharIn(CharInData) {
 	}
 
 	#if java
+	public inline function token():String {
+		final byteArray = CharIn.byteArray;
+		var index = 0;
+
+		try {
+			while (true) {
+				final currentByte = this.readByte();
+				if (isWhiteSpace(currentByte))
+					break;
+				byteArray[index] = currentByte;
+				++index;
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		try {
+			return new String(byteArray, 0, index, "UTF-8");
+		} catch (e) {
+			throw e;
+		}
+	}
+	#elseif js
+	public inline function token():String {
+		final readSync = js.node.Fs.readSync;
+		var result = "";
+		while (true) {
+			if (readSync(0, this, 0, 1, null) == 0)
+				break;
+			final currentByte = this[0];
+			if (isWhiteSpace(currentByte))
+				break;
+			result += String.fromCharCode(currentByte);
+		}
+
+		return result;
+	}
+	#else
+	public inline function token():String {
+		var result = "";
+		try {
+			while (true) {
+				final currentByte = this.readByte();
+				if (isWhiteSpace(currentByte))
+					break;
+				result += String.fromCharCode(currentByte);
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		return result;
+	}
+	#end
+
+	#if java
 	public inline function str(delimiter:Delimiter):String {
 		final byteArray = CharIn.byteArray;
 		var index = 0;
@@ -54,24 +116,8 @@ abstract CharIn(CharInData) {
 			}
 		} catch (e:haxe.io.Eof) {}
 
-		// right trim
-		while (index != 0) {
-			switch (byteArray[--index]) {
-				case " ".code:
-					continue;
-				case "\t".code:
-					continue;
-				case "\n".code:
-					continue;
-				case "\r".code:
-					continue;
-				default:
-			}
-			break;
-		}
-
 		try {
-			return new String(byteArray, 0, index + 1, "UTF-8");
+			return new String(byteArray, 0, index, "UTF-8");
 		} catch (e) {
 			throw e;
 		}
@@ -107,9 +153,9 @@ abstract CharIn(CharInData) {
 	}
 	#end
 
-	public inline function int(delimiter:Delimiter):Int {
-		final s = str(delimiter);
-		final value = Parser.atoi(s);
+	public inline function int():Int {
+		final s = token();
+		final value = Extensions.atoi(s);
 		#if debug
 		if (value == null)
 			throw 'Failed to parse: $s';
@@ -117,9 +163,9 @@ abstract CharIn(CharInData) {
 		return value;
 	}
 
-	public inline function float(delimiter:Delimiter):Float {
-		final s = str(delimiter);
-		final value = Parser.atof(s);
+	public inline function float():Float {
+		final s = token();
+		final value = Extensions.atof(s);
 		#if debug
 		if (!Math.isFinite(value))
 			throw 'Failed to parse: $s';
@@ -205,7 +251,7 @@ abstract StringBuffer(StringBufferData) from StringBufferData {
 	#end
 }
 
-class Parser {
+class Extensions {
 	@:pure
 	public static inline function atoi(s:String):Int {
 		return #if java
@@ -219,10 +265,6 @@ class Parser {
 
 	@:pure
 	public static inline function atof(s:String):Float {
-		return #if java
-			java.lang.Double.DoubleClass.parseDouble(s);
-		#else
-			Std.parseFloat(s);
-		#end
+		return #if java java.lang.Double.DoubleClass.parseDouble(s); #else Std.parseFloat(s); #end
 	}
 }

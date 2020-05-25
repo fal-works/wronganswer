@@ -79,10 +79,10 @@ abstract CharOut(StringBuffer) from StringBuffer {
 		this = new StringBuffer(capacity);
 	}
 
-	public inline function flush():Void
+	public inline function print():Void
 		#if macro return; #else js.Node.process.stdout.write(this.toString()); #end
 
-	public inline function flushln():Void
+	public inline function println():Void
 		#if macro return; #else js.Node.process.stdout.write(this.toString() + "\n"); #end
 }
 

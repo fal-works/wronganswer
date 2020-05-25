@@ -105,13 +105,13 @@ abstract CharOut(StringBuffer) from StringBuffer {
 	/**
 		Prints the buffered string.
 	**/
-	public inline function flush():Void
+	public inline function print():Void
 		Sys.print(this.toString());
 
 	/**
 		Prints the buffered string with CR and/or LF.
 	**/
-	public inline function flushln():Void
+	public inline function println():Void
 		Sys.println(this.toString());
 }
 

@@ -70,7 +70,7 @@ class Main {
 		for (i in 0...1000)
 			int64Value += 1000000000;
 		cout.int64(int64Value).lf();
-		cout.flush();
+		cout.print();
 	}
 
 	static function outputSpeed() {
@@ -85,7 +85,7 @@ class Main {
 				cout.int(i).lf();
 				++i;
 			}
-			cout.flush();
+			cout.print();
 		});
 	}
 }

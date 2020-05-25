@@ -83,10 +83,10 @@ abstract CharOut(StringBuffer) from StringBuffer {
 		this = new StringBuffer(capacity);
 	}
 
-	public inline function flush():Void
+	public inline function print():Void
 		Sys.print(this.toString());
 
-	public inline function flushln():Void
+	public inline function println():Void
 		Sys.println(this.toString());
 }
 

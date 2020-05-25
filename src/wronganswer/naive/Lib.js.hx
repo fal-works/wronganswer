@@ -37,7 +37,7 @@ class Ut {
 		return macro null;
 
 	@:pure public static inline function atoi(s:String):Int
-		return #if macro 0; #else cast js.Lib.parseInt(s, 10); #end
+		return #if macro 0; #else js.Syntax.code("parseInt({0})", s); #end
 
 	@:pure public static inline function atof(s:String):Float
 		return Std.parseFloat(s);

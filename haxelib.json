@@ -4,7 +4,7 @@
 	"license": "Public",
 	"tags": [],
 	"description": "Haxe library for competitive programming.",
-	"version": "0.1.0-alpha",
+	"version": "0.1.0",
 	"classPath": "src/",
 	"releasenote": "Initial release. Everything may change in future.",
 	"contributors": [

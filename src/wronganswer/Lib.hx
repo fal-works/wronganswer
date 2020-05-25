@@ -267,4 +267,8 @@ class Extensions {
 	public static inline function atof(s:String):Float {
 		return #if java java.lang.Double.DoubleClass.parseDouble(s); #else Std.parseFloat(s); #end
 	}
+
+	@:pure
+	public static inline function itoa(i:Int):String
+		return String.fromCharCode(i);
 }

@@ -128,6 +128,8 @@ abstract StringBuffer(java.lang.StringBuilder) from java.lang.StringBuilder {
 }
 
 class Statics {
+	public static inline function debug(message:String):Void {}
+
 	@:pure public static inline function atoi(s:String):Int
 		return java.lang.Integer.parseInt(s, 10);
 

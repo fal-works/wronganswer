@@ -191,6 +191,13 @@ abstract StringBuffer(StringBuf) from StringBuf {
 **/
 class Statics {
 	/**
+		Prints a debug log.
+		Has no effect on Java/JS targets.
+	**/
+	public static inline function debug(message:String):Void
+		Sys.println('[DEBUG] $message');
+
+	/**
 		Converts `s` to `Int`.
 	**/
 	@:pure public static inline function atoi(s:String):Int {

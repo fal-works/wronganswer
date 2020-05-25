@@ -127,6 +127,8 @@ abstract StringBuffer(StringBuf) from StringBuf {
 }
 
 class Statics {
+	public static inline function debug(message:String):Void {}
+
 	@:pure public static inline function atoi(s:String):Int
 		return cast js.Lib.parseInt(s, 10);
 

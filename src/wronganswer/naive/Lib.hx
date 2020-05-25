@@ -21,6 +21,7 @@ abstract CharIn(haxe.io.Input) {
 
 	/**
 		Reads until the next CR and/or LF, then trims and splits the result.
+		@param delimiter Defaults to a space.
 	**/
 	public inline function lineSplit(delimiter:String = " ")
 		return StringTools.trim(line()).split(delimiter);
@@ -28,6 +29,7 @@ abstract CharIn(haxe.io.Input) {
 	/**
 		Reads until the next CR and/or LF, then trims and splits the result
 		and maps it to `Array<Int>`.
+		@param delimiter Defaults to a space.
 	**/
 	public inline function lineSplitInt(?delimiter:String)
 		return lineSplit(delimiter).map(Statics.atoi);

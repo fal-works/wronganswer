@@ -27,11 +27,11 @@ abstract CharIn(haxe.io.Input) {
 	public inline function byte():Int
 		return this.readByte();
 
-	public inline function char():String
-		return String.fromCharCode(byte());
-
 	public inline function digit():Int
 		return byte() - "0".code;
+
+	public inline function char():String
+		return String.fromCharCode(byte());
 
 	public inline function token():String {
 		final byteArray = CharIn.byteArray;

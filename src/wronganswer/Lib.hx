@@ -31,12 +31,6 @@ abstract CharIn(haxe.io.Input) {
 		return this.readByte();
 
 	/**
-		Reads 1 ASCII character.
-	**/
-	public inline function char():String
-		return String.fromCharCode(byte());
-
-	/**
 		Reads 1 decimal digit.
 	**/
 	public inline function digit():Int {
@@ -47,6 +41,12 @@ abstract CharIn(haxe.io.Input) {
 		#end
 		return charCode - "0".code;
 	}
+
+	/**
+		Reads 1 ASCII character.
+	**/
+	public inline function char():String
+		return String.fromCharCode(byte());
 
 	/**
 		Reads a string separated by any whitespace character (SP, HL, CR or LF).

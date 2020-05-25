@@ -25,17 +25,11 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		return this[0];
 	}
 
+	public inline function digit():Int
+		return byte() - "0".code;
+
 	public inline function char():String
 		return String.fromCharCode(byte());
-
-	public inline function digit():Int {
-		final charCode = byte();
-		#if debug
-		if (charCode < "0".code || charCode > "9".code)
-			throw 'Failed to get digit. Character code: $charCode';
-		#end
-		return charCode - "0".code;
-	}
 
 	public inline function token():String {
 		var result = "";

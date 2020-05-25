@@ -1,14 +1,27 @@
 package wronganswer.naive;
 
-abstract CharIn(haxe.io.Input) {
+abstract CharIn(js.node.buffer.Buffer) {
 	public extern inline function new()
-		this = Sys.stdin();
+		this = js.node.Buffer.alloc(1);
 
-	public inline function byte()
-		return this.readByte();
+	public inline function byte() {
+		js.node.Fs.readSync(0, this, 0, 1, null);
+		return this[0];
+	}
 
-	public inline function line()
-		return this.readLine();
+	public inline function line() {
+		final readSync = js.node.Fs.readSync;
+		var result = "";
+		while (true) {
+			if (readSync(0, this, 0, 1, null) == 0)
+				break;
+			final currentByte = this[0];
+			if (currentByte == "\n".code)
+				break;
+			result += String.fromCharCode(currentByte);
+		}
+		return result;
+	}
 
 	public inline function lineSplit(delimiter:String = " ")
 		return StringTools.trim(line()).split(delimiter);
@@ -19,7 +32,7 @@ abstract CharIn(haxe.io.Input) {
 
 class Extensions {
 	@:pure public static inline function atoi(s:String):Int
-		return Std.parseInt(s);
+		return cast js.Lib.parseInt(s, 10);
 
 	@:pure public static inline function atof(s:String):Float
 		return Std.parseFloat(s);

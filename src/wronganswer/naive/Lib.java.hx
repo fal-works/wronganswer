@@ -19,10 +19,10 @@ abstract CharIn(haxe.io.Input) {
 
 class Extensions {
 	@:pure public static inline function atoi(s:String):Int
-		return Std.parseInt(s);
+		return java.lang.Integer.parseInt(s, 10);
 
 	@:pure public static inline function atof(s:String):Float
-		return Std.parseFloat(s);
+		return java.lang.Double.DoubleClass.parseDouble(s);
 
 	@:pure public static inline function itoa(i:Int):String
 		return String.fromCharCode(i);

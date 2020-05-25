@@ -1,6 +1,8 @@
 package wronganswer;
 
 abstract CharIn(haxe.io.Input) {
+	static var byteArray:java.NativeArray<java.types.Int8>;
+
 	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
 			case " ".code | "\t".code | "\n".code | "\r".code:
@@ -10,8 +12,10 @@ abstract CharIn(haxe.io.Input) {
 		}
 	}
 
-	public extern inline function new(bufferCapacity:Int)
+	public extern inline function new(bufferCapacity:Int) {
 		this = Sys.stdin();
+		byteArray = new java.NativeArray(bufferCapacity);
+	}
 
 	public inline function byte():Int
 		return this.readByte();
@@ -19,62 +23,56 @@ abstract CharIn(haxe.io.Input) {
 	public inline function char():String
 		return String.fromCharCode(byte());
 
-	public inline function digit():Int {
-		final charCode = byte();
-		#if debug
-		if (charCode < "0".code || charCode > "9".code)
-			throw 'Failed to get digit. Character code: $charCode';
-		#end
-		return charCode - "0".code;
-	}
+	public inline function digit():Int
+		return byte() - "0".code;
 
 	public inline function token():String {
-		var result = "";
+		final byteArray = CharIn.byteArray;
+		var index = 0;
+
 		try {
 			while (true) {
 				final currentByte = this.readByte();
 				if (isWhiteSpace(currentByte))
 					break;
-				result += String.fromCharCode(currentByte);
+				byteArray[index] = currentByte;
+				++index;
 			}
 		} catch (e:haxe.io.Eof) {}
 
-		return result;
+		try {
+			return new String(byteArray, 0, index, "UTF-8");
+		} catch (e) {
+			throw e;
+		}
 	}
 
 	public inline function str(delimiter:Delimiter):String {
-		var result = "";
+		final byteArray = CharIn.byteArray;
+		var index = 0;
+
 		try {
 			while (true) {
 				final currentByte = this.readByte();
 				if (currentByte == delimiter)
 					break;
-				result += String.fromCharCode(currentByte);
+				byteArray[index] = currentByte;
+				++index;
 			}
 		} catch (e:haxe.io.Eof) {}
 
-		return StringTools.rtrim(result);
+		try {
+			return new String(byteArray, 0, index, "UTF-8");
+		} catch (e) {
+			throw e;
+		}
 	}
 
-	public inline function int():Int {
-		final s = token();
-		final value = Extensions.atoi(s);
-		#if debug
-		if (value == null)
-			throw 'Failed to parse: $s';
-		#end
-		return value;
-	}
+	public inline function int():Int
+		return Extensions.atoi(token());
 
-	public inline function float():Float {
-		final s = token();
-		final value = Extensions.atof(s);
-		#if debug
-		if (!Math.isFinite(value))
-			throw 'Failed to parse: $s';
-		#end
-		return value;
-	}
+	public inline function float():Float
+		return Extensions.atof(token());
 }
 
 @:forward
@@ -102,46 +100,39 @@ enum abstract Delimiter(Int) to Int {
 }
 
 @:forward(length, toString)
-abstract StringBuffer(StringBuf) from StringBuf {
-	public inline function new(?capacity) {
-		this = new StringBuf();
+abstract StringBuffer(java.lang.StringBuilder) from java.lang.StringBuilder {
+	public inline function new(capacity = 1024) {
+		this = new java.lang.StringBuilder(capacity);
 	}
 
 	public inline function str(s:String):CharOut
-		return addDynamic(s);
+		return this.append(s);
 
 	public inline function int(v:Int):CharOut
-		return addDynamic(v);
+		return this.append(v);
 
 	public inline function float(v:Float):CharOut
-		return addDynamic(v);
+		return this.append(v);
 
 	public inline function int64(v:haxe.Int64):CharOut
-		return addDynamic(Std.string(v));
+		return this.append(v);
 
-	public inline function char(code:Int):CharOut {
-		this.addChar(code);
-		return this;
-	}
+	public inline function char(code:Int):CharOut
+		return this.appendCodePoint(code);
 
 	public inline function lf():CharOut
 		return char("\n".code);
 
 	public inline function space():CharOut
 		return char(" ".code);
-
-	inline function addDynamic(v:Dynamic):CharOut {
-		this.add(v);
-		return this;
-	}
 }
 
 class Extensions {
 	@:pure public static inline function atoi(s:String):Int
-		return Std.parseInt(s);
+		return java.lang.Integer.parseInt(s, 10);
 
 	@:pure public static inline function atof(s:String):Float
-		return Std.parseFloat(s);
+		return java.lang.Double.DoubleClass.parseDouble(s);
 
 	@:pure public static inline function itoa(i:Int):String
 		return String.fromCharCode(i);

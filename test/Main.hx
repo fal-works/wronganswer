@@ -5,11 +5,11 @@ import wronganswer.naive.Lib.CharIn as NaiveCharIn;
 
 class Main {
 	static function main() {
-		// inputUnitTests();
+		inputUnitTests();
 		// inputSpeed();
-		naiveInputUnitTests();
+		// naiveInputUnitTests();
 
-		// outputUnitTests();
+		outputUnitTests();
 		// outputSpeed();
 	}
 

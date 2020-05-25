@@ -1,6 +1,6 @@
 package wronganswer;
 
-abstract CharIn(haxe.io.Input) {
+abstract CharIn(js.node.buffer.Buffer) {
 	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
 			case " ".code | "\t".code | "\n".code | "\r".code:
@@ -11,10 +11,12 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	public extern inline function new(bufferCapacity:Int)
-		this = Sys.stdin();
+		this = js.node.Buffer.alloc(1);
 
-	public inline function byte():Int
-		return this.readByte();
+	public inline function byte():Int {
+		js.node.Fs.readSync(0, this, 0, 1, null);
+		return this[0];
+	}
 
 	public inline function char():String
 		return String.fromCharCode(byte());
@@ -29,52 +31,40 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	public inline function token():String {
+		final readSync = js.node.Fs.readSync;
 		var result = "";
-		try {
-			while (true) {
-				final currentByte = this.readByte();
-				if (isWhiteSpace(currentByte))
-					break;
-				result += String.fromCharCode(currentByte);
-			}
-		} catch (e:haxe.io.Eof) {}
+		while (true) {
+			if (readSync(0, this, 0, 1, null) == 0)
+				break;
+			final currentByte = this[0];
+			if (isWhiteSpace(currentByte))
+				break;
+			result += String.fromCharCode(currentByte);
+		}
 
 		return result;
 	}
 
 	public inline function str(delimiter:Delimiter):String {
+		final readSync = js.node.Fs.readSync;
 		var result = "";
-		try {
-			while (true) {
-				final currentByte = this.readByte();
-				if (currentByte == delimiter)
-					break;
-				result += String.fromCharCode(currentByte);
-			}
-		} catch (e:haxe.io.Eof) {}
+		while (true) {
+			if (readSync(0, this, 0, 1, null) == 0)
+				break;
+			final currentByte = this[0];
+			if (currentByte == delimiter)
+				break;
+			result += String.fromCharCode(currentByte);
+		}
 
 		return StringTools.rtrim(result);
 	}
 
-	public inline function int():Int {
-		final s = token();
-		final value = Extensions.atoi(s);
-		#if debug
-		if (value == null)
-			throw 'Failed to parse: $s';
-		#end
-		return value;
-	}
+	public inline function int():Int
+		return Extensions.atoi(token());
 
-	public inline function float():Float {
-		final s = token();
-		final value = Extensions.atof(s);
-		#if debug
-		if (!Math.isFinite(value))
-			throw 'Failed to parse: $s';
-		#end
-		return value;
-	}
+	public inline function float():Float
+		return Extensions.atof(token());
 }
 
 @:forward
@@ -84,10 +74,10 @@ abstract CharOut(StringBuffer) from StringBuffer {
 	}
 
 	public inline function flush():Void
-		Sys.print(this.toString());
+		js.Node.process.stdout.write(this.toString());
 
 	public inline function flushln():Void
-		Sys.println(this.toString());
+		js.Node.process.stdout.write(this.toString() + "\n");
 }
 
 enum abstract Delimiter(Int) to Int {
@@ -138,7 +128,7 @@ abstract StringBuffer(StringBuf) from StringBuf {
 
 class Extensions {
 	@:pure public static inline function atoi(s:String):Int
-		return Std.parseInt(s);
+		return cast js.Lib.parseInt(s, 10);
 
 	@:pure public static inline function atof(s:String):Float
 		return Std.parseFloat(s);

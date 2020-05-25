@@ -1,28 +1,29 @@
 package wronganswer;
 
-class CharIn {
+typedef CharInData = #if js js.node.buffer.Buffer #else haxe.io.Input #end;
+
+abstract CharIn(CharInData) {
 	#if java
-	static final stdin = Sys.stdin();
-	final byteArray:java.NativeArray<java.types.Int8>;
-	#elseif js
-	static final byteBox = js.node.Buffer.alloc(1);
-	#else
-	static final stdin = Sys.stdin();
+	static var byteArray:java.NativeArray<java.types.Int8>;
 	#end
 
 	public extern inline function new(bufferCapacity:Int) {
 		#if java
-		this.byteArray = new java.NativeArray(bufferCapacity);
+		this = Sys.stdin();
+		byteArray = new java.NativeArray(bufferCapacity);
+		#elseif js
+		this = js.node.Buffer.alloc(1);
+		#else
+		this = Sys.stdin();
 		#end
 	}
 
 	public inline function byte():Int {
 		#if js
-		final byteBox = CharIn.byteBox;
-		js.node.Fs.readSync(0, byteBox, 0, 1, null);
-		return byteBox[0];
+		js.node.Fs.readSync(0, this, 0, 1, null);
+		return this[0];
 		#else
-		return stdin.readByte();
+		return this.readByte();
 		#end
 	}
 
@@ -40,14 +41,13 @@ class CharIn {
 
 	#if java
 	public inline function str(delimiter:Delimiter):String {
-		final stdin = CharIn.stdin;
-		final byteArray = this.byteArray;
+		final byteArray = CharIn.byteArray;
 		var index = 0;
 		var leftTrim = true;
 
 		try {
 			while (true) {
-				final currentByte = stdin.readByte();
+				final currentByte = this.readByte();
 				if (leftTrim) {
 					switch currentByte {
 						case " ".code:
@@ -94,13 +94,12 @@ class CharIn {
 	}
 	#elseif js
 	public inline function str(delimiter:Delimiter):String {
-		final byteBox = CharIn.byteBox;
 		var leftTrim = true;
 		var result = "";
 		while (true) {
-			if (js.node.Fs.readSync(0, byteBox, 0, 1, null) == 0)
+			if (js.node.Fs.readSync(0, this, 0, 1, null) == 0)
 				break;
-			final currentByte = byteBox[0];
+			final currentByte = this[0];
 
 			if (leftTrim) {
 				switch currentByte {
@@ -125,13 +124,11 @@ class CharIn {
 	}
 	#else
 	public inline function str(delimiter:Delimiter):String {
-		final readByte = stdin.readByte;
-
 		var result = "";
 		try {
 			var leftTrim = true;
 			while (true) {
-				final currentByte = readByte();
+				final currentByte = this.readByte();
 				if (leftTrim) {
 					switch currentByte {
 						case " ".code:
@@ -157,7 +154,7 @@ class CharIn {
 	#end
 
 	public inline function int(delimiter:Delimiter):Int {
-		final s = this.str(delimiter);
+		final s = str(delimiter);
 		final value = Parser.atoi(s);
 		#if debug
 		if (value == null)
@@ -167,7 +164,7 @@ class CharIn {
 	}
 
 	public inline function float(delimiter:Delimiter):Float {
-		final s = this.str(delimiter);
+		final s = str(delimiter);
 		final value = Parser.atof(s);
 		#if debug
 		if (!Math.isFinite(value))

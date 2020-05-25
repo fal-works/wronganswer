@@ -158,7 +158,7 @@ class CharIn {
 
 	public inline function int(delimiter:Delimiter):Int {
 		final s = this.str(delimiter);
-		final value = Std.parseInt(s);
+		final value = Parser.atoi(s);
 		#if debug
 		if (value == null)
 			throw 'Failed to parse: $s';
@@ -168,7 +168,7 @@ class CharIn {
 
 	public inline function float(delimiter:Delimiter):Float {
 		final s = this.str(delimiter);
-		final value = Std.parseFloat(s);
+		final value = Parser.atof(s);
 		#if debug
 		if (!Math.isFinite(value))
 			throw 'Failed to parse: $s';
@@ -258,4 +258,26 @@ abstract StringBuffer(StringBufferData) from StringBufferData {
 		return this;
 	}
 	#end
+}
+
+class Parser {
+	@:pure
+	public static inline function atoi(s:String):Int {
+		return #if java
+			java.lang.Integer.parseInt(s, 10);
+		#elseif js
+			cast js.Lib.parseInt(s, 10);
+		#else
+			Std.parseInt(s);
+		#end
+	}
+
+	@:pure
+	public static inline function atof(s:String):Float {
+		return #if java
+			java.lang.Double.DoubleClass.parseDouble(s);
+		#else
+			Std.parseFloat(s);
+		#end
+	}
 }

@@ -4,8 +4,8 @@ import wronganswer.WrongAnswer;
 
 class Main {
 	static function main() {
-		inputUnitTests();
-		// inputSpeed();
+		// inputUnitTests();
+		inputSpeed();
 		outputUnitTests();
 		// outputSpeed();
 	}
@@ -18,7 +18,6 @@ class Main {
 		Sys.println('float: ${cin.float(LF)}');
 		Sys.println('zero: ${cin.int(SP)}');
 		Sys.println('one: ${cin.int(LF)}');
-		cin.close();
 	}
 
 	static function inputSpeed() {
@@ -35,7 +34,6 @@ class Main {
 				lastNumber = cin.int(LF);
 			}
 			Sys.println('last number: $lastNumber');
-			cin.close();
 		});
 	}
 

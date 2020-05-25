@@ -2,12 +2,12 @@ package wronganswer;
 
 class CharIn {
 	#if java
-	final stdin = Sys.stdin();
+	static final stdin = Sys.stdin();
 	final byteArray:java.NativeArray<java.types.Int8>;
 	#elseif js
-	final byteBox = js.node.Buffer.alloc(1);
+	static final byteBox = js.node.Buffer.alloc(1);
 	#else
-	final stdin = Sys.stdin();
+	static final stdin = Sys.stdin();
 	#end
 
 	public extern inline function new(bufferCapacity:Int) {
@@ -18,11 +18,11 @@ class CharIn {
 
 	public inline function byte():Int {
 		#if js
-		final byteBox = this.byteBox;
+		final byteBox = CharIn.byteBox;
 		js.node.Fs.readSync(0, byteBox, 0, 1, null);
 		return byteBox[0];
 		#else
-		return this.stdin.readByte();
+		return stdin.readByte();
 		#end
 	}
 
@@ -40,7 +40,7 @@ class CharIn {
 
 	#if java
 	public inline function str(delimiter:Delimiter):String {
-		final stdin = this.stdin;
+		final stdin = CharIn.stdin;
 		final byteArray = this.byteArray;
 		var index = 0;
 		var leftTrim = true;
@@ -94,7 +94,7 @@ class CharIn {
 	}
 	#elseif js
 	public inline function str(delimiter:Delimiter):String {
-		final byteBox = this.byteBox;
+		final byteBox = CharIn.byteBox;
 		var leftTrim = true;
 		var result = "";
 		while (true) {
@@ -125,7 +125,7 @@ class CharIn {
 	}
 	#else
 	public inline function str(delimiter:Delimiter):String {
-		final readByte = this.stdin.readByte;
+		final readByte = stdin.readByte;
 
 		var result = "";
 		try {
@@ -174,12 +174,6 @@ class CharIn {
 			throw 'Failed to parse: $s';
 		#end
 		return value;
-	}
-
-	public inline function close():Void {
-		#if !js
-		this.stdin.close();
-		#end
 	}
 }
 

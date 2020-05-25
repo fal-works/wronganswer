@@ -14,7 +14,7 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 		return this[0];
 	}
 
-	public inline function line() {
+	public inline function str(delimiter:Int) {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
@@ -22,7 +22,7 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
 			final currentByte = this[0];
-			if (currentByte == "\n".code)
+			if (currentByte == delimiter)
 				break;
 			result += String.fromCharCode(currentByte);
 		}
@@ -30,23 +30,19 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 		return result;
 	}
 
-	public inline function lineSplit(delimiter:String = " ")
-		return StringTools.trim(line()).split(delimiter);
+	public inline function int(delimiter:Int):Int
+		return Ut.atoi(str(delimiter));
+}
 
-	public inline function lineSplitInt(?delimiter:String)
-		return lineSplit(delimiter).map(Ut.atoi);
+enum abstract Delimiter(Int) to Int {
+	final LF = "\n".code;
+	final SP = " ".code;
 }
 
 class Ut {
-	public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
+	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
 		return macro null;
 
 	@:pure public static inline function atoi(s:String):Int
 		return #if macro 0; #else js.Syntax.code("parseInt({0})", s); #end
-
-	@:pure public static inline function atof(s:String):Float
-		return Std.parseFloat(s);
-
-	@:pure public static inline function itoa(i:Int):String
-		return String.fromCharCode(i);
 }

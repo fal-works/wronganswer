@@ -19,25 +19,33 @@ abstract CharIn(haxe.io.Input) {
 		return this.readByte();
 
 	/**
-		Reads until the next CR and/or LF.
+		Reads until `delimiter`.
 	**/
-	public inline function line()
-		return this.readLine();
+	public inline function str(delimiter:Int) {
+		final buffer = new haxe.io.BytesBuffer();
+		try {
+			var byte:Int;
+			while ((byte = this.readByte()) != delimiter) {
+				buffer.addByte(byte);
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		return buffer.getBytes().toString();
+	}
 
 	/**
-		Reads until the next CR and/or LF, then trims and splits the result.
-		@param delimiter Defaults to a space.
+		Reads an `Int` value until `delimiter`.
 	**/
-	public inline function lineSplit(delimiter:String = " ")
-		return StringTools.trim(line()).split(delimiter);
+	public inline function int(delimiter:Int):Int
+		return Ut.atoi(str(delimiter));
+}
 
-	/**
-		Reads until the next CR and/or LF, then trims and splits the result
-		and maps it to `Array<Int>`.
-		@param delimiter Defaults to a space.
-	**/
-	public inline function lineSplitInt(?delimiter:String)
-		return lineSplit(delimiter).map(Ut.atoi);
+/**
+	Character codes used as string delimiters.
+**/
+enum abstract Delimiter(Int) to Int {
+	final LF = "\n".code;
+	final SP = " ".code;
 }
 
 /**
@@ -45,10 +53,10 @@ abstract CharIn(haxe.io.Input) {
 **/
 class Ut {
 	/**
-		Prints a debug log.
+		Prints a debug log `#if debug`.
 		Has no effect on Java/JS targets.
 	**/
-	public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr {
+	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr {
 		#if debug
 		return macro Sys.println('[DEBUG] ' + Std.string($message));
 		#else
@@ -67,22 +75,4 @@ class Ut {
 		#end
 		return i;
 	}
-
-	/**
-		Converts `s` to `Float`.
-	**/
-	@:pure public static inline function atof(s:String):Float {
-		final f = Std.parseFloat(s);
-		#if debug
-		if (!Math.isFinite(f))
-			throw 'Failed to parse: $s';
-		#end
-		return f;
-	}
-
-	/**
-		Converts `characterCode` to `String`.
-	**/
-	@:pure public static inline function itoa(characterCode:Int):String
-		return String.fromCharCode(characterCode);
 }

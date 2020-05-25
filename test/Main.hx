@@ -4,7 +4,7 @@ import wronganswer.Lib;
 import wronganswer.naive.Lib.CharIn as NaiveCharIn;
 
 class Main {
-	static final testCaseNo = 0;
+	static final testCaseNo = 2;
 
 	static function main() {
 		Ut.debug("This is a debug message.");
@@ -54,10 +54,11 @@ class Main {
 	static function naiveInputUnitTests() {
 		Sys.println("\n[naive input unit tests]");
 		final cin = new NaiveCharIn();
-		Sys.println('count: ${cin.line()}');
-		Sys.println('string: ${cin.line()}');
-		Sys.println('float: ${cin.line()}');
-		Sys.println('line split: ${cin.lineSplitInt()}');
+		Sys.println('count: ${cin.int(LF)}');
+		Sys.println('string: ${cin.str(LF)}');
+		Sys.println('float: ${Std.parseFloat(cin.str(LF))}');
+		Sys.println('zero: ${cin.int(SP)}');
+		Sys.println('one: ${cin.int(LF)}');
 	}
 
 	static function outputUnitTests() {

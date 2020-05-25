@@ -1,6 +1,6 @@
 package wronganswer;
 
-typedef CharInData = #if js js.node.buffer.Buffer #else haxe.io.Input #end;
+private typedef CharInData = #if js js.node.buffer.Buffer #else haxe.io.Input #end;
 
 abstract CharIn(CharInData) {
 	#if java
@@ -208,7 +208,7 @@ enum abstract Delimiter(Int) to Int {
 	final Dot = ".".code;
 }
 
-typedef StringBufferData = #if java java.lang.StringBuilder #else StringBuf #end;
+private typedef StringBufferData = #if java java.lang.StringBuilder #else StringBuf #end;
 
 @:forward(length, toString)
 abstract StringBuffer(StringBufferData) from StringBufferData {

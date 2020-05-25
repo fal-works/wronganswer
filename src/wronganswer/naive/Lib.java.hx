@@ -1,7 +1,7 @@
 package wronganswer.naive;
 
 /**
-	wronganswer / CC0
+	wronganswer (naive) / CC0
 	https://github.com/fal-works/wronganswer
 **/
 

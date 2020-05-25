@@ -48,6 +48,12 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		return result;
 	}
 
+	public inline function int():Int
+		return Ut.atoi(token());
+
+	public inline function float():Float
+		return Ut.atof(token());
+
 	public inline function str(delimiter:Delimiter):String {
 		var result = "";
 		#if !macro
@@ -64,12 +70,6 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 
 		return StringTools.rtrim(result);
 	}
-
-	public inline function int():Int
-		return Ut.atoi(token());
-
-	public inline function float():Float
-		return Ut.atof(token());
 }
 
 @:forward
@@ -78,11 +78,19 @@ abstract CharOut(StringBuffer) from StringBuffer {
 		this = new StringBuffer(capacity);
 	}
 
-	public inline function print():Void
-		#if macro return; #else js.Node.process.stdout.write(this.toString()); #end
+	public inline function print():Void {
+		#if !macro
+		js.Node.process.stdout.write(this.toString());
+		#end
+	}
 
-	public inline function println():Void
-		#if macro return; #else js.Node.process.stdout.write(this.toString() + "\n"); #end
+	public inline function println():Void {
+		#if !macro
+		final write = js.Node.process.stdout.write;
+		write(this.toString());
+		write("\n");
+		#end
+	}
 }
 
 enum abstract Delimiter(Int) to Int {

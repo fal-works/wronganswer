@@ -54,6 +54,12 @@ abstract CharIn(haxe.io.Input) {
 		}
 	}
 
+	public inline function int():Int
+		return Ut.atoi(token());
+
+	public inline function float():Float
+		return Ut.atof(token());
+
 	public inline function str(delimiter:Delimiter):String {
 		final byteArray = CharIn.byteArray;
 		var index = 0;
@@ -74,12 +80,6 @@ abstract CharIn(haxe.io.Input) {
 			throw e;
 		}
 	}
-
-	public inline function int():Int
-		return Ut.atoi(token());
-
-	public inline function float():Float
-		return Ut.atof(token());
 }
 
 @:forward

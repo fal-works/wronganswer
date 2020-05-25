@@ -66,6 +66,18 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	/**
+		Reads an `Int` value.
+	**/
+	public inline function int():Int
+		return Ut.atoi(token());
+
+	/**
+		Reads a `Float` value.
+	**/
+	public inline function float():Float
+		return Ut.atof(token());
+
+	/**
 		Reads until `delimiter`.
 	**/
 	public inline function str(delimiter:Delimiter):String {
@@ -81,18 +93,6 @@ abstract CharIn(haxe.io.Input) {
 
 		return StringTools.rtrim(result);
 	}
-
-	/**
-		Reads an `Int` value.
-	**/
-	public inline function int():Int
-		return Ut.atoi(token());
-
-	/**
-		Reads a `Float` value.
-	**/
-	public inline function float():Float
-		return Ut.atof(token());
 }
 
 /**

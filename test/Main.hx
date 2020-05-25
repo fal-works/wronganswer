@@ -4,9 +4,11 @@ import wronganswer.Lib;
 import wronganswer.naive.Lib.CharIn as NaiveCharIn;
 
 class Main {
-	static final testCaseNo = 0;
+	static final testCaseNo = -1;
 
 	static function main() {
+		Ut.debug("This is a debug message.");
+
 		switch testCaseNo {
 			case 0:
 				inputUnitTests();

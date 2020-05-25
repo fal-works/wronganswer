@@ -1,2 +1,2 @@
 common.hxml
---cmd "haxe -p src -p test -m Main --interp < test/testdata.txt"
+--cmd "haxe -p src -p test -m Main --interp --debug < test/testdata.txt"

@@ -31,7 +31,8 @@ abstract CharIn(js.node.buffer.Buffer) {
 }
 
 class Ut {
-	public static inline function debug(message:String):Void {}
+	public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
+		return macro null;
 
 	@:pure public static inline function atoi(s:String):Int
 		return cast js.Lib.parseInt(s, 10);

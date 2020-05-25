@@ -43,15 +43,51 @@ class CharIn {
 		final stdin = this.stdin;
 		final byteArray = this.byteArray;
 		var index = 0;
-		var currentByte:Int;
+		var leftTrim = true;
 
 		try {
-			while ((currentByte = stdin.readByte()) != delimiter)
-				byteArray[index++] = currentByte;
+			while (true) {
+				final currentByte = stdin.readByte();
+				if (leftTrim) {
+					switch currentByte {
+						case " ".code:
+							continue;
+						case "\t".code:
+							continue;
+						case "\n".code:
+							continue;
+						case "\r".code:
+							continue;
+						default:
+							leftTrim = false;
+					}
+				}
+
+				if (currentByte == delimiter)
+					break;
+				byteArray[index] = currentByte;
+				++index;
+			}
 		} catch (e:haxe.io.Eof) {}
 
+		// right trim
+		while (index != 0) {
+			switch (byteArray[--index]) {
+				case " ".code:
+					continue;
+				case "\t".code:
+					continue;
+				case "\n".code:
+					continue;
+				case "\r".code:
+					continue;
+				default:
+			}
+			break;
+		}
+
 		try {
-			return new String(byteArray, 0, index, "UTF-8");
+			return new String(byteArray, 0, index + 1, "UTF-8");
 		} catch (e) {
 			throw e;
 		}
@@ -59,28 +95,64 @@ class CharIn {
 	#elseif js
 	public inline function str(delimiter:Delimiter):String {
 		final byteBox = this.byteBox;
-		inline function readByte()
-			return if (js.node.Fs.readSync(0, byteBox, 0, 1, null) != 0) byteBox[0] else 0;
-
-		var currentByte = readByte();
+		var leftTrim = true;
 		var result = "";
-		while (currentByte != delimiter && currentByte != 0) {
+		while (true) {
+			if (js.node.Fs.readSync(0, byteBox, 0, 1, null) == 0)
+				break;
+			final currentByte = byteBox[0];
+
+			if (leftTrim) {
+				switch currentByte {
+					case " ".code:
+						continue;
+					case "\t".code:
+						continue;
+					case "\n".code:
+						continue;
+					case "\r".code:
+						continue;
+					default:
+						leftTrim = false;
+				}
+			}
+			if (currentByte == delimiter)
+				break;
 			result += String.fromCharCode(currentByte);
-			currentByte = readByte();
 		}
 
-		return result;
+		return StringTools.rtrim(result);
 	}
 	#else
 	public inline function str(delimiter:Delimiter):String {
-		final stdin = this.stdin;
-		var currentByte:Int;
+		final readByte = this.stdin.readByte;
+
 		var result = "";
 		try {
-			while ((currentByte = stdin.readByte()) != delimiter)
+			var leftTrim = true;
+			while (true) {
+				final currentByte = readByte();
+				if (leftTrim) {
+					switch currentByte {
+						case " ".code:
+							continue;
+						case "\t".code:
+							continue;
+						case "\r".code:
+							continue;
+						case "\n".code:
+							continue;
+						default:
+							leftTrim = false;
+					}
+				}
+				if (currentByte == delimiter)
+					break;
 				result += String.fromCharCode(currentByte);
+			}
 		} catch (e:haxe.io.Eof) {}
-		return result;
+
+		return StringTools.rtrim(result);
 	}
 	#end
 

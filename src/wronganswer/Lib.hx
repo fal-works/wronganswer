@@ -93,6 +93,42 @@ abstract CharIn(haxe.io.Input) {
 
 		return StringTools.rtrim(result);
 	}
+
+	/**
+		Reads an `Int` value assuming unsigned.
+	**/
+	public inline function uint():Int
+		return uintWithRadix(10);
+
+	/**
+		Reads a binary integer.
+	**/
+	public inline function binary():Int
+		return uintWithRadix(2);
+
+	/**
+		Reads an unsigned number and returns as `Int`.
+		Alphabets must be in lower case.
+	**/
+	inline function uintWithRadix(radix:Int):Int {
+		var result = 0;
+		try {
+			while (true) {
+				final currentByte = this.readByte();
+				if (isWhiteSpace(currentByte))
+					break;
+
+				final digit = currentByte - "0".code;
+				#if debug
+				if (digit < 0 || radix <= digit)
+					throw "Failed to parse.";
+				#end
+				result = radix * result + digit;
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		return result;
+	}
 }
 
 /**

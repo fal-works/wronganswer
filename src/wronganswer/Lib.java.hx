@@ -80,6 +80,27 @@ abstract CharIn(haxe.io.Input) {
 			throw e;
 		}
 	}
+
+	public inline function uint():Int
+		return uintWithRadix(10);
+
+	public inline function binary():Int
+		return uintWithRadix(2);
+
+	inline function uintWithRadix(radix:Int):Int {
+		var result = 0;
+		try {
+			while (true) {
+				final currentByte = this.readByte();
+				if (isWhiteSpace(currentByte))
+					break;
+
+				result = radix * result + currentByte - "0".code;
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		return result;
+	}
 }
 
 @:forward

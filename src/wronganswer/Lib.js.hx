@@ -41,6 +41,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 			final currentByte = this[0];
 			if (isWhiteSpace(currentByte))
 				break;
+
 			result += String.fromCharCode(currentByte);
 		}
 		#end
@@ -64,11 +65,36 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 			final currentByte = this[0];
 			if (currentByte == delimiter)
 				break;
+
 			result += String.fromCharCode(currentByte);
 		}
 		#end
 
 		return StringTools.rtrim(result);
+	}
+
+	public inline function uint():Int
+		return uintWithRadix(10);
+
+	public inline function binary():Int
+		return uintWithRadix(2);
+
+	inline function uintWithRadix(radix:Int):Int {
+		var result = 0;
+		#if !macro
+		final readSync = js.node.Fs.readSync;
+		while (true) {
+			if (readSync(0, this, 0, 1, null) == 0)
+				break;
+			final currentByte = this[0];
+			if (isWhiteSpace(currentByte))
+				break;
+
+			result = radix * result + currentByte - "0".code;
+		}
+		#end
+
+		return result;
 	}
 }
 

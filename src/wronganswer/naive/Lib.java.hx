@@ -1,5 +1,10 @@
 package wronganswer.naive;
 
+/**
+	wronganswer / CC0
+	https://github.com/fal-works/wronganswer
+**/
+
 abstract CharIn(haxe.io.Input) {
 	public extern inline function new()
 		this = Sys.stdin();

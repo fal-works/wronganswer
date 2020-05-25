@@ -1,5 +1,10 @@
 package wronganswer;
 
+/**
+	wronganswer / CC0
+	https://github.com/fal-works/wronganswer
+**/
+
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {

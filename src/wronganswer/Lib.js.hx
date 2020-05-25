@@ -11,7 +11,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	}
 
 	public extern inline function new(bufferCapacity:Int)
-		this = js.node.Buffer.alloc(1);
+		this = #if macro null; #else js.node.Buffer.alloc(1); #end
 
 	public inline function byte():Int {
 		#if !macro
@@ -80,10 +80,10 @@ abstract CharOut(StringBuffer) from StringBuffer {
 	}
 
 	public inline function flush():Void
-		js.Node.process.stdout.write(this.toString());
+		#if macro return; #else js.Node.process.stdout.write(this.toString()); #end
 
 	public inline function flushln():Void
-		js.Node.process.stdout.write(this.toString() + "\n");
+		#if macro return; #else js.Node.process.stdout.write(this.toString() + "\n"); #end
 }
 
 enum abstract Delimiter(Int) to Int {

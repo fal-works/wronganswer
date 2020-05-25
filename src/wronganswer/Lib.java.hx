@@ -1,9 +1,7 @@
 package wronganswer;
 
 abstract CharIn(haxe.io.Input) {
-	#if !macro
-	static var byteArray:java.NativeArray<java.types.Int8>;
-	#end
+	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
 
 	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
@@ -45,7 +43,7 @@ abstract CharIn(haxe.io.Input) {
 		} catch (e:haxe.io.Eof) {}
 
 		try {
-			return new String(byteArray, 0, index, "UTF-8");
+			return #if macro ""; #else new String(byteArray, 0, index, "UTF-8"); #end
 		} catch (e) {
 			throw e;
 		}
@@ -66,7 +64,7 @@ abstract CharIn(haxe.io.Input) {
 		} catch (e:haxe.io.Eof) {}
 
 		try {
-			return new String(byteArray, 0, index, "UTF-8");
+			return #if macro ""; #else new String(byteArray, 0, index, "UTF-8"); #end
 		} catch (e) {
 			throw e;
 		}

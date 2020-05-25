@@ -1,5 +1,8 @@
 package wronganswer;
 
+/**
+	Character input.
+**/
 abstract CharIn(haxe.io.Input) {
 	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
@@ -10,24 +13,37 @@ abstract CharIn(haxe.io.Input) {
 		}
 	}
 
+	/**
+		@param bufferCapacity Used on Java target.
+	**/
 	public extern inline function new(bufferCapacity:Int)
 		this = Sys.stdin();
 
+	/**
+		Reads 1 byte.
+	**/
 	public inline function byte():Int
 		return this.readByte();
 
+	/**
+		Reads 1 ASCII character.
+	**/
 	public inline function char():String
 		return String.fromCharCode(byte());
 
+	/**
+		Reads 1 decimal digit.
+	**/
 	public inline function digit():Int {
 		final charCode = byte();
-		#if debug
 		if (charCode < "0".code || charCode > "9".code)
-			throw 'Failed to get digit. Character code: $charCode';
-		#end
+			throw 'Failed to parse: $charCode';
 		return charCode - "0".code;
 	}
 
+	/**
+		Reads a string separated by any whitespace character (SP, HL, CR or LF).
+	**/
 	public inline function token():String {
 		var result = "";
 		try {
@@ -42,6 +58,9 @@ abstract CharIn(haxe.io.Input) {
 		return result;
 	}
 
+	/**
+		Reads until `delimiter`.
+	**/
 	public inline function str(delimiter:Delimiter):String {
 		var result = "";
 		try {
@@ -56,40 +75,47 @@ abstract CharIn(haxe.io.Input) {
 		return StringTools.rtrim(result);
 	}
 
-	public inline function int():Int {
-		final s = token();
-		final value = Extensions.atoi(s);
-		#if debug
-		if (value == null)
-			throw 'Failed to parse: $s';
-		#end
-		return value;
-	}
+	/**
+		Reads an `Int` value.
+	**/
+	public inline function int():Int
+		return Extensions.atoi(token());
 
-	public inline function float():Float {
-		final s = token();
-		final value = Extensions.atof(s);
-		#if debug
-		if (!Math.isFinite(value))
-			throw 'Failed to parse: $s';
-		#end
-		return value;
-	}
+	/**
+		Reads a `Float` value.
+	**/
+	public inline function float():Float
+		return Extensions.atof(token());
 }
 
+/**
+	Character output.
+**/
 @:forward
 abstract CharOut(StringBuffer) from StringBuffer {
+	/**
+		@param capacity Used on Java target.
+	**/
 	public inline function new(capacity = 1024) {
 		this = new StringBuffer(capacity);
 	}
 
+	/**
+		Prints the buffered string.
+	**/
 	public inline function flush():Void
 		Sys.print(this.toString());
 
+	/**
+		Prints the buffered string with CR and/or LF.
+	**/
 	public inline function flushln():Void
 		Sys.println(this.toString());
 }
 
+/**
+	Character codes used as string delimiters.
+**/
 enum abstract Delimiter(Int) to Int {
 	final LF = "\n".code;
 	final SP = " ".code;
@@ -101,32 +127,56 @@ enum abstract Delimiter(Int) to Int {
 	final Dot = ".".code;
 }
 
+/**
+	Buffer object for building `String` by appending small elements.
+**/
 @:forward(length, toString)
 abstract StringBuffer(StringBuf) from StringBuf {
 	public inline function new(?capacity) {
 		this = new StringBuf();
 	}
 
+	/**
+		Appends a `String` value.
+	**/
 	public inline function str(s:String):CharOut
 		return addDynamic(s);
 
+	/**
+		Appends an `Int` value.
+	**/
 	public inline function int(v:Int):CharOut
 		return addDynamic(v);
 
+	/**
+		Appens a `Float` value.
+	**/
 	public inline function float(v:Float):CharOut
 		return addDynamic(v);
 
+	/**
+		Appends an `Int64` value.
+	**/
 	public inline function int64(v:haxe.Int64):CharOut
 		return addDynamic(Std.string(v));
 
-	public inline function char(code:Int):CharOut {
-		this.addChar(code);
+	/**
+		Appends an ASCII character.
+	**/
+	public inline function char(characterCode:Int):CharOut {
+		this.addChar(characterCode);
 		return this;
 	}
 
+	/**
+		Appends an LF.
+	**/
 	public inline function lf():CharOut
 		return char("\n".code);
 
+	/**
+		Appends a space.
+	**/
 	public inline function space():CharOut
 		return char(" ".code);
 
@@ -136,13 +186,31 @@ abstract StringBuffer(StringBuf) from StringBuf {
 	}
 }
 
+/**
+	Utility static functions.
+**/
 class Extensions {
-	@:pure public static inline function atoi(s:String):Int
-		return Std.parseInt(s);
+	/**
+		Converts `s` to `Int`.
+	**/
+	@:pure public static inline function atoi(s:String):Int {
+		final i = Std.parseInt(s);
+		if (i == null) throw 'Failed to parse: $s';
+		return i;
+	}
 
-	@:pure public static inline function atof(s:String):Float
-		return Std.parseFloat(s);
+	/**
+		Converts `s` to `Float`.
+	**/
+	@:pure public static inline function atof(s:String):Float {
+		final f = Std.parseFloat(s);
+		if (!Math.isFinite(f)) throw 'Failed to parse: $s';
+		return f;
+	}
 
-	@:pure public static inline function itoa(i:Int):String
-		return String.fromCharCode(i);
+	/**
+		Converts `characterCode` to `String`.
+	**/
+	@:pure public static inline function itoa(characterCode:Int):String
+		return String.fromCharCode(characterCode);
 }

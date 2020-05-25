@@ -1,6 +1,6 @@
 import haxe.Int64;
 import haxe.Timer;
-import wronganswer.WrongAnswer;
+import wronganswer.Fast;
 
 class Main {
 	static function main() {

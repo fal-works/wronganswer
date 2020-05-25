@@ -4,22 +4,22 @@ import wronganswer.Lib;
 import wronganswer.naive.Lib.CharIn as NaiveCharIn;
 
 class Main {
+	static final testCaseNo = 0;
+
 	static function main() {
-		inputUnitTests();
-		// inputSpeed();
-		// naiveInputUnitTests();
-
-		outputUnitTests();
-		// outputSpeed();
-	}
-
-	static function naiveInputUnitTests() {
-		Sys.println("\n[naive input unit tests]");
-		final cin = new NaiveCharIn();
-		Sys.println('count: ${cin.line()}');
-		Sys.println('string: ${cin.line()}');
-		Sys.println('float: ${cin.line()}');
-		Sys.println('line split: ${cin.lineSplitInt()}');
+		switch testCaseNo {
+			case 0:
+				inputUnitTests();
+			case 1:
+				inputSpeed();
+			case 2:
+				naiveInputUnitTests();
+			case 3:
+				outputUnitTests();
+			case 4:
+				outputSpeed();
+			default:
+		}
 	}
 
 	static function inputUnitTests() {
@@ -47,6 +47,15 @@ class Main {
 			}
 			Sys.println('last number: $lastNumber');
 		});
+	}
+
+	static function naiveInputUnitTests() {
+		Sys.println("\n[naive input unit tests]");
+		final cin = new NaiveCharIn();
+		Sys.println('count: ${cin.line()}');
+		Sys.println('string: ${cin.line()}');
+		Sys.println('float: ${cin.line()}');
+		Sys.println('line split: ${cin.lineSplitInt()}');
 	}
 
 	static function outputUnitTests() {

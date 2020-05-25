@@ -19,6 +19,18 @@ abstract CharIn(haxe.io.Input) {
 		return this.readByte();
 
 	/**
+		Reads 1 decimal digit.
+	**/
+	public inline function digit()
+		return byte() - "0".code;
+
+	/**
+		Reads 1 ASCII character.
+	**/
+	public inline function char()
+		return String.fromCharCode(byte());
+
+	/**
 		Reads until `delimiter`.
 	**/
 	public inline function str(delimiter:Int) {

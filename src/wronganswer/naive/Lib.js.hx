@@ -14,6 +14,12 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 		return this[0];
 	}
 
+	public inline function digit()
+		return byte() - "0".code;
+
+	public inline function char()
+		return String.fromCharCode(byte());
+
 	public inline function str(delimiter:Int) {
 		var result = "";
 		#if !macro

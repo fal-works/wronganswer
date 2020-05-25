@@ -12,6 +12,12 @@ abstract CharIn(haxe.io.Input) {
 	public inline function byte()
 		return this.readByte();
 
+	public inline function digit()
+		return byte() - "0".code;
+
+	public inline function char()
+		return String.fromCharCode(byte());
+
 	public inline function str(delimiter:Int) {
 		final buffer = new haxe.io.BytesBuffer();
 		try {

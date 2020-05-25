@@ -87,6 +87,22 @@ abstract CharIn(haxe.io.Input) {
 	public inline function binary():Int
 		return uintWithRadix(2);
 
+	public inline function count(characterCode:Int):Int {
+		var foundCount = 0;
+		try {
+			while (true) {
+				final currentByte = this.readByte();
+				if (isWhiteSpace(currentByte))
+					break;
+
+				if (currentByte == characterCode)
+					++foundCount;
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		return foundCount;
+	}
+
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		try {

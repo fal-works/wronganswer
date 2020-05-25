@@ -79,6 +79,25 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public inline function binary():Int
 		return uintWithRadix(2);
 
+	public inline function count(characterCode:Int):Int {
+		var foundCount = 0;
+		#if !macro
+		final readSync = js.node.Fs.readSync;
+		while (true) {
+			if (readSync(0, this, 0, 1, null) == 0)
+				break;
+			final currentByte = this[0];
+			if (isWhiteSpace(currentByte))
+				break;
+
+			if (currentByte == characterCode)
+				++foundCount;
+		}
+		#end
+
+		return foundCount;
+	}
+
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		#if !macro

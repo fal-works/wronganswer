@@ -107,6 +107,26 @@ abstract CharIn(haxe.io.Input) {
 		return uintWithRadix(2);
 
 	/**
+		Reads a string separated by any whitespace character (SP, HL, CR or LF)
+		and counts the number of `characterCode`.
+	**/
+	public inline function count(characterCode:Int):Int {
+		var foundCount = 0;
+		try {
+			while (true) {
+				final currentByte = this.readByte();
+				if (isWhiteSpace(currentByte))
+					break;
+
+				if (currentByte == characterCode)
+					++foundCount;
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		return foundCount;
+	}
+
+	/**
 		Reads an unsigned number and returns as `Int`.
 		Alphabets must be in lower case.
 	**/

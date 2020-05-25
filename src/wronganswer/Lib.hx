@@ -79,13 +79,13 @@ abstract CharIn(haxe.io.Input) {
 		Reads an `Int` value.
 	**/
 	public inline function int():Int
-		return Extensions.atoi(token());
+		return Statics.atoi(token());
 
 	/**
 		Reads a `Float` value.
 	**/
 	public inline function float():Float
-		return Extensions.atof(token());
+		return Statics.atof(token());
 }
 
 /**
@@ -189,7 +189,7 @@ abstract StringBuffer(StringBuf) from StringBuf {
 /**
 	Utility static functions.
 **/
-class Extensions {
+class Statics {
 	/**
 		Converts `s` to `Int`.
 	**/

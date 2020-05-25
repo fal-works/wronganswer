@@ -14,10 +14,10 @@ abstract CharIn(haxe.io.Input) {
 		return StringTools.trim(line()).split(delimiter);
 
 	public inline function lineSplitInt(?delimiter:String)
-		return lineSplit(delimiter).map(Extensions.atoi);
+		return lineSplit(delimiter).map(Statics.atoi);
 }
 
-class Extensions {
+class Statics {
 	@:pure public static inline function atoi(s:String):Int
 		return java.lang.Integer.parseInt(s, 10);
 

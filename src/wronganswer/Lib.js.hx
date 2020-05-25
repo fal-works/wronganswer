@@ -61,10 +61,10 @@ abstract CharIn(js.node.buffer.Buffer) {
 	}
 
 	public inline function int():Int
-		return Extensions.atoi(token());
+		return Statics.atoi(token());
 
 	public inline function float():Float
-		return Extensions.atof(token());
+		return Statics.atof(token());
 }
 
 @:forward
@@ -126,7 +126,7 @@ abstract StringBuffer(StringBuf) from StringBuf {
 	}
 }
 
-class Extensions {
+class Statics {
 	@:pure public static inline function atoi(s:String):Int
 		return cast js.Lib.parseInt(s, 10);
 

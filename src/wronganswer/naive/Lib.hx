@@ -30,13 +30,13 @@ abstract CharIn(haxe.io.Input) {
 		and maps it to `Array<Int>`.
 	**/
 	public inline function lineSplitInt(?delimiter:String)
-		return lineSplit(delimiter).map(Extensions.atoi);
+		return lineSplit(delimiter).map(Statics.atoi);
 }
 
 /**
 	Utility static functions.
 **/
-class Extensions {
+class Statics {
 	/**
 		Converts `s` to `Int`.
 	**/

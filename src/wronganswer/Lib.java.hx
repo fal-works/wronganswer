@@ -69,10 +69,10 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	public inline function int():Int
-		return Statics.atoi(token());
+		return Ut.atoi(token());
 
 	public inline function float():Float
-		return Statics.atof(token());
+		return Ut.atof(token());
 }
 
 @:forward
@@ -127,7 +127,7 @@ abstract StringBuffer(java.lang.StringBuilder) from java.lang.StringBuilder {
 		return char(" ".code);
 }
 
-class Statics {
+class Ut {
 	public static inline function debug(message:String):Void {}
 
 	@:pure public static inline function atoi(s:String):Int

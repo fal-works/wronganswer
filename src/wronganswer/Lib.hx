@@ -79,13 +79,13 @@ abstract CharIn(haxe.io.Input) {
 		Reads an `Int` value.
 	**/
 	public inline function int():Int
-		return Statics.atoi(token());
+		return Ut.atoi(token());
 
 	/**
 		Reads a `Float` value.
 	**/
 	public inline function float():Float
-		return Statics.atof(token());
+		return Ut.atof(token());
 }
 
 /**
@@ -189,7 +189,7 @@ abstract StringBuffer(StringBuf) from StringBuf {
 /**
 	Utility static functions.
 **/
-class Statics {
+class Ut {
 	/**
 		Prints a debug log.
 		Has no effect on Java/JS targets.

@@ -32,13 +32,13 @@ abstract CharIn(haxe.io.Input) {
 		@param delimiter Defaults to a space.
 	**/
 	public inline function lineSplitInt(?delimiter:String)
-		return lineSplit(delimiter).map(Statics.atoi);
+		return lineSplit(delimiter).map(Ut.atoi);
 }
 
 /**
 	Utility static functions.
 **/
-class Statics {
+class Ut {
 	/**
 		Prints a debug log.
 		Has no effect on Java/JS targets.

@@ -43,26 +43,10 @@ abstract CharIn(CharInData) {
 	public inline function str(delimiter:Delimiter):String {
 		final byteArray = CharIn.byteArray;
 		var index = 0;
-		var leftTrim = true;
 
 		try {
 			while (true) {
 				final currentByte = this.readByte();
-				if (leftTrim) {
-					switch currentByte {
-						case " ".code:
-							continue;
-						case "\t".code:
-							continue;
-						case "\n".code:
-							continue;
-						case "\r".code:
-							continue;
-						default:
-							leftTrim = false;
-					}
-				}
-
 				if (currentByte == delimiter)
 					break;
 				byteArray[index] = currentByte;
@@ -94,27 +78,12 @@ abstract CharIn(CharInData) {
 	}
 	#elseif js
 	public inline function str(delimiter:Delimiter):String {
-		var leftTrim = true;
+		final readSync = js.node.Fs.readSync;
 		var result = "";
 		while (true) {
-			if (js.node.Fs.readSync(0, this, 0, 1, null) == 0)
+			if (readSync(0, this, 0, 1, null) == 0)
 				break;
 			final currentByte = this[0];
-
-			if (leftTrim) {
-				switch currentByte {
-					case " ".code:
-						continue;
-					case "\t".code:
-						continue;
-					case "\n".code:
-						continue;
-					case "\r".code:
-						continue;
-					default:
-						leftTrim = false;
-				}
-			}
 			if (currentByte == delimiter)
 				break;
 			result += String.fromCharCode(currentByte);
@@ -126,23 +95,8 @@ abstract CharIn(CharInData) {
 	public inline function str(delimiter:Delimiter):String {
 		var result = "";
 		try {
-			var leftTrim = true;
 			while (true) {
 				final currentByte = this.readByte();
-				if (leftTrim) {
-					switch currentByte {
-						case " ".code:
-							continue;
-						case "\t".code:
-							continue;
-						case "\r".code:
-							continue;
-						case "\n".code:
-							continue;
-						default:
-							leftTrim = false;
-					}
-				}
 				if (currentByte == delimiter)
 					break;
 				result += String.fromCharCode(currentByte);

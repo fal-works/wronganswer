@@ -36,8 +36,10 @@ abstract CharIn(haxe.io.Input) {
 	**/
 	public inline function digit():Int {
 		final charCode = byte();
+		#if debug
 		if (charCode < "0".code || charCode > "9".code)
 			throw 'Failed to parse: $charCode';
+		#end
 		return charCode - "0".code;
 	}
 
@@ -207,8 +209,10 @@ class Ut {
 	**/
 	@:pure public static inline function atoi(s:String):Int {
 		final i = Std.parseInt(s);
+		#if debug
 		if (i == null)
 			throw 'Failed to parse: $s';
+		#end
 		return i;
 	}
 
@@ -217,8 +221,10 @@ class Ut {
 	**/
 	@:pure public static inline function atof(s:String):Float {
 		final f = Std.parseFloat(s);
+		#if debug
 		if (!Math.isFinite(f))
 			throw 'Failed to parse: $s';
+		#end
 		return f;
 	}
 

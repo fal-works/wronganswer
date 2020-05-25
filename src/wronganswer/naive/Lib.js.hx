@@ -10,7 +10,9 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 		this = #if macro cast null; #else js.node.Buffer.alloc(1); #end
 
 	public inline function byte() {
-		#if !macro js.node.Fs.readSync(0, this, 0, 1, null); #end
+		#if !macro
+		js.node.Fs.readSync(0, this, 0, 1, null);
+		#end
 		return this[0];
 	}
 

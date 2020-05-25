@@ -1,17 +1,18 @@
 package wronganswer.naive;
 
-abstract CharIn(js.node.buffer.Buffer) {
+abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 	public extern inline function new()
-		this = js.node.Buffer.alloc(1);
+		this = #if macro cast null; #else js.node.Buffer.alloc(1); #end
 
 	public inline function byte() {
-		js.node.Fs.readSync(0, this, 0, 1, null);
+		#if !macro js.node.Fs.readSync(0, this, 0, 1, null); #end
 		return this[0];
 	}
 
 	public inline function line() {
-		final readSync = js.node.Fs.readSync;
 		var result = "";
+		#if !macro
+		final readSync = js.node.Fs.readSync;
 		while (true) {
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
@@ -20,6 +21,7 @@ abstract CharIn(js.node.buffer.Buffer) {
 				break;
 			result += String.fromCharCode(currentByte);
 		}
+		#end
 		return result;
 	}
 
@@ -35,7 +37,7 @@ class Ut {
 		return macro null;
 
 	@:pure public static inline function atoi(s:String):Int
-		return cast js.Lib.parseInt(s, 10);
+		return #if macro 0; #else cast js.Lib.parseInt(s, 10); #end
 
 	@:pure public static inline function atof(s:String):Float
 		return Std.parseFloat(s);

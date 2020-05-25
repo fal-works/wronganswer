@@ -22,10 +22,10 @@ class Ut {
 		return macro null;
 
 	@:pure public static inline function atoi(s:String):Int
-		return java.lang.Integer.parseInt(s, 10);
+		return #if macro 0; #else java.lang.Integer.parseInt(s, 10); #end
 
 	@:pure public static inline function atof(s:String):Float
-		return java.lang.Double.DoubleClass.parseDouble(s);
+		return #if macro 0; #else java.lang.Double.DoubleClass.parseDouble(s); #end
 
 	@:pure public static inline function itoa(i:Int):String
 		return String.fromCharCode(i);

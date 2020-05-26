@@ -178,7 +178,7 @@ abstract StringBuffer(#if macro Dynamic #else java.lang.StringBuilder #end)
 #if !macro from java.lang.StringBuilder
 #end
 {
-	public inline function new(capacity = 1024) {
+	public inline function new(capacity = 16) {
 		this = #if macro null; #else new java.lang.StringBuilder(capacity); #end
 	}
 
@@ -190,6 +190,28 @@ abstract StringBuffer(#if macro Dynamic #else java.lang.StringBuilder #end)
 
 	public inline function float(v:Float):CharOut
 		return this.append(v);
+
+	public inline function floatWithScale(v:Float, scale:Int):CharOut {
+		if (v < 0) {
+			this.appendCodePoint("-".code);
+			v = -v;
+		}
+		v += Math.pow(10.0, -scale) / 2.0;
+
+		this.append(cast(v, haxe.Int64));
+		if (scale != 0) {
+			this.appendCodePoint(".".code);
+			v -= cast(cast(v, haxe.Int64), Float);
+
+			for (i in 0...scale) {
+				v *= 10.0;
+				this.append(((cast v):Int));
+				v -= Std.int(v);
+			}
+		}
+
+		return this;
+	}
 
 	public inline function int64(v:haxe.Int64):CharOut
 		return this.append(v);
@@ -216,6 +238,12 @@ class Ut {
 
 	@:pure public static inline function itoa(i:Int):String
 		return String.fromCharCode(i);
+
+	@:pure public static inline function ftoa(v:Float, scale:Int):String {
+		final buffer = new StringBuffer(15 + scale);
+		buffer.floatWithScale(v, scale);
+		return buffer.toString();
+	}
 
 	@:generic @:noUsing
 	public static inline function vec<T>(length:Int, factory:(index:Int) -> T):haxe.ds.Vector<T> {

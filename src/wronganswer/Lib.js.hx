@@ -201,6 +201,9 @@ abstract StringBuffer(StringBuf) from StringBuf {
 	public inline function float(v:Float):CharOut
 		return addDynamic(v);
 
+	public inline function floatWithScale(v:Float, scale:Int):CharOut
+		return addDynamic(Ut.ftoa(v, scale));
+
 	public inline function int64(v:haxe.Int64):CharOut
 		return addDynamic(Std.string(v));
 
@@ -233,6 +236,30 @@ class Ut {
 
 	@:pure public static inline function itoa(i:Int):String
 		return String.fromCharCode(i);
+
+	@:pure public static inline function ftoa(v:Float, scale:Int):String {
+		var result = if (v >= 0) "" else {
+			v = -v;
+			"-";
+		};
+
+		v += Math.pow(10.0, -scale) / 2.0;
+		final integerPart = Std.int(v);
+
+		if (scale != 0) {
+			result += integerPart + ".";
+			v -= integerPart;
+
+			for (i in 0...scale){
+					v *= 10.0;
+					final integerPart = Std.int(v);
+					result += integerPart;
+					v -= integerPart;
+			}
+		}
+
+		return result;
+	}
 
 	@:generic @:noUsing
 	public static inline function vec<T>(length:Int, factory:(index:Int) -> T):haxe.ds.Vector<T> {

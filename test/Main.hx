@@ -2,6 +2,7 @@ import haxe.Int64;
 import haxe.Timer;
 import wronganswer.Lib;
 import wronganswer.naive.Lib.CharIn as NaiveCharIn;
+import wronganswer.extra.Bits;
 
 class Main {
 	static final testCaseNo = 0;
@@ -20,6 +21,8 @@ class Main {
 				outputUnitTests();
 			case 4:
 				outputSpeed();
+			case 5:
+				extra();
 			default:
 		}
 	}
@@ -67,6 +70,7 @@ class Main {
 		final cout = new CharOut();
 		cout.int(10).space().int(20).lf();
 		cout.char("A".code).lf();
+		cout.str("AAA").lf();
 		cout.float(1.5).lf();
 		var int64Value:Int64 = 0;
 		for (i in 0...1000)
@@ -89,5 +93,17 @@ class Main {
 			}
 			cout.print();
 		});
+	}
+
+	static function extra() {
+		Sys.println("\n[extra]");
+		var bits: Bits = 0;
+		bits = Bits.set(bits, 2);
+		Sys.println(bits.toBoolVec(3).toArray()); // false, false, true
+		bits.forEachBitReversed(flag -> Sys.print(flag ? "1" : "0"), 3); // 100
+		Sys.println("");
+		Sys.println('ones: ${bits.countOnes()}');
+		Sys.println('trailing zeros: ${bits.trailingZeros()}');
+		Sys.println('first bit: ${bits[0]}'); // false
 	}
 }

@@ -220,7 +220,7 @@ abstract StringBuffer(StringBuf) from StringBuf {
 }
 
 class Ut {
-	public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
+	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
 		return macro null;
 
 	@:pure public static inline function atoi(s:String):Int

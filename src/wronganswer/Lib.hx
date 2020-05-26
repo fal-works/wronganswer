@@ -321,7 +321,7 @@ class Ut {
 		Prints a debug log `#if debug`.
 		Has no effect on Java/JS targets.
 	**/
-	public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr {
+	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr {
 		#if debug
 		return macro Sys.println('[DEBUG] ' + Std.string($message));
 		#else

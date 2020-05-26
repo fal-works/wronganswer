@@ -215,7 +215,7 @@ abstract CharIn(haxe.io.Input) {
 	Character output.
 **/
 @:forward
-abstract CharOut(StringBuffer) from StringBuffer {
+abstract CharOut(StringBuffer) {
 	/**
 		@param capacity Used on Java target.
 	**/

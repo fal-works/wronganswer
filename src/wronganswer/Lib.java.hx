@@ -150,7 +150,7 @@ abstract CharIn(haxe.io.Input) {
 }
 
 @:forward
-abstract CharOut(StringBuffer) from StringBuffer {
+abstract CharOut(StringBuffer) {
 	public inline function new(capacity = 1024) {
 		this = new StringBuffer(capacity);
 	}

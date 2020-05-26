@@ -8,12 +8,12 @@ package wronganswer;
 abstract CharIn(haxe.io.Input) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
 
-	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
+	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
 			case " ".code | "\t".code | "\n".code | "\r".code:
-				true;
-			default:
 				false;
+			default:
+				true;
 		}
 	}
 
@@ -38,12 +38,11 @@ abstract CharIn(haxe.io.Input) {
 		var index = 0;
 
 		try {
-			while (true) {
-				final currentByte = this.readByte();
-				if (isWhiteSpace(currentByte))
-					break;
-				byteArray[index] = currentByte;
+			var byte = this.readByte();
+			while (isNotWhiteSpace(byte)) {
+				byteArray[index] = byte;
 				++index;
+				byte = this.readByte();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -63,7 +62,7 @@ abstract CharIn(haxe.io.Input) {
 				negative = true;
 				byte = this.readByte();
 			}
-			while (!isWhiteSpace(byte)) {
+			while (isNotWhiteSpace(byte)) {
 				result = 10 * result + byte - "0".code;
 				byte = this.readByte();
 			}
@@ -101,12 +100,11 @@ abstract CharIn(haxe.io.Input) {
 		var index = 0;
 
 		try {
-			while (true) {
-				final currentByte = this.readByte();
-				if (currentByte == delimiter)
-					break;
-				byteArray[index] = currentByte;
+			var byte = this.readByte();
+			while (byte != delimiter) {
+				byteArray[index] = byte;
 				++index;
+				byte = this.readByte();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -126,13 +124,11 @@ abstract CharIn(haxe.io.Input) {
 	public inline function count(characterCode:Int):Int {
 		var foundCount = 0;
 		try {
-			while (true) {
-				final currentByte = this.readByte();
-				if (isWhiteSpace(currentByte))
-					break;
-
-				if (currentByte == characterCode)
+			var byte = this.readByte();
+			while (isNotWhiteSpace(byte)) {
+				if (byte == characterCode)
 					++foundCount;
+				byte = this.readByte();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -142,12 +138,10 @@ abstract CharIn(haxe.io.Input) {
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		try {
-			while (true) {
-				final currentByte = this.readByte();
-				if (isWhiteSpace(currentByte))
-					break;
-
-				result = radix * result + currentByte - "0".code;
+			var byte = this.readByte();
+			while (isNotWhiteSpace(byte)) {
+				result = radix * result + byte - "0".code;
+				byte = this.readByte();
 			}
 		} catch (e:haxe.io.Eof) {}
 

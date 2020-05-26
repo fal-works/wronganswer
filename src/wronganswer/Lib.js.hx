@@ -6,12 +6,12 @@ package wronganswer;
 **/
 
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
-	@:pure static inline function isWhiteSpace(characterCode:Int):Bool {
+	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
 			case " ".code | "\t".code | "\n".code | "\r".code:
-				true;
-			default:
 				false;
+			default:
+				true;
 		}
 	}
 
@@ -35,14 +35,13 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		while (true) {
+		readSync(0, this, 0, 1, null);
+		var byte = this[0];
+		while (isNotWhiteSpace(byte)) {
+			result += String.fromCharCode(byte);
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
-			final currentByte = this[0];
-			if (isWhiteSpace(currentByte))
-				break;
-
-			result += String.fromCharCode(currentByte);
+			byte = this[0];
 		}
 		#end
 
@@ -61,7 +60,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 			readSync(0, this, 0, 1, null);
 			byte = this[0];
 		}
-		while (!isWhiteSpace(byte)) {
+		while (isNotWhiteSpace(byte)) {
 			result = 10 * result + byte - "0".code;
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
@@ -79,14 +78,13 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		while (true) {
+		readSync(0, this, 0, 1, null);
+		var byte = this[0];
+		while (byte != delimiter) {
+			result += String.fromCharCode(byte);
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
-			final currentByte = this[0];
-			if (currentByte == delimiter)
-				break;
-
-			result += String.fromCharCode(currentByte);
+			byte = this[0];
 		}
 		#end
 
@@ -124,15 +122,14 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		var foundCount = 0;
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		while (true) {
+		readSync(0, this, 0, 1, null);
+		var byte = this[0];
+		while (isNotWhiteSpace(byte)) {
+			if (byte == characterCode)
+				++foundCount;
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
-			final currentByte = this[0];
-			if (isWhiteSpace(currentByte))
-				break;
-
-			if (currentByte == characterCode)
-				++foundCount;
+			final byte = this[0];
 		}
 		#end
 
@@ -143,14 +140,13 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		var result = 0;
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		while (true) {
+		readSync(0, this, 0, 1, null);
+		var byte = this[0];
+		while (isNotWhiteSpace(byte)) {
+			result = radix * result + byte - "0".code;
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
-			final currentByte = this[0];
-			if (isWhiteSpace(currentByte))
-				break;
-
-			result = radix * result + currentByte - "0".code;
+			byte = this[0];
 		}
 		#end
 

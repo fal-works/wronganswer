@@ -26,13 +26,13 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		while (true) {
+		readSync(0, this, 0, 1, null);
+		var byte = this[0];
+		while (byte != delimiter) {
+			result += String.fromCharCode(byte);
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
-			final currentByte = this[0];
-			if (currentByte == delimiter)
-				break;
-			result += String.fromCharCode(currentByte);
+			byte = this[0];
 		}
 		#end
 		return result;

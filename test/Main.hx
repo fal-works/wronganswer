@@ -4,7 +4,7 @@ import wronganswer.Lib;
 import wronganswer.naive.Lib.CharIn as NaiveCharIn;
 
 class Main {
-	static final testCaseNo = 2;
+	static final testCaseNo = 0;
 
 	static function main() {
 		Ut.debug("This is a debug message.");
@@ -32,6 +32,7 @@ class Main {
 		Sys.println('float: ${cin.float()}');
 		Sys.println('zero: ${cin.int()}');
 		Sys.println('one: ${cin.int()}');
+		Sys.println('two-five: ${cin.intVec(4).toArray()}');
 	}
 
 	static function inputSpeed() {

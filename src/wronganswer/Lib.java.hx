@@ -60,6 +60,27 @@ abstract CharIn(haxe.io.Input) {
 	public inline function float():Float
 		return Ut.atof(token());
 
+	public inline function tokenVec(length:Int):haxe.ds.Vector<String> {
+		final vec = new haxe.ds.Vector<String>(length);
+		for (i in 0...length)
+			vec[i] = token();
+		return vec;
+	}
+
+	public inline function intVec(length:Int):haxe.ds.Vector<Int> {
+		final vec = new haxe.ds.Vector<Int>(length);
+		for (i in 0...length)
+			vec[i] = int();
+		return vec;
+	}
+
+	public inline function floatVec(length:Int):haxe.ds.Vector<Float> {
+		final vec = new haxe.ds.Vector<Float>(length);
+		for (i in 0...length)
+			vec[i] = float();
+		return vec;
+	}
+
 	public inline function str(delimiter:Delimiter):String {
 		final byteArray = CharIn.byteArray;
 		var index = 0;
@@ -186,4 +207,12 @@ class Ut {
 
 	@:pure public static inline function itoa(i:Int):String
 		return String.fromCharCode(i);
+
+	@:generic @:noUsing
+	public static inline function vec<T>(length:Int, factory:(index:Int) -> T):haxe.ds.Vector<T> {
+		final vec = new haxe.ds.Vector<T>(length);
+		for (i in 0...length)
+			vec[i] = factory(i);
+		return vec;
+	}
 }

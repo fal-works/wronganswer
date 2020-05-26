@@ -78,6 +78,51 @@ abstract CharIn(haxe.io.Input) {
 		return Ut.atof(token());
 
 	/**
+		Reads a sequence of `String` values separated by any whitespace characters (SP, HL, CR or LF).
+
+		Note:
+		- It first allocates an array with `length` and then assigns values.
+		  On JS target there might be some tradeoffs here.
+		- On Java target, `Vector` cannot be directly converted to `String`.
+	**/
+	public inline function tokenVec(length:Int):haxe.ds.Vector<String> {
+		final vec = new haxe.ds.Vector<String>(length);
+		for (i in 0...length)
+			vec[i] = token();
+		return vec;
+	}
+
+	/**
+		Reads a sequence of `Int` values separated by any whitespace characters (SP, HL, CR or LF).
+
+		Note:
+		- It first allocates an array with `length` and then assigns values.
+		  On JS target there might be some tradeoffs here.
+		- On Java target, `Vector` cannot be directly converted to `String`.
+	**/
+	public inline function intVec(length:Int):haxe.ds.Vector<Int> {
+		final vec = new haxe.ds.Vector<Int>(length);
+		for (i in 0...length)
+			vec[i] = int();
+		return vec;
+	}
+
+	/**
+		Reads a sequence of `Float` values separated by any whitespace characters (SP, HL, CR or LF).
+
+		Note:
+		- It first allocates an array with `length` and then assigns values.
+		  On JS target there might be some tradeoffs here.
+		- On Java target, `Vector` cannot be directly converted to `String`.
+	**/
+	public inline function floatVec(length:Int):haxe.ds.Vector<Float> {
+		final vec = new haxe.ds.Vector<Float>(length);
+		for (i in 0...length)
+			vec[i] = float();
+		return vec;
+	}
+
+	/**
 		Reads until `delimiter`.
 	**/
 	public inline function str(delimiter:Delimiter):String {
@@ -294,4 +339,20 @@ class Ut {
 	**/
 	@:pure public static inline function itoa(characterCode:Int):String
 		return String.fromCharCode(characterCode);
+
+	/**
+		Creates a vector of elements returned from `factory()` callback.
+
+		Note:
+		- It first allocates an array with `length` and then assigns values.
+		  On JS target there might be some tradeoffs here.
+		- On Java target, `Vector` cannot be directly converted to `String`.
+	**/
+	@:generic
+	public static inline function vec<T>(length:Int, factory:(index:Int) -> T):haxe.ds.Vector<T> {
+		final vec = new haxe.ds.Vector<T>(length);
+		for (i in 0...length)
+			vec[i] = factory(i);
+		return vec;
+	}
 }

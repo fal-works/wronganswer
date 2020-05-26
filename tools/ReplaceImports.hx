@@ -121,10 +121,7 @@ class ReplaceImports {
 		if (!code.contains(importStatement))
 			return code;
 
-		code = code.replace(importStatement + "\n", "");
-
-		if (code.charCodeAt(code.length - 1) == "\n".code)
-			code += "\n";
+		code = code.replace(importStatement, "").trim() + "\n\n";
 
 		final modulePath = module.replace(".", "/");
 		var srcFilePath = FileSystem.absolutePath('$srcDirectory$modulePath$target.hx');
@@ -134,7 +131,7 @@ class ReplaceImports {
 			throw 'File not found for module: $module';
 
 		var srcCode = readFile(srcFilePath);
-		srcCode = srcCode.substr(srcCode.indexOf("\n") + 2); // remove first line and the next LF
+		srcCode = srcCode.substr(srcCode.indexOf("\n")).trim() + "\n"; // remove the first line
 
 		Sys.println('Replacing: $importStatement');
 

@@ -182,16 +182,16 @@ abstract StringBuffer(#if macro Dynamic #else java.lang.StringBuilder #end)
 		this = #if macro null; #else new java.lang.StringBuilder(capacity); #end
 	}
 
-	public inline function str(s:String):CharOut
+	public inline function str(s:String):StringBuffer
 		return this.append(s);
 
-	public inline function int(v:Int):CharOut
+	public inline function int(v:Int):StringBuffer
 		return this.append(v);
 
-	public inline function float(v:Float):CharOut
+	public inline function float(v:Float):StringBuffer
 		return this.append(v);
 
-	public inline function floatWithScale(v:Float, scale:Int):CharOut {
+	public inline function floatWithScale(v:Float, scale:Int):StringBuffer {
 		if (v < 0) {
 			this.appendCodePoint("-".code);
 			v = -v;
@@ -213,16 +213,16 @@ abstract StringBuffer(#if macro Dynamic #else java.lang.StringBuilder #end)
 		return this;
 	}
 
-	public inline function int64(v:haxe.Int64):CharOut
+	public inline function int64(v:haxe.Int64):StringBuffer
 		return this.append(v);
 
-	public inline function char(code:Int):CharOut
+	public inline function char(code:Int):StringBuffer
 		return this.appendCodePoint(code);
 
-	public inline function lf():CharOut
+	public inline function lf():StringBuffer
 		return char("\n".code);
 
-	public inline function space():CharOut
+	public inline function space():StringBuffer
 		return char(" ".code);
 }
 

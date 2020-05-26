@@ -80,13 +80,24 @@ This can be automatically done with the command below:
 haxelib run wronganswer replace-imports [full path of your hx file] [target (java/js/eval)]
 ```
 
-For example:
+### Example
 
 ```
-haxelib run wronganswer replace-imports (yourDir)/Main.hx java
+haxelib run wronganswer replace-imports C:/yourDirectory/Main.hx java
 ```
 
-In the same directory the above creates a new file `Main.hx.replaced` which includes the source code of wronganswer for the Java target.
+In the same directory the above creates a new file `Main.hx.replaced` which includes the code of wronganswer for Java target.
 
-Note that this supports only module-level imports.  
-Avoid importing wildcards or sub-types, and make sure that the emitted code is working properly before submitting it.
+And you might also want to do more automation, such as:
+
+```Batchfile
+:: replace-imports.bat (only for Windows!)
+haxelib run wronganswer replace-imports %~dp0Main.hx java
+clip < %~dp0Main.hx.replaced
+```
+
+### Caveats
+
+- This command supports only module-level imports. Avoid importing wildcards or sub-types.
+- `using` statements are not supported.
+- Make sure that the emitted code is working properly before submitting it.

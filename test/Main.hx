@@ -27,7 +27,7 @@ class Main {
 	static function inputUnitTests() {
 		Sys.println("\n[input unit tests]");
 		final cin = new CharIn(32);
-		Sys.println('count: ${cin.int()}');
+		Sys.println('count: ${cin.uint()}');
 		Sys.println('string: ${cin.str(LF)}');
 		Sys.println('float: ${cin.float()}');
 		Sys.println('zero: ${cin.int()}');
@@ -39,7 +39,7 @@ class Main {
 		Sys.println("\n[input speed]");
 		Timer.measure(() -> {
 			final cin = new CharIn(32);
-			final count = cin.int();
+			final count = cin.uint();
 			Sys.println('count: $count');
 			Sys.println('string: ${cin.str(LF)}');
 			Sys.println('float: ${cin.float()}');

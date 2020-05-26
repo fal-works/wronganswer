@@ -17,6 +17,7 @@ Supports the following targets with the same API:
 - Standard input (`CharIn`)
 - Standard output (`CharOut`)
 - Utility functions (`Ut`)
+- Command for replacing import statements (`replace-imports`)
 - (More to be added. Maybe.)
 
 ## Caveats

@@ -3,7 +3,7 @@
 	"url": "https://github.com/fal-works/wronganswer/",
 	"license": "Public",
 	"tags": [],
-	"description": "Haxe library for competitive programming.",
+	"description": "Haxe library for AtCoder and other competitive programming contests.",
 	"version": "0.2.0-alpha",
 	"classPath": "src/",
 	"releasenote": "Initial release. Everything may change in future.",

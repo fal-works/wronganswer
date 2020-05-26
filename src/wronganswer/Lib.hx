@@ -212,7 +212,9 @@ abstract CharIn(haxe.io.Input) {
 }
 
 /**
-	Character output.
+	Buffered character output based on `StringBuffer`.
+
+	Use `print()` or `println()` to output the buffered data.
 **/
 @:forward
 abstract CharOut(StringBuffer) {

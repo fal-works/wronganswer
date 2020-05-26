@@ -17,9 +17,8 @@ abstract CharIn(haxe.io.Input) {
 		final buffer = new haxe.io.BytesBuffer();
 		try {
 			var byte:Int;
-			while ((byte = this.readByte()) != delimiter) {
+			while ((byte = this.readByte()) != delimiter)
 				buffer.addByte(byte);
-			}
 		} catch (e:haxe.io.Eof) {}
 
 		return buffer.getBytes().toString();

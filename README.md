@@ -42,12 +42,12 @@ class Main {
 		final outputBufferCapacity = 32;
 		final cout = new CharOut(outputBufferCapacity);
 
-		cout.str(strVal); // Appends `String` to buffer
-		cout.space(); // Appends a space to buffer
-		cout.int(intVal); // Appends `Int` to buffer
-		cout.lf(); // Appends LF to buffer
+		cout.str(strVal); // Appends `String` to the buffer
+		cout.space(); // Appends a space
+		cout.int(intVal); // Appends `Int`
+		cout.lf(); // Appends LF
 		cout.print(); // Prints buffered data
-		// CharOut methods can also be chained
+		// CharOut methods can also be chained.
 	}
 }
 ```
@@ -71,8 +71,7 @@ class Main {
 
 ## `replace-imports` command
 
-In order to submit your code to the contest,  
-you have to remove the import statements (e.g. `import wronganswer.Lib;`) and append the actual implementation instead.
+In order to submit your code to a contest, you have to remove the import statements (e.g. `import wronganswer.Lib;`) and append the actual implementation instead.
 
 This can be automatically done with the command below:
 
@@ -80,7 +79,13 @@ This can be automatically done with the command below:
 haxelib run wronganswer replace-imports [full path of your hx file] [target (java/js/eval)]
 ```
 
-This creates a new file `(originalFileName).hx.replaced`.
+For example:
+
+```
+haxelib run wronganswer replace-imports (yourDir)/Main.hx java
+```
+
+In the same directory the above creates a new file `Main.hx.replaced` which includes the source code of wronganswer for the Java target.
 
 Note that this supports only module-level imports.  
-So avoid importing wildcards or sub-types.
+Avoid importing wildcards or sub-types, and make sure that the emitted code is working properly before submitting it.

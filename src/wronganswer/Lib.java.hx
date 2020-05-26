@@ -1,10 +1,5 @@
 package wronganswer;
 
-/**
-	wronganswer / CC0
-	https://github.com/fal-works/wronganswer
-**/
-
 abstract CharIn(haxe.io.Input) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
 

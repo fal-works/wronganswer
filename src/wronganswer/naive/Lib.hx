@@ -1,11 +1,6 @@
 package wronganswer.naive;
 
 /**
-	wronganswer (naive) / CC0
-	https://github.com/fal-works/wronganswer
-**/
-
-/**
 	Character input.
 **/
 abstract CharIn(haxe.io.Input) {

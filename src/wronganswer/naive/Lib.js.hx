@@ -1,10 +1,5 @@
 package wronganswer.naive;
 
-/**
-	wronganswer (naive) / CC0
-	https://github.com/fal-works/wronganswer
-**/
-
 abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 	public extern inline function new()
 		this = #if macro cast null; #else js.node.Buffer.alloc(1); #end

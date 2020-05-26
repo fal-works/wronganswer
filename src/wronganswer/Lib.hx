@@ -68,8 +68,28 @@ abstract CharIn(haxe.io.Input) {
 	/**
 		Reads an `Int` value.
 	**/
-	public inline function int():Int
-		return Ut.atoi(token());
+	public inline function int():Int {
+		var result = 0;
+		var negative = false;
+		try {
+			var byte = this.readByte();
+			if (byte == "-".code) {
+				negative = true;
+				byte = this.readByte();
+			}
+			while (!isWhiteSpace(byte)) {
+				final digit = byte - "0".code;
+				#if debug
+				if (digit < 0 || 10 <= digit)
+					throw "Failed to parse.";
+				#end
+				result = 10 * result + digit;
+				byte = this.readByte();
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		return if (negative) -result else result;
+	}
 
 	/**
 		Reads a `Float` value.

@@ -49,8 +49,28 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		return result;
 	}
 
-	public inline function int():Int
-		return Ut.atoi(token());
+	public inline function int():Int {
+		var result = 0;
+		var negative = false;
+		#if !macro
+		final readSync = js.node.Fs.readSync;
+		readSync(0, this, 0, 1, null);
+		var byte = this[0];
+		if (byte == "-".code) {
+			negative = true;
+			readSync(0, this, 0, 1, null);
+			byte = this[0];
+		}
+		while (!isWhiteSpace(byte)) {
+			result = 10 * result + byte - "0".code;
+			if (readSync(0, this, 0, 1, null) == 0)
+				break;
+			byte = this[0];
+		}
+		#end
+
+		return if (negative) -result else result;
+	}
 
 	public inline function float():Float
 		return Ut.atof(token());

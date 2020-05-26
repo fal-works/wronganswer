@@ -54,8 +54,23 @@ abstract CharIn(haxe.io.Input) {
 		}
 	}
 
-	public inline function int():Int
-		return Ut.atoi(token());
+	public inline function int():Int {
+		var result = 0;
+		var negative = false;
+		try {
+			var byte = this.readByte();
+			if (byte == '-'.code) {
+				negative = true;
+				byte = this.readByte();
+			}
+			while (!isWhiteSpace(byte)) {
+				result = 10 * result + byte - "0".code;
+				byte = this.readByte();
+			}
+		} catch (e:haxe.io.Eof) {}
+
+		return if (negative) -result else result;
+	}
 
 	public inline function float():Float
 		return Ut.atof(token());

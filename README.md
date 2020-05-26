@@ -1,14 +1,22 @@
 # wronganswer
 
-Haxe library for competitive programming.
+Haxe library for competitive programming (mainly intended for [AtCoder](https://atcoder.jp/)).
 
-Requires Haxe 4.  
-Supports Java, JavaScript and Eval targets with the same API.
+Requires **Haxe 4**.
+
+## Target platforms
+
+Supports the following targets with the same API:
+
+- **Java** (recommended)
+- **JavaScript**
+- **Eval** (mainly for debug)
 
 ## Features
 
-- Standard input
-- Standard output
+- Standard input (`CharIn`)
+- Standard output (`CharOut`)
+- Utility functions (`Ut`)
 - (More to be added. Maybe.)
 
 ## Caveats
@@ -61,5 +69,18 @@ class Main {
 }
 ```
 
-- Remove the import statement and append the actual implementation when submitting your answer.
-- There are also other additional functions/methods.
+## `replace-imports` command
+
+In order to submit your code to the contest,  
+you have to remove the import statements (e.g. `import wronganswer.Lib;`) and append the actual implementation instead.
+
+This can be automatically done with the command below:
+
+```
+haxelib run wronganswer replace-imports [full path of your hx file] [target (java/js/eval)]
+```
+
+This creates a new file `(originalFileName).hx.replaced`.
+
+Note that this supports only module-level imports.  
+So avoid importing wildcards or sub-types.

@@ -229,8 +229,8 @@ class Ut {
 	@:pure public static inline function atof(s:String):Float
 		return Std.parseFloat(s);
 
-	@:pure public static inline function itoa(i:Int):String
-		return String.fromCharCode(i);
+	@:pure public static inline function ctoa(characterCode:Int):String
+		return String.fromCharCode(characterCode);
 
 	@:pure public static inline function ftoa(v:Float, scale:Int):String {
 		var result = if (v >= 0) "" else {

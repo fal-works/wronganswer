@@ -231,8 +231,8 @@ class Ut {
 	@:pure public static inline function atof(s:String):Float
 		return #if macro 0; #else java.lang.Double.DoubleClass.parseDouble(s); #end
 
-	@:pure public static inline function itoa(i:Int):String
-		return String.fromCharCode(i);
+	@:pure public static inline function ctoa(characterCode:Int):String
+		return String.fromCharCode(characterCode);
 
 	@:pure public static inline function ftoa(v:Float, scale:Int):String {
 		final buffer = new StringBuffer(15 + scale);

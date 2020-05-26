@@ -356,7 +356,7 @@ class Ut {
 	/**
 		Converts `characterCode` to `String`.
 	**/
-	@:pure public static inline function itoa(characterCode:Int):String
+	@:pure public static inline function ctoa(characterCode:Int):String
 		return String.fromCharCode(characterCode);
 
 	/**

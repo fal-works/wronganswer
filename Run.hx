@@ -1,3 +1,5 @@
+import tools.Statics.*;
+
 class Run {
 	static function main() {
 		final args = Sys.args();
@@ -12,12 +14,6 @@ class Run {
 		showVersion();
 	}
 
-	static function showVersion() {
-		final libraryName: String = "wronganswer";
-		final version = haxe.macro.Compiler.getDefine("wronganswer");
-
-		final url = 'https://lib.haxe.org/p/${libraryName}/';
-
-		Sys.println('\n${libraryName} ${version}\n${url}\n');
-	}
+	static function showVersion()
+		Sys.println('\n$libName $version\n$haxelibUrl\n');
 }

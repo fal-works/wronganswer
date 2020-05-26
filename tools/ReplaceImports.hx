@@ -2,6 +2,7 @@ package tools;
 
 import sys.FileSystem;
 import sys.io.File;
+import tools.Statics.*;
 
 using StringTools;
 
@@ -16,11 +17,6 @@ enum abstract Target(String) {
 
 class ReplaceImports {
 	/**
-		The name of this library.
-	**/
-	static inline final libName = "wronganswer";
-
-	/**
 		Modules to be replaced.
 	**/
 	static final importableModules = [
@@ -32,7 +28,7 @@ class ReplaceImports {
 	/**
 		The banner comment to be inserted when replacing.
 	**/
-	static inline final bannerComment = '\n/**\n\t$libName / CC0\n\thttps://github.com/fal-works/$libName\n**/\n\n';
+	static inline final bannerComment = '\n/**\n\t$libName v$version / CC0\n\t$repositoryUrl\n**/\n\n';
 
 	/**
 		The command name.

@@ -43,7 +43,7 @@ abstract CharIn(haxe.io.Input) {
 
 		try {
 			return #if macro ""; #else new String(byteArray, 0, index, "UTF-8"); #end
-		} catch (e) {
+		} catch (e:Dynamic) {
 			throw e;
 		}
 	}
@@ -105,7 +105,7 @@ abstract CharIn(haxe.io.Input) {
 
 		try {
 			return #if macro ""; #else new String(byteArray, 0, index, "UTF-8"); #end
-		} catch (e) {
+		} catch (e:Dynamic) {
 			throw e;
 		}
 	}

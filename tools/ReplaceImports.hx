@@ -173,7 +173,7 @@ class ReplaceImports {
 		Overwrites the file if it already exists.
 	**/
 	static function createFile(fullPath:String, content:String) {
-		final newFile = File.write(fullPath, false);
+		final newFile = File.write(fullPath, true);
 		try {
 			newFile.writeString(content, UTF8);
 		} catch (e:Dynamic) {

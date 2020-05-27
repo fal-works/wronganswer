@@ -75,7 +75,7 @@ class ReplaceImports {
 		final mainCode = readFile(mainFilePath);
 
 		final buffer:CodeBuffer = {codeBlocks: [], modules: []};
-		final processedMainCode = processCode(mainCode, buffer, target).trim();
+		final processedMainCode = processCode(mainCode, buffer, target, true).trim();
 
 		final bundlingCode = buildFromBuffer(buffer);
 		if (bundlingCode.length == 0) {
@@ -94,13 +94,13 @@ class ReplaceImports {
 		Calls `processImport()` for each wronganswer-related import statement in `code`.
 		@return `code` with the import statements removed.
 	**/
-	static function processCode(code:String, buffer:CodeBuffer, target:Target) {
+	static function processCode(code:String, buffer:CodeBuffer, target:Target, main:Bool) {
 		var currentPosition = 0;
 		while (RegExps.importer.matchSub(code, currentPosition)) {
 			final module = RegExps.importer.matched(1);
 
 			if (importableModules.exists(module)) {
-				code = processImport(code, module, buffer, target);
+				code = processImport(code, module, buffer, target, main);
 			} else {
 				final matchedPos = RegExps.importer.matchedPos();
 				currentPosition = matchedPos.pos + matchedPos.len;
@@ -114,19 +114,21 @@ class ReplaceImports {
 		Removes the import statement for `module` from `code`
 		and registers the code block of `module` for bundling.
 	**/
-	static function processImport(code:String, module:String, buffer:CodeBuffer, target:Target) {
+	static function processImport(code:String, module:String, buffer:CodeBuffer, target:Target, main:Bool) {
 		code = RegExps.importer.replace(code, "");
 
 		final bundlingModules = buffer.modules;
 		if (bundlingModules.exists(module)) // already registered
 			return code;
 
-		Sys.println('Replacing: import $module;');
+		if (main)
+			Sys.println('Replacing: import $module;');
 		bundlingModules.set(module, true);
 
 		final srcCode = readSrcCode(getSrcFilePath(module, target));
+		final processedSrcCode = processCode(srcCode, buffer, target, false); // process recursively
 		buffer.codeBlocks.push({
-			code: srcCode,
+			code: processedSrcCode,
 			priority: importableModules.get(module).priority
 		});
 

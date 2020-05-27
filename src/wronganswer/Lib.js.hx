@@ -255,12 +255,4 @@ class Ut {
 
 		return result;
 	}
-
-	@:generic @:noUsing
-	public static inline function vec<T>(length:Int, factory:(index:Int) -> T):haxe.ds.Vector<T> {
-		final vec = new haxe.ds.Vector<T>(length);
-		for (i in 0...length)
-			vec[i] = factory(i);
-		return vec;
-	}
 }

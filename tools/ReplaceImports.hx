@@ -6,31 +6,22 @@ import tools.Statics.*;
 
 using StringTools;
 
-/**
-	Target platform supported by wronganswer.
-**/
-enum abstract Target(String) {
-	final Java = ".java";
-	final Js = ".js";
-	final Eval = "";
-}
-
 class ReplaceImports {
 	/**
 		Modules to be replaced.
 	**/
 	static final importableModules = [
-		"Lib",
-		"naive.Lib",
-		"Vec",
-		"extra.Bits",
-		"Debug"
-	].map(s -> '$libName.$s');
+		'$libName.Lib' => {priority: 0},
+		'$libName.naive.Lib' => {priority: 1},
+		'$libName.Vec' => {priority: 10},
+		'$libName.extra.Bits' => {priority: 11},
+		'$libName.Debug' => {priority: 100}
+	];
 
 	/**
 		The banner comment to be inserted when replacing.
 	**/
-	static inline final bannerComment = '\n/**\n\t$libName v$version / CC0\n\t$repositoryUrl\n**/\n\n';
+	static inline final bannerComment = '/**\n\t$libName v$version / CC0\n\t$repositoryUrl\n**/';
 
 	/**
 		The command name.
@@ -41,16 +32,6 @@ class ReplaceImports {
 		The directory path of the source code of wronganswer.
 	**/
 	static final srcDirectory = FileSystem.absolutePath("src") + "/";
-
-	/**
-		The target platform.
-	**/
-	static var target:Target = Eval;
-
-	/**
-		`true` if any part of code has been replaced.
-	**/
-	static var replaced = false;
 
 	/**
 		Validates `args` and then calls `run()`.
@@ -70,53 +51,59 @@ class ReplaceImports {
 		}
 
 		final targetString = args[2];
-
-		switch targetString.toLowerCase() {
+		final target = switch targetString.toLowerCase() {
 			case "java":
-				target = Java;
+				Java;
 			case "js":
-				target = Js;
+				Js;
 			case "eval":
-				target = Eval;
+				Eval;
 			default:
 				Sys.println('Unsupported target: $targetString');
 				showInstruction();
 				return;
 		}
 
-		run(filePath);
-
-		return;
+		run(filePath, target);
 	}
 
 	/**
-		Replaces import statements in the code at `filePath`
+		Replaces import statements in the code at `mainFilePath`
 		and writes the result to a new file.
 	**/
-	static function run(filePath:String) {
-		final replacedCode = replaceAll(readFile(filePath));
+	static function run(mainFilePath:String, target:Target) {
+		final mainCode = readFile(mainFilePath);
 
-		if (!replaced) {
-			Sys.println("Found no statements to be replaced.");
+		final buffer:CodeBuffer = {codeBlocks: [], modules: []};
+		final processedMainCode = processCode(mainCode, buffer, target).trim();
+
+		final bundlingCode = buildFromBuffer(buffer);
+		if (bundlingCode.length == 0) {
+			Sys.println("Found no code to be replaced.");
 			return;
 		}
 
-		createFile(filePath + ".replaced", replacedCode);
+		final resultCode = '$processedMainCode\n\n\n$bundlingCode\n';
+		final newFilePath = mainFilePath + ".replaced";
+		createFile(newFilePath, resultCode);
+		Sys.println('Create file: $newFilePath');
 		Sys.println("Completed.");
 	}
 
 	/**
-		Replaces all import statements in `code`.
+		Calls `processImport()` for each wronganswer-related import statement in `code`.
+		@return `code` with the import statements removed.
 	**/
-	static function replaceAll(code:String) {
-		var position = 0;
-		while (RegExps.importer.matchSub(code, position)) {
+	static function processCode(code:String, buffer:CodeBuffer, target:Target) {
+		var currentPosition = 0;
+		while (RegExps.importer.matchSub(code, currentPosition)) {
 			final module = RegExps.importer.matched(1);
-			if (importableModules.indexOf(module) >= 0) {
-				code = replaceImport(code, module);
+
+			if (importableModules.exists(module)) {
+				code = processImport(code, module, buffer, target);
 			} else {
 				final matchedPos = RegExps.importer.matchedPos();
-				position = matchedPos.pos + matchedPos.len;
+				currentPosition = matchedPos.pos + matchedPos.len;
 			}
 		}
 
@@ -125,21 +112,39 @@ class ReplaceImports {
 
 	/**
 		Removes the import statement for `module` from `code`
-		and appends the actual source code of `module` instead.
+		and registers the code block of `module` for bundling.
 	**/
-	static function replaceImport(code:String, module:String) {
-		code = RegExps.importer.replace(code, "").trim() + "\n\n";
+	static function processImport(code:String, module:String, buffer:CodeBuffer, target:Target) {
+		code = RegExps.importer.replace(code, "");
 
-		final srcCode = readSrcCode(getSrcFilePath(module));
+		final bundlingModules = buffer.modules;
+		if (bundlingModules.exists(module)) // already registered
+			return code;
+
 		Sys.println('Replacing: import $module;');
+		bundlingModules.set(module, true);
 
-		if (!replaced)
-			code += bannerComment;
-
-		code += srcCode;
-		replaced = true;
+		final srcCode = readSrcCode(getSrcFilePath(module, target));
+		buffer.codeBlocks.push({
+			code: srcCode,
+			priority: importableModules.get(module).priority
+		});
 
 		return code;
+	}
+
+	/**
+		Sorts and joins all code blocks in `buffer` with a banner comment appended.
+	**/
+	static function buildFromBuffer(buffer:CodeBuffer) {
+		final codeBlocks = buffer.codeBlocks;
+		if (codeBlocks.length == 0)
+			return "";
+
+		codeBlocks.sort((blockA, blockB) -> blockA.priority - blockB.priority);
+		final joinedCode = codeBlocks.map(block -> block.code.trim()).join("\n\n");
+
+		return '$bannerComment\n\n$joinedCode';
 	}
 
 	/**
@@ -168,7 +173,7 @@ class ReplaceImports {
 	/**
 		@return the file path of the source code for `module`.
 	**/
-	static function getSrcFilePath(module:String) {
+	static function getSrcFilePath(module:String, target:Target) {
 		final modulePath = module.replace(".", "/");
 		var srcFilePath = FileSystem.absolutePath('$srcDirectory$modulePath$target.hx');
 
@@ -226,3 +231,28 @@ class RegExps {
 	**/
 	public static final importer = new EReg('import\\s+(.+)\\s*;', "i");
 }
+
+/**
+	Target platform supported by wronganswer.
+**/
+enum abstract Target(String) {
+	final Java = ".java";
+	final Js = ".js";
+	final Eval = "";
+}
+
+/**
+	Stores code/modules to be bundled.
+**/
+typedef CodeBuffer = {
+	final codeBlocks:Array<CodeBlock>;
+	final modules:Map<String, Bool>;
+};
+
+/**
+	Source code unit to be bundled.
+**/
+typedef CodeBlock = {
+	final code:String;
+	final priority:Int;
+};

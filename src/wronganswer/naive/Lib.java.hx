@@ -32,8 +32,3 @@ enum abstract Delimiter(Int) to Int {
 	final LF = "\n".code;
 	final SP = " ".code;
 }
-
-class Ut {
-	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
-		return macro null;
-}

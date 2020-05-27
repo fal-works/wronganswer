@@ -318,18 +318,6 @@ abstract StringBuffer(StringBuf) from StringBuf {
 **/
 class Ut {
 	/**
-		Prints a debug log `#if debug`.
-		Has no effect on Java/JS targets.
-	**/
-	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr {
-		#if debug
-		return macro Sys.println('[DEBUG] ' + Std.string($message));
-		#else
-		return macro null;
-		#end
-	}
-
-	/**
 		Performs integer division.
 	**/
 	@:pure public static inline function idiv(n:Int, divisor:Int):Int

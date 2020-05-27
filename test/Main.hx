@@ -3,12 +3,13 @@ import haxe.Timer;
 import wronganswer.Lib;
 import wronganswer.naive.Lib.CharIn as NaiveCharIn;
 import wronganswer.extra.Bits;
+import wronganswer.Debug;
 
 class Main {
 	static final testCaseNo = 0;
 
 	static function main() {
-		Ut.debug("This is a debug message.");
+		Debug.log("This is a debug message.");
 
 		switch testCaseNo {
 			case 0:

@@ -17,6 +17,7 @@ Supports the following targets with the same API:
 - Standard input (`CharIn`)
 - Standard output (`CharOut`)
 - Utility functions (`Ut`)
+- Debug logger (`Debug`)
 - Command for replacing import statements (`replace-imports`)
 - (More to be added. Maybe.)
 
@@ -37,8 +38,6 @@ class Main {
 		final strVal = cin.token(); // Reads until next whitespace
 		final intVal = cin.int(); // Ditto + casts to Int
 		final strVal2 = cin.str(LF); // Reads until next LF
-
-		Ut.debug("This is a debug message"); // Prints only #if (eval && debug)
 
 		final outputBufferCapacity = 32;
 		final cout = new CharOut(outputBufferCapacity);
@@ -63,8 +62,6 @@ class Main {
 		final strVal = cin.str(SP); // Reads until next SP
 		final intVal = cin.int(LF); // Reads until next LF and casts to Int
 
-		Ut.debug("This is a debug message"); // Prints only #if (eval && debug)
-		
 		Sys.println('$strVal $intVal');
 	}
 }

@@ -22,7 +22,8 @@ class ReplaceImports {
 	static final importableModules = [
 		"Lib",
 		"naive.Lib",
-		"extra.Bits"
+		"extra.Bits",
+		"Debug"
 	].map(s -> '$libName.$s');
 
 	/**

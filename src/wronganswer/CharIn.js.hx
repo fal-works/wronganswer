@@ -1,5 +1,8 @@
 package wronganswer;
 
+import wronganswer.Ut;
+import wronganswer.Delimiter;
+
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
@@ -144,126 +147,6 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 			byte = this[0];
 		}
 		#end
-
-		return result;
-	}
-}
-
-@:forward
-abstract CharOut(StringBuffer) {
-	public inline function new(capacity = 1024) {
-		this = new StringBuffer(capacity);
-	}
-
-	public inline function print():Void {
-		#if !macro
-		js.Node.process.stdout.write(this.toString());
-		#end
-	}
-
-	public inline function println():Void {
-		#if !macro
-		js.Node.process.stdout.write(this.toString());
-		js.Node.process.stdout.write("\n");
-		#end
-	}
-}
-
-enum abstract Delimiter(Int) to Int {
-	final LF = "\n".code;
-	final SP = " ".code;
-	final HT = "\t".code;
-	final Slash = "/".code;
-	final BackSlash = "\\".code;
-	final Pipe = "|".code;
-	final Comma = ",".code;
-	final Dot = ".".code;
-}
-
-@:forward(length, toString)
-abstract StringBuffer(StringBuf) from StringBuf {
-	public inline function new(?capacity) {
-		this = new StringBuf();
-	}
-
-	public inline function str(s:String):StringBuffer
-		return addDynamic(s);
-
-	public inline function int(v:Int):StringBuffer
-		return addDynamic(v);
-
-	public inline function float(v:Float):StringBuffer
-		return addDynamic(v);
-
-	public inline function floatWithScale(v:Float, scale:Int):StringBuffer
-		return addDynamic(Ut.ftoa(v, scale));
-
-	public inline function int64(v:haxe.Int64):StringBuffer
-		return addDynamic(Std.string(v));
-
-	public inline function char(code:Int):StringBuffer {
-		this.addChar(code);
-		return this;
-	}
-
-	public inline function lf():StringBuffer
-		return char("\n".code);
-
-	public inline function space():StringBuffer
-		return char(" ".code);
-
-	inline function addDynamic(v:Dynamic):StringBuffer {
-		this.add(v);
-		return this;
-	}
-}
-
-class Ut {
-	@:generic public static inline function print<T>(x:T):Void {
-		#if !macro
-		js.Node.process.stdout.write("" + x);
-		#end
-	}
-
-	@:generic public static inline function println<T>(x:T):Void {
-		#if !macro
-		js.Node.process.stdout.write("" + x);
-		js.Node.process.stdout.write("\n");
-		#end
-	}
-
-	@:pure public static inline function idiv(n:Int, divisor:Int):Int
-		return Std.int(n / divisor);
-
-	@:pure public static inline function atoi(s:String):Int
-		return #if macro 0; #else js.Syntax.code("parseInt({0})", s); #end
-
-	@:pure public static inline function atof(s:String):Float
-		return Std.parseFloat(s);
-
-	@:pure public static inline function ctoa(characterCode:Int):String
-		return String.fromCharCode(characterCode);
-
-	@:pure public static inline function ftoa(v:Float, scale:Int):String {
-		var result = if (v >= 0) "" else {
-			v = -v;
-			"-";
-		};
-
-		v += Math.pow(10.0, -scale) / 2.0;
-		final integerPart = Std.int(v);
-
-		if (scale != 0) {
-			result += integerPart + ".";
-			v -= integerPart;
-
-			for (i in 0...scale) {
-				v *= 10.0;
-				final integerPart = Std.int(v);
-				result += integerPart;
-				v -= integerPart;
-			}
-		}
 
 		return result;
 	}

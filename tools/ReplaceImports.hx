@@ -11,10 +11,15 @@ class ReplaceImports {
 		Modules to be replaced.
 	**/
 	static final importableModules = [
-		'$libName.Lib' => {priority: 0},
-		'$libName.naive.Lib' => {priority: 1},
-		'$libName.Vec' => {priority: 10},
-		'$libName.extra.Bits' => {priority: 11},
+		'$libName.CharIn' => {priority: 0},
+		'$libName.naive.CharIn' => {priority: 0},
+		'$libName.CharOut' => {priority: 1},
+		'$libName.Delimiter' => {priority: 2},
+		'$libName.naive.Delimiter' => {priority: 2},
+		'$libName.Ut' => {priority: 10},
+		'$libName.StringBuffer' => {priority: 11},
+		'$libName.Vec' => {priority: 12},
+		'$libName.Bits' => {priority: 13},
 		'$libName.Debug' => {priority: 100}
 	];
 

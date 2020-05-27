@@ -1,18 +1,35 @@
 package wronganswer.naive;
 
+import wronganswer.naive.Delimiter;
+
+/**
+	Character input.
+**/
 abstract CharIn(haxe.io.Input) {
 	public extern inline function new()
 		this = Sys.stdin();
 
+	/**
+		Reads 1 byte.
+	**/
 	public inline function byte()
 		return this.readByte();
 
+	/**
+		Reads 1 decimal digit.
+	**/
 	public inline function digit()
 		return byte() - "0".code;
 
+	/**
+		Reads 1 ASCII character.
+	**/
 	public inline function char()
 		return String.fromCharCode(byte());
 
+	/**
+		Reads until `delimiter`.
+	**/
 	public inline function str(delimiter:Int) {
 		final buffer = new haxe.io.BytesBuffer();
 		try {
@@ -24,11 +41,9 @@ abstract CharIn(haxe.io.Input) {
 		return buffer.getBytes().toString();
 	}
 
+	/**
+		Reads an `Int` value until `delimiter`.
+	**/
 	public inline function int(delimiter:Int):Int
 		return Std.parseInt(str(delimiter));
-}
-
-enum abstract Delimiter(Int) to Int {
-	final LF = "\n".code;
-	final SP = " ".code;
 }

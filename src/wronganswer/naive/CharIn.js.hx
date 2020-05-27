@@ -1,5 +1,7 @@
 package wronganswer.naive;
 
+import wronganswer.naive.Delimiter;
+
 abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 	public extern inline function new()
 		this = #if macro cast null; #else js.node.Buffer.alloc(1); #end
@@ -35,9 +37,4 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 
 	public inline function int(delimiter:Int):Int
 		return Std.parseInt(str(delimiter));
-}
-
-enum abstract Delimiter(Int) to Int {
-	final LF = "\n".code;
-	final SP = " ".code;
 }

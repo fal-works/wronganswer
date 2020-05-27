@@ -1,4 +1,4 @@
-package wronganswer.extra;
+package wronganswer;
 
 abstract Bits(Int) from Int to Int {
 	public static inline function from(v:Int):Bits

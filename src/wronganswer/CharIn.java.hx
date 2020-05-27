@@ -1,5 +1,9 @@
 package wronganswer;
 
+import wronganswer.Ut;
+import wronganswer.StringBuffer;
+import wronganswer.Delimiter;
+
 abstract CharIn(haxe.io.Input) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
 
@@ -141,120 +145,5 @@ abstract CharIn(haxe.io.Input) {
 		} catch (e:haxe.io.Eof) {}
 
 		return result;
-	}
-}
-
-@:forward
-abstract CharOut(StringBuffer) {
-	public inline function new(capacity = 1024) {
-		this = new StringBuffer(capacity);
-	}
-
-	public inline function print():Void {
-		#if !macro
-		java.lang.System.out.print(this.toString());
-		#end
-	}
-
-	public inline function println():Void {
-		#if !macro
-		java.lang.System.out.println(this.toString());
-		#end
-	}
-}
-
-enum abstract Delimiter(Int) to Int {
-	final LF = "\n".code;
-	final SP = " ".code;
-	final HT = "\t".code;
-	final Slash = "/".code;
-	final BackSlash = "\\".code;
-	final Pipe = "|".code;
-	final Comma = ",".code;
-	final Dot = ".".code;
-}
-
-@:forward(length, toString)
-abstract StringBuffer(#if macro Dynamic #else java.lang.StringBuilder #end)
-#if !macro from java.lang.StringBuilder
-#end
-{
-	public inline function new(capacity = 16) {
-		this = #if macro null; #else new java.lang.StringBuilder(capacity); #end
-	}
-
-	public inline function str(s:String):StringBuffer
-		return this.append(s);
-
-	public inline function int(v:Int):StringBuffer
-		return this.append(v);
-
-	public inline function float(v:Float):StringBuffer
-		return this.append(v);
-
-	public inline function floatWithScale(v:Float, scale:Int):StringBuffer {
-		if (v < 0) {
-			this.appendCodePoint("-".code);
-			v = -v;
-		}
-		v += Math.pow(10.0, -scale) / 2.0;
-
-		this.append(cast(v, haxe.Int64));
-		if (scale != 0) {
-			this.appendCodePoint(".".code);
-			v -= cast(cast(v, haxe.Int64), Float);
-
-			for (i in 0...scale) {
-				v *= 10.0;
-				this.append(((cast v) : Int));
-				v -= Std.int(v);
-			}
-		}
-
-		return this;
-	}
-
-	public inline function int64(v:haxe.Int64):StringBuffer
-		return this.append(v);
-
-	public inline function char(code:Int):StringBuffer
-		return this.appendCodePoint(code);
-
-	public inline function lf():StringBuffer
-		return char("\n".code);
-
-	public inline function space():StringBuffer
-		return char(" ".code);
-}
-
-class Ut {
-	@:generic public static inline function print<T>(x:T):Void {
-		#if !macro
-		untyped __java__("java.lang.System.out.print({0});", x);
-		#end
-	}
-
-	@:generic public static inline function println<T>(x:T):Void {
-		#if !macro
-		untyped __java__("java.lang.System.out.println({0});", x);
-		#end
-	}
-
-	@:pure public static inline function idiv(n:Int, divisor:Int):Int
-		return untyped __java__("{0} / {1}", n, divisor);
-
-	@:pure public static inline function atoi(s:String):Int
-		return #if macro 0; #else java.lang.Integer.parseInt(s, 10); #end
-
-	@:pure public static inline function atof(s:String):Float
-		return #if macro 0; #else java.lang.Double.DoubleClass.parseDouble(s); #end
-
-	@:pure public static inline function ctoa(characterCode:Int):String
-		return String.fromCharCode(characterCode);
-
-	@:pure public static inline function ftoa(v:Float, scale:Int):String {
-		final buffer = new StringBuffer(15 + scale);
-		buffer.floatWithScale(v, scale);
-		return buffer.toString();
 	}
 }

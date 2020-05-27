@@ -25,7 +25,7 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	public inline function int(delimiter:Int):Int
-		return Ut.atoi(str(delimiter));
+		return Std.parseInt(str(delimiter));
 }
 
 enum abstract Delimiter(Int) to Int {
@@ -36,7 +36,4 @@ enum abstract Delimiter(Int) to Int {
 class Ut {
 	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
 		return macro null;
-
-	@:pure public static inline function atoi(s:String):Int
-		return Std.parseInt(s);
 }

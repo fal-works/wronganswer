@@ -43,7 +43,7 @@ abstract CharIn(haxe.io.Input) {
 		Reads an `Int` value until `delimiter`.
 	**/
 	public inline function int(delimiter:Int):Int
-		return Ut.atoi(str(delimiter));
+		return Std.parseInt(str(delimiter));
 }
 
 /**
@@ -68,17 +68,5 @@ class Ut {
 		#else
 		return macro null;
 		#end
-	}
-
-	/**
-		Converts `s` to `Int`.
-	**/
-	@:pure public static inline function atoi(s:String):Int {
-		final i = Std.parseInt(s);
-		#if debug
-		if (i == null)
-			throw 'Failed to parse: $s';
-		#end
-		return i;
 	}
 }

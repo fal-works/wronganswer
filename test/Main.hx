@@ -1,12 +1,13 @@
 import haxe.Int64;
 import haxe.Timer;
 import wronganswer.Lib;
+import wronganswer.Vec;
 import wronganswer.naive.Lib.CharIn as NaiveCharIn;
 import wronganswer.extra.Bits;
 import wronganswer.Debug;
 
 class Main {
-	static final testCaseNo = 0;
+	static final testCaseNo = 5;
 
 	static function main() {
 		Debug.log("This is a debug message.");
@@ -23,6 +24,8 @@ class Main {
 			case 4:
 				outputSpeed();
 			case 5:
+				vec();
+			case 6:
 				extra();
 			default:
 		}
@@ -94,6 +97,13 @@ class Main {
 			}
 			cout.print();
 		});
+	}
+
+	static function vec() {
+		Sys.println("\n[vec]");
+		final vec = haxe.ds.Vector.fromArrayCopy([1, 3, 2, 5, 4]);
+		Vec.quicksort(vec, (a:Int, b:Int) -> a - b);
+		Sys.println(vec.toArray());
 	}
 
 	static function extra() {

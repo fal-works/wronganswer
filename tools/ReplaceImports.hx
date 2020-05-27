@@ -109,8 +109,16 @@ class ReplaceImports {
 		Replaces all import statements in `code`.
 	**/
 	static function replaceAll(code:String) {
-		for (module in importableModules)
-			code = replaceImport(code, module);
+		var position = 0;
+		while (RegExps.importer.matchSub(code, position)) {
+			final module = RegExps.importer.matched(1);
+			if (importableModules.indexOf(module) >= 0) {
+				code = replaceImport(code, module);
+			} else {
+				final matchedPos = RegExps.importer.matchedPos();
+				position = matchedPos.pos + matchedPos.len;
+			}
+		}
 
 		return code;
 	}
@@ -120,12 +128,7 @@ class ReplaceImports {
 		and appends the actual source code of `module` instead.
 	**/
 	static function replaceImport(code:String, module:String) {
-		final importRegExp = new EReg('import\\s+$module\\s*;', "i");
-		final removed = importRegExp.replace(code, "");
-		if (code.length == removed.length)
-			return code;
-
-		code = removed.trim() + "\n\n";
+		code = RegExps.importer.replace(code, "").trim() + "\n\n";
 
 		final srcCode = readSrcCode(getSrcFilePath(module));
 		Sys.println('Replacing: import $module;');
@@ -216,4 +219,10 @@ class RegExps {
 		Regular expression for matching any multiline comment with double asterisks.
 	**/
 	public static final comment = ~/\/\*\*\n?[^\*]+\*\*\/\s*/gm;
+
+	/**
+		Regular expression for matching any import statement.
+		After matched, the module can be extracted by `importer.matched(1)`.
+	**/
+	public static final importer = new EReg('import\\s+(.+)\\s*;', "i");
 }

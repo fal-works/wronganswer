@@ -163,9 +163,8 @@ abstract CharOut(StringBuffer) {
 
 	public inline function println():Void {
 		#if !macro
-		final write = js.Node.process.stdout.write;
-		write(this.toString());
-		write("\n");
+		js.Node.process.stdout.write(this.toString());
+		js.Node.process.stdout.write("\n");
 		#end
 	}
 }

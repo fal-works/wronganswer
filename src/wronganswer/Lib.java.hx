@@ -151,10 +151,10 @@ abstract CharOut(StringBuffer) {
 	}
 
 	public inline function print():Void
-		Sys.print(this.toString());
+		java.lang.System.out.print(this.toString());
 
 	public inline function println():Void
-		Sys.println(this.toString());
+		java.lang.System.out.println(this.toString());
 }
 
 enum abstract Delimiter(Int) to Int {

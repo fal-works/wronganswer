@@ -116,7 +116,8 @@ class ReplaceImports {
 	}
 
 	/**
-		Replaces the import statement in `code` by the actual source code of `module`.
+		Removes the import statement for `module` from `code`
+		and appends the actual source code of `module` instead.
 	**/
 	static function replaceImport(code:String, module:String) {
 		final importStatement = 'import $module;';
@@ -125,15 +126,7 @@ class ReplaceImports {
 
 		code = code.replace(importStatement, "").trim() + "\n\n";
 
-		final modulePath = module.replace(".", "/");
-		var srcFilePath = FileSystem.absolutePath('$srcDirectory$modulePath$target.hx');
-		if (!FileSystem.exists(srcFilePath))
-			srcFilePath = FileSystem.absolutePath('$srcDirectory$modulePath.hx');
-		if (!FileSystem.exists(srcFilePath))
-			throw 'File not found for module: $module';
-
-		var srcCode = readFile(srcFilePath);
-		srcCode = srcCode.substr(srcCode.indexOf("\n")).trim() + "\n"; // remove the first line
+		final srcCode = readSrcCode(getSrcFilePath(module));
 
 		Sys.println('Replacing: $importStatement');
 
@@ -167,6 +160,32 @@ class ReplaceImports {
 		}
 		file.close();
 		return content;
+	}
+
+	/**
+		@return the file path of the source code for `module`.
+	**/
+	static function getSrcFilePath(module:String) {
+		final modulePath = module.replace(".", "/");
+		var srcFilePath = FileSystem.absolutePath('$srcDirectory$modulePath$target.hx');
+
+		if (!FileSystem.exists(srcFilePath))
+			srcFilePath = FileSystem.absolutePath('$srcDirectory$modulePath.hx');
+
+		if (!FileSystem.exists(srcFilePath))
+			throw 'File not found for module: $module';
+
+		return srcFilePath;
+	}
+
+	/**
+		Reads The content of the source code file at `fullPath`,
+		removing the package declaration.
+	**/
+	static function readSrcCode(fullPath:String) {
+		var srcCode = readFile(fullPath);
+		srcCode = srcCode.substr(srcCode.indexOf("\n")).trim() + "\n"; // remove the first line
+		return srcCode;
 	}
 
 	/**

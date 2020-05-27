@@ -101,14 +101,19 @@ class Main {
 
 	static function vec() {
 		Sys.println("\n[vec]");
-		final vec = haxe.ds.Vector.fromArrayCopy([1, 3, 2, 5, 4]);
-		Vec.quicksort(vec, (a:Int, b:Int) -> a - b);
-		Sys.println(vec.toArray());
-	}
+
+		final vec = haxe.ds.Vector.fromArrayCopy([for (i in 0...100000) Std.int(100 * Math.random())]);
+		Sys.println("sorting...");
+		Timer.measure(() -> {
+			Vec.quicksort(vec, (a, b) -> a - b);
+		});
+		Sys.println("first: " + vec[0]);
+		Sys.println("last: " + vec[vec.length - 1]);
+}
 
 	static function extra() {
 		Sys.println("\n[extra]");
-		var bits: Bits = 0;
+		var bits:Bits = 0;
 		bits = Bits.set(bits, 2);
 		Sys.println(bits.toBoolVec(3).toArray()); // false, false, true
 		bits.forEachBitReversed(flag -> Sys.print(flag ? "1" : "0"), 3); // 100

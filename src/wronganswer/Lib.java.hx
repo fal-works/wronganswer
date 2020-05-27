@@ -225,6 +225,9 @@ class Ut {
 	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
 		return macro null;
 
+	@:pure public static inline function idiv(n:Int, divisor:Int):Int
+		return untyped __java__("{0} / {1}", n, divisor);
+
 	@:pure public static inline function atoi(s:String):Int
 		return #if macro 0; #else java.lang.Integer.parseInt(s, 10); #end
 

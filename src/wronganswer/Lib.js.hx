@@ -223,6 +223,9 @@ class Ut {
 	@:noUsing public static macro function debug(message:haxe.macro.Expr):haxe.macro.Expr
 		return macro null;
 
+	@:pure public static inline function idiv(n:Int, divisor:Int):Int
+		return Std.int(n / divisor);
+
 	@:pure public static inline function atoi(s:String):Int
 		return #if macro 0; #else js.Syntax.code("parseInt({0})", s); #end
 

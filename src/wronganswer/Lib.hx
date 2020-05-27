@@ -330,6 +330,12 @@ class Ut {
 	}
 
 	/**
+		Performs integer division.
+	**/
+	@:pure public static inline function idiv(n:Int, divisor:Int):Int
+		return Std.int(n / divisor);
+
+	/**
 		Converts `s` to `Int`.
 	**/
 	@:pure public static inline function atoi(s:String):Int {

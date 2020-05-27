@@ -10,6 +10,7 @@ class Main {
 	static final testCaseNo = 5;
 
 	static function main() {
+		Ut.println("Start test.");
 		Debug.log("This is a debug message.");
 
 		switch testCaseNo {

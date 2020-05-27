@@ -150,11 +150,17 @@ abstract CharOut(StringBuffer) {
 		this = new StringBuffer(capacity);
 	}
 
-	public inline function print():Void
+	public inline function print():Void {
+		#if !macro
 		java.lang.System.out.print(this.toString());
+		#end
+	}
 
-	public inline function println():Void
+	public inline function println():Void {
+		#if !macro
 		java.lang.System.out.println(this.toString());
+		#end
+	}
 }
 
 enum abstract Delimiter(Int) to Int {
@@ -200,7 +206,7 @@ abstract StringBuffer(#if macro Dynamic #else java.lang.StringBuilder #end)
 
 			for (i in 0...scale) {
 				v *= 10.0;
-				this.append(((cast v):Int));
+				this.append(((cast v) : Int));
 				v -= Std.int(v);
 			}
 		}
@@ -222,6 +228,18 @@ abstract StringBuffer(#if macro Dynamic #else java.lang.StringBuilder #end)
 }
 
 class Ut {
+	@:generic public static inline function print<T>(x:T):Void {
+		#if !macro
+		untyped __java__("java.lang.System.out.print({0});", x);
+		#end
+	}
+
+	@:generic public static inline function println<T>(x:T):Void {
+		#if !macro
+		untyped __java__("java.lang.System.out.println({0});", x);
+		#end
+	}
+
 	@:pure public static inline function idiv(n:Int, divisor:Int):Int
 		return untyped __java__("{0} / {1}", n, divisor);
 

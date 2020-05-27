@@ -220,6 +220,19 @@ abstract StringBuffer(StringBuf) from StringBuf {
 }
 
 class Ut {
+	@:generic public static inline function print<T>(x:T):Void {
+		#if !macro
+		js.Node.process.stdout.write("" + x);
+		#end
+	}
+
+	@:generic public static inline function println<T>(x:T):Void {
+		#if !macro
+		js.Node.process.stdout.write("" + x);
+		js.Node.process.stdout.write("\n");
+		#end
+	}
+
 	@:pure public static inline function idiv(n:Int, divisor:Int):Int
 		return Std.int(n / divisor);
 
@@ -245,11 +258,11 @@ class Ut {
 			result += integerPart + ".";
 			v -= integerPart;
 
-			for (i in 0...scale){
-					v *= 10.0;
-					final integerPart = Std.int(v);
-					result += integerPart;
-					v -= integerPart;
+			for (i in 0...scale) {
+				v *= 10.0;
+				final integerPart = Std.int(v);
+				result += integerPart;
+				v -= integerPart;
 			}
 		}
 

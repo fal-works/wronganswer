@@ -318,6 +318,18 @@ abstract StringBuffer(StringBuf) from StringBuf {
 **/
 class Ut {
 	/**
+		Prints `x`.
+	**/
+	@:generic public static inline function print<T>(x:T):Void
+		Sys.print(x);
+
+	/**
+		Prints `x` with line break.
+	**/
+	@:generic public static inline function println<T>(x:T):Void
+		Sys.println(x);
+
+	/**
 		Performs integer division.
 	**/
 	@:pure public static inline function idiv(n:Int, divisor:Int):Int

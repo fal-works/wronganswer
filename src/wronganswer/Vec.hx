@@ -79,4 +79,23 @@ class Vec {
 				push(i, maxIndex);
 		}
 	}
+
+	/**
+		Removes consecutive repeated elements in `vec` (compared with `==`)
+		and assigns the deduplicated elements to `out` (top-aligned).
+
+		E.g. `vec: [0, 1, 1, 2, 2, 3] => out: [0, 1, 2, 3, ...]`
+		@return Number of elements after deduplicated.
+	**/
+	@:generic public static inline function dedup<T>(vec:haxe.ds.Vector<T>, out:haxe.ds.Vector<T>):Int {
+		var last = vec[0];
+		var writeIndex = 1;
+		for (readIndex in 1...vec.length) {
+			final current = vec[readIndex];
+			if (current != last)
+				out[writeIndex++] = current;
+			last = current;
+		}
+		return writeIndex;
+	}
 }

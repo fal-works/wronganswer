@@ -103,13 +103,20 @@ class Main {
 	static function vec() {
 		Sys.println("\n[vec]");
 
-		final vec = haxe.ds.Vector.fromArrayCopy([for (i in 0...100000) Std.int(100 * Math.random())]);
+		final vec = haxe.ds.Vector.fromArrayCopy([for (i in 0...10000) Std.int(100 * Math.random())]);
 		Sys.println("sorting...");
 		Timer.measure(() -> {
 			Vec.quicksort(vec, (a, b) -> a - b);
 		});
 		Sys.println("first: " + vec[0]);
 		Sys.println("last: " + vec[vec.length - 1]);
+
+		Sys.println("");
+		Sys.println("dedup...");
+		final vec2 = haxe.ds.Vector.fromArrayCopy([0, 1, 1, 2, 2, 3]);
+		final deduplicated = Vec.dedup(vec2, vec2);
+		Sys.println(vec2.toArray());
+		Sys.println(deduplicated + " elements after dedup.");
 }
 
 	static function extra() {

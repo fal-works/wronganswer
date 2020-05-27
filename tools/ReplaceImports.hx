@@ -120,15 +120,15 @@ class ReplaceImports {
 		and appends the actual source code of `module` instead.
 	**/
 	static function replaceImport(code:String, module:String) {
-		final importStatement = 'import $module;';
-		if (!code.contains(importStatement))
+		final importRegExp = new EReg('import\\s+$module\\s*;', "i");
+		final removed = importRegExp.replace(code, "");
+		if (code.length == removed.length)
 			return code;
 
-		code = code.replace(importStatement, "").trim() + "\n\n";
+		code = removed.trim() + "\n\n";
 
 		final srcCode = readSrcCode(getSrcFilePath(module));
-
-		Sys.println('Replacing: $importStatement');
+		Sys.println('Replacing: import $module;');
 
 		if (!replaced)
 			code += bannerComment;
@@ -184,8 +184,9 @@ class ReplaceImports {
 	**/
 	static function readSrcCode(fullPath:String) {
 		var srcCode = readFile(fullPath);
-		srcCode = srcCode.substr(srcCode.indexOf("\n")).trim() + "\n"; // remove the first line
-		return srcCode;
+		srcCode = RegExps.pkg.replace(srcCode, "");
+		srcCode = RegExps.comment.replace(srcCode, "");
+		return srcCode.trim() + "\n";
 	}
 
 	/**
@@ -203,4 +204,16 @@ class ReplaceImports {
 		}
 		newFile.close();
 	}
+}
+
+class RegExps {
+	/**
+		Regular expression for matching any package declaration.
+	**/
+	public static final pkg = ~/package\s+.+\s*;/i;
+
+	/**
+		Regular expression for matching any multiline comment with double asterisks.
+	**/
+	public static final comment = ~/^\s*\/\*\*\n?[^\*]+\*\*\//gm;
 }

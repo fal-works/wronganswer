@@ -215,5 +215,5 @@ class RegExps {
 	/**
 		Regular expression for matching any multiline comment with double asterisks.
 	**/
-	public static final comment = ~/^\s*\/\*\*\n?[^\*]+\*\*\//gm;
+	public static final comment = ~/\/\*\*\n?[^\*]+\*\*\/\s*/gm;
 }

@@ -1,7 +1,5 @@
 package wa.naive;
 
-import wa.naive.Delimiter;
-
 /**
 	Character input.
 **/

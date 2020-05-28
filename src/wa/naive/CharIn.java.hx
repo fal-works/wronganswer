@@ -1,7 +1,5 @@
 package wa.naive;
 
-import wa.naive.Delimiter;
-
 abstract CharIn(haxe.io.Input) {
 	public extern inline function new()
 		this = Sys.stdin();

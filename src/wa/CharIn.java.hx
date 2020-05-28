@@ -1,7 +1,5 @@
 package wa;
 
-import wa.Util;
-
 abstract CharIn(haxe.io.Input) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
 
@@ -73,9 +71,6 @@ abstract CharIn(haxe.io.Input) {
 
 	public inline function binary():Int
 		return uintWithRadix(2);
-
-	public inline function float():Float
-		return Util.atof(str());
 
 	public inline function strVec(length:Int):haxe.ds.Vector<String> {
 		final vec = new haxe.ds.Vector<String>(length);

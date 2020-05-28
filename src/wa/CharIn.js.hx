@@ -1,7 +1,5 @@
 package wa;
 
-import wa.Util;
-
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {
 		return switch characterCode {
@@ -73,9 +71,6 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 
 	public inline function binary():Int
 		return uintWithRadix(2);
-
-	public inline function float():Float
-		return Util.atof(str());
 
 	public inline function strVec(length:Int):haxe.ds.Vector<String> {
 		final vec = new haxe.ds.Vector<String>(length);

@@ -1,6 +1,9 @@
 package wa;
 
 class Floats {
+	@:pure public static inline function atof(s:String):Float
+		return Std.parseFloat(s);
+
 	@:pure public static inline function ftoa(v:Float, scale:Int):String {
 		var result = if (v >= 0) "" else {
 			v = -v;

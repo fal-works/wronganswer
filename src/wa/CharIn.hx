@@ -1,7 +1,5 @@
 package wa;
 
-import wa.Util;
-
 /**
 	Character input.
 **/
@@ -99,12 +97,6 @@ abstract CharIn(haxe.io.Input) {
 	**/
 	public inline function binary():Int
 		return uintWithRadix(2);
-
-	/**
-		Reads a `Float` value separated by any whitespace character (SP, HL, CR or LF).
-	**/
-	public inline function float():Float
-		return Util.atof(str());
 
 	/**
 		Reads a sequence of `String` values separated by any whitespace characters (SP, HL, CR or LF).

@@ -25,9 +25,6 @@ class Util {
 	@:pure public static inline function atoi(s:String):Int
 		return #if macro 0; #else java.lang.Integer.parseInt(s, 10); #end
 
-	@:pure public static inline function atof(s:String):Float
-		return #if macro 0; #else java.lang.Double.DoubleClass.parseDouble(s); #end
-
 	@:pure public static inline function ctoa(characterCode:Int):String
 		return String.fromCharCode(characterCode);
 

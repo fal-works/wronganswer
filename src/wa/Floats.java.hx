@@ -4,6 +4,9 @@ import wa.StrBuf;
 using wa.StrBufs;
 
 class Floats {
+	@:pure public static inline function atof(s:String):Float
+		return #if macro 0; #else java.lang.Double.DoubleClass.parseDouble(s); #end
+
 	/**
 		Converts `v` to `String`.
 		@param scale The number of fractional digits.

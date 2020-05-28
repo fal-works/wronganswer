@@ -5,6 +5,18 @@ package wa;
 **/
 class Floats {
 	/**
+		Converts `s` to `Float`.
+	**/
+	@:pure public static inline function atof(s:String):Float {
+		final f = Std.parseFloat(s);
+		#if debug
+		if (!Math.isFinite(f))
+			throw 'Failed to parse: $s';
+		#end
+		return f;
+	}
+
+	/**
 		Converts `v` to `String`.
 		@param scale The number of fractional digits.
 	**/

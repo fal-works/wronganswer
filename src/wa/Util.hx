@@ -49,18 +49,6 @@ class Util {
 	}
 
 	/**
-		Converts `s` to `Float`.
-	**/
-	@:pure public static inline function atof(s:String):Float {
-		final f = Std.parseFloat(s);
-		#if debug
-		if (!Math.isFinite(f))
-			throw 'Failed to parse: $s';
-		#end
-		return f;
-	}
-
-	/**
 		Converts `characterCode` to `String`.
 	**/
 	@:pure public static inline function ctoa(characterCode:Int):String

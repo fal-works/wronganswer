@@ -2,8 +2,12 @@ package wa;
 
 import wa.CharIn;
 import wa.Delimiter;
+import wa.Floats;
 
 class CharIns {
+	public static inline function float(cin:CharIn):Float
+		return Floats.atof(cin.str());
+
 	public static inline function until(cin:CharIn, delimiter:Delimiter):String {
 		@:privateAccess final byteArray = CharIn.byteArray;
 		var index = 0;
@@ -27,7 +31,7 @@ class CharIns {
 	public static inline function floatVec(cin:CharIn, length:Int):haxe.ds.Vector<Float> {
 		final vec = new haxe.ds.Vector<Float>(length);
 		for (i in 0...length)
-			vec[i] = cin.float();
+			vec[i] = float(cin);
 		return vec;
 	}
 

@@ -34,18 +34,4 @@ abstract CharIn(haxe.io.Input) {
 	**/
 	public inline function int():Int
 		return Std.parseInt(str());
-
-	/**
-		Reads until `delimiter`.
-	**/
-	public inline function until(delimiter:Char) {
-		final buffer = new haxe.io.BytesBuffer();
-		try {
-			var character:Char;
-			while ((character = char()) != delimiter)
-				buffer.addByte(character);
-		} catch (e:haxe.io.Eof) {}
-
-		return buffer.getBytes().toString();
-	}
 }

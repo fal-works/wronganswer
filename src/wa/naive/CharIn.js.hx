@@ -32,19 +32,6 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 	public inline function int():Int
 		return Std.parseInt(str());
 
-	public inline function until(delimiter:Char) {
-		var result = "";
-		#if !macro
-		final readSync = js.node.Fs.readSync;
-		readSync(0, this, 0, 1, null);
-		var character:Char = this[0];
-		while (character != delimiter) {
-			result += character.toString();
-			if (readSync(0, this, 0, 1, null) == 0)
-				break;
-			character = this[0];
-		}
-		#end
-		return result;
-	}
+	inline function buffer()
+		return this;
 }

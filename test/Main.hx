@@ -7,6 +7,7 @@ import wa.Printer.*;
 
 using wa.CharIns;
 using wa.StrBufs;
+using wa.naive.CharIns;
 
 class Main {
 	static final testCaseNo = 2;
@@ -66,7 +67,7 @@ class Main {
 		println("\n[naive input unit tests]");
 		final cin = new NaiveCharIn();
 		println('count: ${cin.int()}');
-		println('string: ${cin.str()}');
+		println('string: ${cin.until(LF)}');
 		println('float: ${Std.parseFloat(cin.str())}');
 		println('zero: ${cin.int()}');
 		println('one: ${cin.int()}');

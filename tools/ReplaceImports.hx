@@ -3,6 +3,7 @@ package tools;
 import sys.FileSystem;
 import sys.io.File;
 import tools.Statics.*;
+import wronganswer.Ut;
 
 using StringTools;
 
@@ -52,6 +53,12 @@ class ReplaceImports {
 	public static function tryRun(args:Array<String>) {
 		if (args.length < 3) {
 			showInstruction();
+			return;
+		}
+
+		if (1 < args.length && args[1] == "help") {
+			showInstruction();
+			showResolvableModules();
 			return;
 		}
 
@@ -173,8 +180,24 @@ class ReplaceImports {
 	/**
 		Shows instruction about the replacing command.
 	**/
-	static function showInstruction()
-		Sys.println('\ncommand:\n  haxelib run $libName $command [full file path] [target (java/js/eval)]\n');
+	static function showInstruction() {
+		Sys.println('\ncommand:');
+		Sys.println('  haxelib run $libName $command [full file path] [target (java/js/eval)]');
+		Sys.println('  haxelib run $libName $command help');
+		Sys.println("");
+	}
+
+	/**
+		Shows a list of import statements that can be resolved.
+	**/
+	static function showResolvableModules() {
+		Sys.println("statements that can be resolved:");
+		final modules = [for (module in importableModules.keys()) module];
+		modules.sort(Ut.compareString);
+		for (module in modules)
+			Sys.println('  import $module;');
+		Sys.println("");
+	}
 
 	/**
 		@return the content of the file at `fullPath`.

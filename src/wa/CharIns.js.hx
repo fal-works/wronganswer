@@ -1,14 +1,13 @@
 package wa;
 
 import wa.CharIn;
-import wa.Delimiter;
 import wa.Floats;
 
 class CharIns {
 	public static inline function float(cin:CharIn):Float
 		return Floats.atof(cin.str());
 
-	public static inline function until(cin:CharIn, delimiter:Delimiter):String {
+	public static inline function until(cin:CharIn, delimiter:Int):String {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;

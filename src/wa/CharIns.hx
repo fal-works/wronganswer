@@ -1,7 +1,6 @@
 package wa;
 
 import wa.CharIn;
-import wa.Delimiter;
 import wa.Floats;
 
 /**
@@ -17,7 +16,7 @@ class CharIns {
 	/**
 		Reads until `delimiter`.
 	**/
-	public static inline function until(cin:CharIn, delimiter:Delimiter):String {
+	public static inline function until(cin:CharIn, delimiter:Int):String {
 		var result = "";
 		try {
 			var byte = cin.byte();

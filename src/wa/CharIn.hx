@@ -63,7 +63,7 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	/**
-		Reads an `Int` value.
+		Reads an `Int` value separated by any whitespace character (SP, HL, CR or LF).
 	**/
 	public inline function int():Int {
 		var result = 0;
@@ -89,7 +89,20 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	/**
-		Reads a `Float` value.
+		Reads an `Int` value (assuming unsigned)
+		separated by any whitespace character (SP, HL, CR or LF).
+	**/
+	public inline function uint():Int
+		return uintWithRadix(10);
+
+	/**
+		Reads a binary integer separated by any whitespace character (SP, HL, CR or LF).
+	**/
+	public inline function binary():Int
+		return uintWithRadix(2);
+
+	/**
+		Reads a `Float` value separated by any whitespace character (SP, HL, CR or LF).
 	**/
 	public inline function float():Float
 		return Util.atof(str());
@@ -111,11 +124,7 @@ abstract CharIn(haxe.io.Input) {
 
 	/**
 		Reads a sequence of `Int` values separated by any whitespace characters (SP, HL, CR or LF).
-
-		Note:
-		- It first allocates an array with `length` and then assigns values.
-		  On JS target there might be some tradeoffs here.
-		- On Java target, `Vector` cannot be directly converted to `String`.
+		@see `strVec()` for notes.
 	**/
 	public inline function intVec(length:Int):haxe.ds.Vector<Int> {
 		final vec = new haxe.ds.Vector<Int>(length);
@@ -138,11 +147,7 @@ abstract CharIn(haxe.io.Input) {
 
 	/**
 		Reads a sequence of `Float` values separated by any whitespace characters (SP, HL, CR or LF).
-
-		Note:
-		- It first allocates an array with `length` and then assigns values.
-		  On JS target there might be some tradeoffs here.
-		- On Java target, `Vector` cannot be directly converted to `String`.
+		@see `strVec()` for notes.
 	**/
 	public inline function floatVec(length:Int):haxe.ds.Vector<Float> {
 		final vec = new haxe.ds.Vector<Float>(length);
@@ -166,18 +171,6 @@ abstract CharIn(haxe.io.Input) {
 
 		return StringTools.rtrim(result);
 	}
-
-	/**
-		Reads an `Int` value assuming unsigned.
-	**/
-	public inline function uint():Int
-		return uintWithRadix(10);
-
-	/**
-		Reads a binary integer.
-	**/
-	public inline function binary():Int
-		return uintWithRadix(2);
 
 	/**
 		Reads a string separated by any whitespace character (SP, HL, CR or LF)

@@ -70,6 +70,12 @@ abstract CharIn(haxe.io.Input) {
 		return if (negative) -result else result;
 	}
 
+	public inline function uint():Int
+		return uintWithRadix(10);
+
+	public inline function binary():Int
+		return uintWithRadix(2);
+
 	public inline function float():Float
 		return Util.atof(str());
 
@@ -120,12 +126,6 @@ abstract CharIn(haxe.io.Input) {
 			throw e;
 		}
 	}
-
-	public inline function uint():Int
-		return uintWithRadix(10);
-
-	public inline function binary():Int
-		return uintWithRadix(2);
 
 	public inline function count(characterCode:Int):Int {
 		var foundCount = 0;

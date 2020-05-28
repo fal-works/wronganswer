@@ -69,6 +69,12 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		return if (negative) -result else result;
 	}
 
+	public inline function uint():Int
+		return uintWithRadix(10);
+
+	public inline function binary():Int
+		return uintWithRadix(2);
+
 	public inline function float():Float
 		return Util.atof(str());
 
@@ -116,12 +122,6 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 			vec[i] = float();
 		return vec;
 	}
-
-	public inline function uint():Int
-		return uintWithRadix(10);
-
-	public inline function binary():Int
-		return uintWithRadix(2);
 
 	public inline function count(characterCode:Int):Int {
 		var foundCount = 0;

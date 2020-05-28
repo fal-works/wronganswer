@@ -3,9 +3,10 @@ import haxe.Timer;
 import wa.*;
 import wa.naive.CharIn as NaiveCharIn;
 import wa.naive.Delimiter;
+using wa.CharIns;
 
 class Main {
-	static final testCaseNo = 5;
+	static final testCaseNo = 0;
 
 	static function main() {
 		Util.println("Start test.");

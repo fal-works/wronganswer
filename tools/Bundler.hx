@@ -20,7 +20,7 @@ class Bundler {
 		'$rootPackage.*' => {
 			priority: 0,
 			wildcard: [
-				"CharIn", "CharOut", "Delimiter", "Util", "Floats", "StrBuf", "StrBufs", "Vecs", "Bits", "Debug"
+				"CharIn", "CharIns", "CharOut", "Delimiter", "Util", "Floats", "StrBuf", "StrBufs", "Vecs", "Bits", "Debug"
 			]
 		},
 		'$rootPackage.naive.*' => {
@@ -29,9 +29,10 @@ class Bundler {
 		},
 		'$rootPackage.CharIn' => {priority: 0},
 		'$rootPackage.naive.CharIn' => {priority: 0},
-		'$rootPackage.CharOut' => {priority: 1},
-		'$rootPackage.Delimiter' => {priority: 2},
-		'$rootPackage.naive.Delimiter' => {priority: 2},
+		'$rootPackage.CharIns' => {priority: 1},
+		'$rootPackage.CharOut' => {priority: 2},
+		'$rootPackage.Delimiter' => {priority: 3},
+		'$rootPackage.naive.Delimiter' => {priority: 3},
 		'$rootPackage.Util' => {priority: 10, usable: true},
 		'$rootPackage.Floats' => {priority: 11, usable: true},
 		'$rootPackage.StrBuf' => {priority: 20},

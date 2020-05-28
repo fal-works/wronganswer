@@ -2,7 +2,6 @@ package wa;
 
 import wa.Util;
 import wa.StrBuf;
-import wa.Delimiter;
 
 abstract CharIn(haxe.io.Input) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
@@ -98,47 +97,6 @@ abstract CharIn(haxe.io.Input) {
 		for (i in 0...length)
 			vec[i] = uint();
 		return vec;
-	}
-
-	public inline function floatVec(length:Int):haxe.ds.Vector<Float> {
-		final vec = new haxe.ds.Vector<Float>(length);
-		for (i in 0...length)
-			vec[i] = float();
-		return vec;
-	}
-
-	public inline function until(delimiter:Delimiter):String {
-		final byteArray = CharIn.byteArray;
-		var index = 0;
-
-		try {
-			var byte = this.readByte();
-			while (byte != delimiter) {
-				byteArray[index] = byte;
-				++index;
-				byte = this.readByte();
-			}
-		} catch (e:haxe.io.Eof) {}
-
-		try {
-			return #if macro ""; #else new String(byteArray, 0, index, "UTF-8"); #end
-		} catch (e:Dynamic) {
-			throw e;
-		}
-	}
-
-	public inline function count(characterCode:Int):Int {
-		var foundCount = 0;
-		try {
-			var byte = this.readByte();
-			while (isNotWhiteSpace(byte)) {
-				if (byte == characterCode)
-					++foundCount;
-				byte = this.readByte();
-			}
-		} catch (e:haxe.io.Eof) {}
-
-		return foundCount;
 	}
 
 	inline function uintWithRadix(radix:Int):Int {

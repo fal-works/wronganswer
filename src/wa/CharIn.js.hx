@@ -1,7 +1,6 @@
 package wa;
 
 import wa.Util;
-import wa.Delimiter;
 
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {
@@ -78,23 +77,6 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public inline function float():Float
 		return Util.atof(str());
 
-	public inline function until(delimiter:Delimiter):String {
-		var result = "";
-		#if !macro
-		final readSync = js.node.Fs.readSync;
-		readSync(0, this, 0, 1, null);
-		var byte = this[0];
-		while (byte != delimiter) {
-			result += String.fromCharCode(byte);
-			if (readSync(0, this, 0, 1, null) == 0)
-				break;
-			byte = this[0];
-		}
-		#end
-
-		return StringTools.rtrim(result);
-	}
-
 	public inline function strVec(length:Int):haxe.ds.Vector<String> {
 		final vec = new haxe.ds.Vector<String>(length);
 		for (i in 0...length)
@@ -116,31 +98,6 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		return vec;
 	}
 
-	public inline function floatVec(length:Int):haxe.ds.Vector<Float> {
-		final vec = new haxe.ds.Vector<Float>(length);
-		for (i in 0...length)
-			vec[i] = float();
-		return vec;
-	}
-
-	public inline function count(characterCode:Int):Int {
-		var foundCount = 0;
-		#if !macro
-		final readSync = js.node.Fs.readSync;
-		readSync(0, this, 0, 1, null);
-		var byte = this[0];
-		while (isNotWhiteSpace(byte)) {
-			if (byte == characterCode)
-				++foundCount;
-			if (readSync(0, this, 0, 1, null) == 0)
-				break;
-			final byte = this[0];
-		}
-		#end
-
-		return foundCount;
-	}
-
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		#if !macro
@@ -157,4 +114,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 
 		return result;
 	}
+
+	inline function buffer()
+		return this;
 }

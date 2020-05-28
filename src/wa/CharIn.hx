@@ -1,7 +1,6 @@
 package wa;
 
 import wa.Util;
-import wa.Delimiter;
 
 /**
 	Character input.
@@ -143,52 +142,6 @@ abstract CharIn(haxe.io.Input) {
 		for (i in 0...length)
 			vec[i] = uint();
 		return vec;
-	}
-
-	/**
-		Reads a sequence of `Float` values separated by any whitespace characters (SP, HL, CR or LF).
-		@see `strVec()` for notes.
-	**/
-	public inline function floatVec(length:Int):haxe.ds.Vector<Float> {
-		final vec = new haxe.ds.Vector<Float>(length);
-		for (i in 0...length)
-			vec[i] = float();
-		return vec;
-	}
-
-	/**
-		Reads until `delimiter`.
-	**/
-	public inline function until(delimiter:Delimiter):String {
-		var result = "";
-		try {
-			var byte = this.readByte();
-			while (byte != delimiter) {
-				result += String.fromCharCode(byte);
-				byte = this.readByte();
-			}
-		} catch (e:haxe.io.Eof) {}
-
-		return StringTools.rtrim(result);
-	}
-
-	/**
-		Reads a string separated by any whitespace character (SP, HL, CR or LF)
-		and counts the number of `characterCode`.
-	**/
-	public inline function count(characterCode:Int):Int {
-		var foundCount = 0;
-		try {
-			var byte = this.readByte();
-			while (isNotWhiteSpace(byte)) {
-				if (byte == characterCode)
-					++foundCount;
-
-				byte = this.readByte();
-			}
-		} catch (e:haxe.io.Eof) {}
-
-		return foundCount;
 	}
 
 	/**

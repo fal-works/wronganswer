@@ -69,13 +69,20 @@ class Ut {
 			result += integerPart + ".";
 			v -= integerPart;
 
-			for (i in 0...scale){
-					v *= 10.0;
-					result += Std.int(v);
-					v -= Std.int(v);
+			for (i in 0...scale) {
+				v *= 10.0;
+				result += Std.int(v);
+				v -= Std.int(v);
 			}
 		}
 
 		return result;
 	}
+
+	/**
+		Compares two strings in dictionary order.
+		@return Negative if `a` comes before `b`. `0` if equal.
+	**/
+	@:pure public static inline function compareString(a:String, b:String):Int
+		return if (a < b) -1 else if (a > b) 1 else 0;
 }

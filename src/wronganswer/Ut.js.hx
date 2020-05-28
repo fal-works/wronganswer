@@ -49,4 +49,7 @@ class Ut {
 
 		return result;
 	}
+
+	@:pure public static inline function compareString(a:String, b:String):Int
+		return if (a < b) -1 else if (a > b) 1 else 0;
 }

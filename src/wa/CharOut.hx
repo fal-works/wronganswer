@@ -8,7 +8,7 @@ import wa.StrBuf;
 	Use `print()` or `println()` to output the buffered data.
 **/
 @:forward
-abstract CharOut(StrBuf) {
+abstract CharOut(StrBuf) to StrBuf {
 	/**
 		@param capacity Used on Java target.
 	**/

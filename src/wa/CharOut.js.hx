@@ -3,7 +3,7 @@ package wa;
 import wa.StrBuf;
 
 @:forward
-abstract CharOut(StrBuf) {
+abstract CharOut(StrBuf) to StrBuf {
 	public inline function new(capacity = 1024) {
 		this = new StrBuf(capacity);
 	}

@@ -1,7 +1,7 @@
-package wronganswer;
+package wa;
 
-import wronganswer.Util;
-import wronganswer.Delimiter;
+import wa.Util;
+import wa.Delimiter;
 
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {

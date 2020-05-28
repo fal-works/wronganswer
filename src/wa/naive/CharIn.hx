@@ -1,6 +1,6 @@
-package wronganswer.naive;
+package wa.naive;
 
-import wronganswer.naive.Delimiter;
+import wa.naive.Delimiter;
 
 /**
 	Character input.

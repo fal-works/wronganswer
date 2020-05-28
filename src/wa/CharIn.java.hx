@@ -1,8 +1,8 @@
-package wronganswer;
+package wa;
 
-import wronganswer.Util;
-import wronganswer.StrBuf;
-import wronganswer.Delimiter;
+import wa.Util;
+import wa.StrBuf;
+import wa.Delimiter;
 
 abstract CharIn(haxe.io.Input) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end

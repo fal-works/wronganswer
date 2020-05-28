@@ -1,7 +1,7 @@
-package wronganswer;
+package wa;
 
-import wronganswer.Util;
-import wronganswer.Delimiter;
+import wa.Util;
+import wa.Delimiter;
 
 /**
 	Character input.

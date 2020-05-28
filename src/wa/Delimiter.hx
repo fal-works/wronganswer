@@ -1,4 +1,4 @@
-package wronganswer;
+package wa;
 
 /**
 	Character codes used as string delimiters.

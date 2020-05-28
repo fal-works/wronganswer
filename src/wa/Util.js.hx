@@ -1,4 +1,4 @@
-package wronganswer;
+package wa;
 
 class Util {
 	@:generic public static inline function print<T>(x:T):Void {

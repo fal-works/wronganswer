@@ -1,6 +1,6 @@
-package wronganswer;
+package wa;
 
-import wronganswer.StrBuf;
+import wa.StrBuf;
 
 @:forward
 abstract CharOut(StrBuf) {

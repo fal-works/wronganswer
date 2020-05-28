@@ -10,6 +10,11 @@ class Statics {
 	public static inline final libName = "wronganswer";
 
 	/**
+		The root package name.
+	**/
+	public static inline final rootPackage = "wa";
+
+	/**
 		The version of this library.
 	**/
 	public static inline final version = haxe.macro.Compiler.getDefine("wronganswer");

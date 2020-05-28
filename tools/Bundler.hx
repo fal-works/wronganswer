@@ -3,7 +3,7 @@ package tools;
 import sys.FileSystem;
 import sys.io.File;
 import tools.Statics.*;
-import wronganswer.Util;
+import wa.Util;
 
 using StringTools;
 
@@ -17,24 +17,24 @@ class Bundler {
 		Modules that can be resolved.
 	**/
 	static final resolvableModules:Map<String, ModuleDescription> = [
-		'$libName.*' => {
+		'$rootPackage.*' => {
 			priority: 0,
 			wildcard: ["CharIn", "CharOut", "Delimiter", "Util", "StrBuf", "Vec", "Bits", "Debug"]
 		},
-		'$libName.naive.*' => {
+		'$rootPackage.naive.*' => {
 			priority: 0,
 			wildcard: ["CharIn", "Delimiter"]
 		},
-		'$libName.CharIn' => {priority: 0},
-		'$libName.naive.CharIn' => {priority: 0},
-		'$libName.CharOut' => {priority: 1},
-		'$libName.Delimiter' => {priority: 2},
-		'$libName.naive.Delimiter' => {priority: 2},
-		'$libName.Util' => {priority: 10, usable: true},
-		'$libName.StrBuf' => {priority: 11},
-		'$libName.Vec' => {priority: 12, usable: true},
-		'$libName.Bits' => {priority: 13},
-		'$libName.Debug' => {priority: 100}
+		'$rootPackage.CharIn' => {priority: 0},
+		'$rootPackage.naive.CharIn' => {priority: 0},
+		'$rootPackage.CharOut' => {priority: 1},
+		'$rootPackage.Delimiter' => {priority: 2},
+		'$rootPackage.naive.Delimiter' => {priority: 2},
+		'$rootPackage.Util' => {priority: 10, usable: true},
+		'$rootPackage.StrBuf' => {priority: 11},
+		'$rootPackage.Vec' => {priority: 12, usable: true},
+		'$rootPackage.Bits' => {priority: 13},
+		'$rootPackage.Debug' => {priority: 100}
 	];
 
 	/**

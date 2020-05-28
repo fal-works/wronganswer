@@ -1,6 +1,6 @@
-package wronganswer;
+package wa;
 
-import wronganswer.StrBuf;
+import wa.StrBuf;
 
 class Util {
 	@:generic public static inline function print<T>(x:T):Void {

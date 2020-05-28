@@ -1,4 +1,4 @@
-package wronganswer;
+package wa;
 
 @:forward(length, toString)
 abstract StrBuf(#if macro Dynamic #else java.lang.StringBuilder #end)

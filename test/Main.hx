@@ -1,8 +1,8 @@
 import haxe.Int64;
 import haxe.Timer;
-import wronganswer.*;
-import wronganswer.naive.CharIn as NaiveCharIn;
-import wronganswer.naive.Delimiter;
+import wa.*;
+import wa.naive.CharIn as NaiveCharIn;
+import wa.naive.Delimiter;
 
 class Main {
 	static final testCaseNo = 5;

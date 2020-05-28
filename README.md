@@ -14,15 +14,17 @@ Supports following targets with the same API:
 
 ## Features
 
-- Standard input (`CharIn`)
-- Standard output (`CharOut`)
-- General utility (`Util`)
-- Vector operation (`Vec`)
-- Optimized string buffer (`StrBuf`)
-- Some other types (such as `Bits`)
-- Debug logger (`Debug`)
+- Standard input (`wa.CharIn`)
+- Standard output (`wa.CharOut`)
+- General utility (`wa.Util`)
+- Vector operation (`wa.Vec`)
+- Optimized string buffer (`wa.StrBuf`)
+- Some other types (such as `wa.Bits`)
+- Debug logger (`wa.Debug`)
 - Command for bundling wronganswer modules via import statements (`bundle`)
 - (More to be added. Maybe.)
+
+*Note: The package name is `wa`, not the same as the library name `wronganswer`.*
 
 ## Caveats
 
@@ -35,8 +37,8 @@ These provide optimized standard I/O.
 `CharOut` works as a string buffer. At the end of the program you have to call `print()`/`println()` explicitly.
 
 ```haxe
-import wronganswer.CharIn;
-import wronganswer.CharOut;
+import wa.CharIn;
+import wa.CharOut;
 
 class Main {
 	static function main() {
@@ -65,7 +67,7 @@ class Main {
 You can also use a minimal implementation of `CharIn` to avoid adding a lot of code when you submit.
 
 ```haxe
-import wronganswer.naive.CharIn;
+import wa.naive.CharIn;
 
 class Main {
 	static function main() {
@@ -82,7 +84,7 @@ class Main {
 
 ## Usage > `bundle` command
 
-In order to submit your code to a contest, you might have to bundle it to a single file i.e. remove import statements (e.g. `import wronganswer.CharIn;`) and append the actual implementation instead.
+In order to submit your code to a contest, you might have to bundle it to a single file i.e. remove import statements (e.g. `import wa.CharIn;`) and append the actual implementation instead.
 
 This can be automatically done with the command below:
 

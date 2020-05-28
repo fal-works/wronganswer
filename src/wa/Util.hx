@@ -1,4 +1,4 @@
-package wronganswer;
+package wa;
 
 /**
 	Utility static functions.

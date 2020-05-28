@@ -1,6 +1,6 @@
-package wronganswer.naive;
+package wa.naive;
 
-import wronganswer.naive.Delimiter;
+import wa.naive.Delimiter;
 
 abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 	public extern inline function new()

@@ -1,4 +1,4 @@
-package wronganswer.naive;
+package wa.naive;
 
 /**
 	Character codes used as string delimiters.

@@ -32,7 +32,7 @@ abstract CharIn(haxe.io.Input) {
 	public inline function char():String
 		return String.fromCharCode(byte());
 
-	public inline function token():String {
+	public inline function str():String {
 		final byteArray = CharIn.byteArray;
 		var index = 0;
 
@@ -71,12 +71,12 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	public inline function float():Float
-		return Util.atof(token());
+		return Util.atof(str());
 
-	public inline function tokenVec(length:Int):haxe.ds.Vector<String> {
+	public inline function strVec(length:Int):haxe.ds.Vector<String> {
 		final vec = new haxe.ds.Vector<String>(length);
 		for (i in 0...length)
-			vec[i] = token();
+			vec[i] = str();
 		return vec;
 	}
 

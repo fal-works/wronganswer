@@ -29,7 +29,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public inline function char():String
 		return String.fromCharCode(byte());
 
-	public inline function token():String {
+	public inline function str():String {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
@@ -70,7 +70,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	}
 
 	public inline function float():Float
-		return Util.atof(token());
+		return Util.atof(str());
 
 	public inline function until(delimiter:Delimiter):String {
 		var result = "";
@@ -89,10 +89,10 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		return StringTools.rtrim(result);
 	}
 
-	public inline function tokenVec(length:Int):haxe.ds.Vector<String> {
+	public inline function strVec(length:Int):haxe.ds.Vector<String> {
 		final vec = new haxe.ds.Vector<String>(length);
 		for (i in 0...length)
-			vec[i] = token();
+			vec[i] = str();
 		return vec;
 	}
 

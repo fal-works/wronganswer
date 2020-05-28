@@ -45,7 +45,7 @@ class Main {
 		final inputBufferCapacity = 32;
 		final cin = new CharIn(inputBufferCapacity);
 
-		final strVal = cin.token(); // Reads until next whitespace
+		final strVal = cin.str(); // Reads until next whitespace
 		final intVal = cin.int(); // Ditto + casts to Int
 		final strVal2 = cin.until(LF); // Reads until next LF
 

@@ -49,7 +49,7 @@ abstract CharIn(haxe.io.Input) {
 	/**
 		Reads a string separated by any whitespace character (SP, HL, CR or LF).
 	**/
-	public inline function token():String {
+	public inline function str():String {
 		var result = "";
 		try {
 			var byte = this.readByte();
@@ -92,7 +92,7 @@ abstract CharIn(haxe.io.Input) {
 		Reads a `Float` value.
 	**/
 	public inline function float():Float
-		return Util.atof(token());
+		return Util.atof(str());
 
 	/**
 		Reads a sequence of `String` values separated by any whitespace characters (SP, HL, CR or LF).
@@ -102,10 +102,10 @@ abstract CharIn(haxe.io.Input) {
 		  On JS target there might be some tradeoffs here.
 		- On Java target, `Vector` cannot be directly converted to `String`.
 	**/
-	public inline function tokenVec(length:Int):haxe.ds.Vector<String> {
+	public inline function strVec(length:Int):haxe.ds.Vector<String> {
 		final vec = new haxe.ds.Vector<String>(length);
 		for (i in 0...length)
-			vec[i] = token();
+			vec[i] = str();
 		return vec;
 	}
 

@@ -12,11 +12,8 @@ abstract CharIn(haxe.io.Input) {
 		#end
 	}
 
-	public inline function byte():Int
-		return this.readByte();
-
 	public inline function char():Char
-		return byte();
+		return this.readByte();
 
 	public inline function str():String {
 		final byteArray = CharIn.byteArray;

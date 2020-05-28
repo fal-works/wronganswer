@@ -6,11 +6,8 @@ abstract CharIn(haxe.io.Input) {
 	public extern inline function new()
 		this = Sys.stdin();
 
-	public inline function byte()
-		return this.readByte();
-
 	public inline function char():Char
-		return byte();
+		return this.readByte();
 
 	public inline function str() {
 		final buffer = new haxe.io.BytesBuffer();

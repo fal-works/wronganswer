@@ -13,16 +13,10 @@ abstract CharIn(haxe.io.Input) {
 		this = Sys.stdin();
 
 	/**
-		Reads 1 byte.
-	**/
-	public inline function byte():Int
-		return this.readByte();
-
-	/**
-		Reads 1 ASCII character.
+		Reads 1 byte ASCII character.
 	**/
 	public inline function char():Char
-		return byte();
+		return this.readByte();
 
 	/**
 		Reads a string separated by any whitespace character (SP, HL, CR or LF).

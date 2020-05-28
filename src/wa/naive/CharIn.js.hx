@@ -6,15 +6,12 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 	public extern inline function new()
 		this = #if macro cast null; #else js.node.Buffer.alloc(1); #end
 
-	public inline function byte() {
+	public inline function char():Char {
 		#if !macro
 		js.node.Fs.readSync(0, this, 0, 1, null);
 		#end
 		return this[0];
 	}
-
-	public inline function char():Char
-		return byte();
 
 	public inline function str() {
 		var result = "";

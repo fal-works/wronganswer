@@ -103,6 +103,13 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		return vec;
 	}
 
+	public inline function uintVec(length:Int):haxe.ds.Vector<Int> {
+		final vec = new haxe.ds.Vector<Int>(length);
+		for (i in 0...length)
+			vec[i] = uint();
+		return vec;
+	}
+
 	public inline function floatVec(length:Int):haxe.ds.Vector<Float> {
 		final vec = new haxe.ds.Vector<Float>(length);
 		for (i in 0...length)

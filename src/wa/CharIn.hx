@@ -125,6 +125,18 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	/**
+		Reads a sequence of `Int` values (assuming unsigned)
+		separated by any whitespace characters (SP, HL, CR or LF).
+		@see `strVec()` for notes.
+	**/
+	public inline function uintVec(length:Int):haxe.ds.Vector<Int> {
+		final vec = new haxe.ds.Vector<Int>(length);
+		for (i in 0...length)
+			vec[i] = uint();
+		return vec;
+	}
+
+	/**
 		Reads a sequence of `Float` values separated by any whitespace characters (SP, HL, CR or LF).
 
 		Note:

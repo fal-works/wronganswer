@@ -34,5 +34,5 @@ class Util {
 	}
 
 	@:pure public static inline function compareString(a:String, b:String):Int
-		return if (a < b) -1 else if (a > b) 1 else 0;
+		return if (a < b) -1 else if (b < a) 1 else 0;
 }

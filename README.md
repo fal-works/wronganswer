@@ -118,5 +118,4 @@ The above will display a list of import statements that can be resolved.
 
 - As you can see by the `help` command, this works only for wronganswer modules!
 - Also avoid importing particular functions/variables directly.
-- `using` statements are not yet supported.
 - Make sure that the emitted code is working properly before submitting it.

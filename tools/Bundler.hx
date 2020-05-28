@@ -30,9 +30,9 @@ class Bundler {
 		'$libName.CharOut' => {priority: 1},
 		'$libName.Delimiter' => {priority: 2},
 		'$libName.naive.Delimiter' => {priority: 2},
-		'$libName.Util' => {priority: 10},
+		'$libName.Util' => {priority: 10, usable: true},
 		'$libName.StringBuffer' => {priority: 11},
-		'$libName.Vec' => {priority: 12},
+		'$libName.Vec' => {priority: 12, usable: true},
 		'$libName.Bits' => {priority: 13},
 		'$libName.Debug' => {priority: 100}
 	];
@@ -94,20 +94,28 @@ class Bundler {
 	static function run(mainFilePath:String, target:Target) {
 		final mainCode = readFile(mainFilePath);
 
-		final buffer:CodeBuffer = {codeBlocks: [], modules: []};
-		final processedMainCode = processCode(mainCode, buffer, target, true).trim();
+		final buffer:CodeBuffer = {codeBlocks: [], modules: [], usingModules: []};
+		final processedMainCode = processCode(mainCode, buffer, target, true);
 
-		final bundlingCode = buildFromBuffer(buffer);
-		if (bundlingCode.length == 0) {
+		final resultCode = buildResultCode(moduleFromPath(mainFilePath), processedMainCode, buffer);
+		if (resultCode.length == 0) {
 			Sys.println("Found no code to be replaced.");
 			return;
 		}
 
-		final resultCode = '$processedMainCode\n\n\n$bundlingCode\n';
 		final newFilePath = mainFilePath.replace(".hx", "") + ".bundle.hx";
 		createFile(newFilePath, resultCode);
 		Sys.println('Create file: $newFilePath');
 		Sys.println("Completed.");
+	}
+
+	/**
+		Extracts the module name from `filePath`.
+	**/
+	static function moduleFromPath(filePath:String) {
+		final lastSlashPosition = Util.imax(filePath.lastIndexOf("/"), filePath.lastIndexOf("\\"));
+		final fileName = filePath.substr(lastSlashPosition + 1);
+		return fileName.substr(0, fileName.indexOf("."));
 	}
 
 	/**
@@ -123,6 +131,18 @@ class Bundler {
 				code = processImport(code, module, buffer, target, main);
 			} else {
 				final matchedPos = RegExps.importer.matchedPos();
+				currentPosition = matchedPos.pos + matchedPos.len;
+			}
+		}
+
+		currentPosition = 0;
+		while (RegExps.user.matchSub(code, currentPosition)) {
+			final module = RegExps.user.matched(1);
+
+			if (resolvableModules.exists(module) && resolvableModules.get(module).usable) {
+				code = processUsing(code, module, buffer, target, main);
+			} else {
+				final matchedPos = RegExps.user.matchedPos();
 				currentPosition = matchedPos.pos + matchedPos.len;
 			}
 		}
@@ -164,9 +184,37 @@ class Bundler {
 	}
 
 	/**
-		Sorts and joins all code blocks in `buffer` with a banner comment appended.
+		Removes the using statement for `module` from `code`
+		and also calls `processImport()` if not yet called on `module`.
 	**/
-	static function buildFromBuffer(buffer:CodeBuffer) {
+	static function processUsing(code:String, module:String, buffer:CodeBuffer, target:Target, main:Bool) {
+		code = RegExps.user.replace(code, "");
+
+		final usingModules = buffer.usingModules;
+		if (usingModules.exists(module)) // already registered
+			return code;
+
+		if (main)
+			Sys.println('Replacing: using $module;');
+		usingModules.set(module, true);
+
+		final bundlingModules = buffer.modules;
+		if (!bundlingModules.exists(module))
+			code = processImport(code, module, buffer, target, false);
+
+		return code;
+	}
+
+	/**
+		Build bundled code from `buffer` and `mainCode`.
+		@param mainCode The main code with `import`/`using` statements removed.
+	**/
+	static function buildResultCode(mainModule:String, mainCode:String, buffer:CodeBuffer) {
+		final usingCode = [
+			for (module in buffer.usingModules.keys())
+				module
+		].map(module -> 'using $mainModule.${module.substr(module.indexOf(".") + 1)};').join("\n");
+
 		final codeBlocks = buffer.codeBlocks;
 		if (codeBlocks.length == 0)
 			return "";
@@ -174,7 +222,7 @@ class Bundler {
 		codeBlocks.sort((blockA, blockB) -> blockA.priority - blockB.priority);
 		final joinedCode = codeBlocks.map(block -> block.code.trim()).join("\n\n");
 
-		return '$bannerComment\n\n$joinedCode';
+		return '$usingCode\n\n${mainCode.trim()}\n\n\n$bannerComment\n\n$joinedCode\n';
 	}
 
 	/**
@@ -192,10 +240,17 @@ class Bundler {
 	**/
 	static function showResolvableModules() {
 		Sys.println("statements that can be resolved:");
+
 		final modules = [for (module in resolvableModules.keys()) module];
 		modules.sort(Util.compareString);
 		for (module in modules)
 			Sys.println('  import $module;');
+
+		final usableModules = [for (module => desc in resolvableModules.keyValueIterator()) if (desc.usable) module];
+		usableModules.sort(Util.compareString);
+		for (module in usableModules)
+			Sys.println('  using $module;');
+
 		Sys.println("");
 	}
 
@@ -276,6 +331,12 @@ class RegExps {
 		After matched, the module can be extracted by `importer.matched(1)`.
 	**/
 	public static final importer = new EReg('import\\s+(.+)\\s*;', "i");
+
+	/**
+		Regular expression for matching any using statement.
+		After matched, the module can be extracted by `user.matched(1)`.
+	**/
+	public static final user = new EReg('using\\s+(.+)\\s*;', "i");
 }
 
 /**
@@ -293,6 +354,7 @@ enum abstract Target(String) {
 typedef ModuleDescription = {
 	final priority:Int;
 	final ?wildcard:Array<String>;
+	final ?usable:Bool;
 }
 
 /**
@@ -301,6 +363,7 @@ typedef ModuleDescription = {
 typedef CodeBuffer = {
 	final codeBlocks:Array<CodeBlock>;
 	final modules:Map<String, Bool>;
+	final usingModules:Map<String, Bool>;
 };
 
 /**

@@ -64,18 +64,17 @@ class Main {
 
 ## Usage > naive `CharIn`
 
-You can also use a minimal implementation of `CharIn` to avoid adding a lot of code when you submit.
+You can also use a minimal (but not quite optimized) implementation of `CharIn` to reduce code to be appended when you submit.
 
 ```haxe
 import wa.naive.CharIn;
-import wa.Whitespace; // Includes character codes such as LF, SP
 
 class Main {
 	static function main() {
 		final cin = new CharIn();
 
-		final strVal = cin.str(SP); // Reads until next SP
-		final intVal = cin.int(LF); // Reads until next LF and casts to Int
+		final strVal = cin.str(); // Reads until next whiespace
+		final intVal = cin.int(); // Ditto
 
 		Sys.println('$strVal $intVal');
 	}

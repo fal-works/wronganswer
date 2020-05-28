@@ -65,11 +65,11 @@ class Main {
 	static function naiveInputUnitTests() {
 		println("\n[naive input unit tests]");
 		final cin = new NaiveCharIn();
-		println('count: ${cin.int(LF)}');
-		println('string: ${cin.str(LF)}');
-		println('float: ${Std.parseFloat(cin.str(LF))}');
-		println('zero: ${cin.int(SP)}');
-		println('one: ${cin.int(LF)}');
+		println('count: ${cin.int()}');
+		println('string: ${cin.str()}');
+		println('float: ${Std.parseFloat(cin.str())}');
+		println('zero: ${cin.int()}');
+		println('one: ${cin.int()}');
 	}
 
 	static function outputUnitTests() {

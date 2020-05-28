@@ -12,7 +12,21 @@ abstract CharIn(haxe.io.Input) {
 	public inline function char():Char
 		return byte();
 
-	public inline function str(delimiter:Char) {
+	public inline function str() {
+		final buffer = new haxe.io.BytesBuffer();
+		try {
+			var character:Char;
+			while ((character = char()).isNotWhiteSpace())
+				buffer.addByte(character);
+		} catch (e:haxe.io.Eof) {}
+
+		return buffer.getBytes().toString();
+	}
+
+	public inline function int():Int
+		return Std.parseInt(str());
+
+	public inline function until(delimiter:Char) {
 		final buffer = new haxe.io.BytesBuffer();
 		try {
 			var character:Char;
@@ -22,7 +36,4 @@ abstract CharIn(haxe.io.Input) {
 
 		return buffer.getBytes().toString();
 	}
-
-	public inline function int(delimiter:Char):Int
-		return Std.parseInt(str(delimiter));
 }

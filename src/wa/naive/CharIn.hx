@@ -1,5 +1,7 @@
 package wa.naive;
 
+import wa.Char;
+
 /**
 	Character input.
 **/

@@ -1,5 +1,7 @@
 package wa;
 
+import wa.Char;
+
 /**
 	Character codes used as string delimiters.
 **/

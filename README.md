@@ -14,13 +14,12 @@ Supports following targets with the same API:
 
 ## Features
 
-- Standard input (`wa.CharIn`)
+- Standard input (`wa.CharIn`, `wa.CharIns`)
 - Standard output (`wa.CharOut`)
-- General utility (`wa.Util`)
-- Float utility (`wa.Floats`)
-- Optimized string buffer (`wa.StrBuf`, `wa.StrBufs`)
+- General utility classes (`wa.Printer, Calc, Strs, Floats`)
+- String buffer (`wa.StrBuf`, `wa.StrBufs`)
 - Vector operation (`wa.Vecs`)
-- Some other types (such as `wa.Bits`)
+- Some other types (e.g. `wa.Bits`)
 - Debug logger (`wa.Debug`)
 - Command for bundling wronganswer modules via import statements (`bundle`)
 - (More to be added. Maybe.)
@@ -69,6 +68,7 @@ You can also use a minimal implementation of `CharIn` to avoid adding a lot of c
 
 ```haxe
 import wa.naive.CharIn;
+import wa.Delimiter; // Includes character codes LF, SP
 
 class Main {
 	static function main() {
@@ -117,8 +117,5 @@ haxelib run wronganswer bundle help
 
 The above will display a list of import statements that can be resolved.
 
-### Caveats
-
-- As you can see by the `help` command, this works only for wronganswer modules!
-- Also avoid importing particular functions/variables directly.
+- As you can see by the `help` command, `bundle` works only with module-level imports of wronganswer modules.
 - Make sure that the emitted code is working properly before submitting it.

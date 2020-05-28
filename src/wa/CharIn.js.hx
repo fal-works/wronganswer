@@ -72,7 +72,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public inline function float():Float
 		return Util.atof(token());
 
-	public inline function str(delimiter:Delimiter):String {
+	public inline function until(delimiter:Delimiter):String {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;

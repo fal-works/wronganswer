@@ -34,7 +34,7 @@ class Main {
 		Sys.println("\n[input unit tests]");
 		final cin = new CharIn(32);
 		Sys.println('count: ${cin.uint()}');
-		Sys.println('string: ${cin.str(LF)}');
+		Sys.println('string: ${cin.until(LF)}');
 		Sys.println('float: ${cin.float()}');
 		Sys.println('zero: ${cin.int()}');
 		Sys.println('one: ${cin.int()}');
@@ -47,7 +47,7 @@ class Main {
 			final cin = new CharIn(32);
 			final count = cin.uint();
 			Sys.println('count: $count');
-			Sys.println('string: ${cin.str(LF)}');
+			Sys.println('string: ${cin.until(LF)}');
 			Sys.println('float: ${cin.float()}');
 			var lastNumber = 0;
 			for (i in 0...count) {

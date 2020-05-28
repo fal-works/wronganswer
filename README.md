@@ -47,7 +47,7 @@ class Main {
 
 		final strVal = cin.token(); // Reads until next whitespace
 		final intVal = cin.int(); // Ditto + casts to Int
-		final strVal2 = cin.str(LF); // Reads until next LF
+		final strVal2 = cin.until(LF); // Reads until next LF
 
 		final outputBufferCapacity = 32;
 		final cout = new CharOut(outputBufferCapacity);

@@ -94,7 +94,7 @@ abstract CharIn(haxe.io.Input) {
 		return vec;
 	}
 
-	public inline function str(delimiter:Delimiter):String {
+	public inline function until(delimiter:Delimiter):String {
 		final byteArray = CharIn.byteArray;
 		var index = 0;
 

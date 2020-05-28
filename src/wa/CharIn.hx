@@ -142,7 +142,7 @@ abstract CharIn(haxe.io.Input) {
 	/**
 		Reads until `delimiter`.
 	**/
-	public inline function str(delimiter:Delimiter):String {
+	public inline function until(delimiter:Delimiter):String {
 		var result = "";
 		try {
 			var byte = this.readByte();

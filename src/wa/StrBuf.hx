@@ -53,6 +53,36 @@ abstract StrBuf(StringBuf) from StringBuf {
 	public inline function space():StrBuf
 		return char(" ".code);
 
+	/**
+		Appends all values from `vec`.
+		@param separator Character code to be inserted between elements.
+		@param delimiterString String to be appended at the end.
+	**/
+	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Int, delimiterString:String):StrBuf {
+		str(vec[0]);
+		for (i in 1...vec.length) {
+			char(separator);
+			str(vec[i]);
+		}
+		str(delimiterString);
+		return this;
+	}
+
+	/**
+		Appends all values from `vec`.
+		@param separator Character code to be inserted between elements.
+		@param delimiterString String to be appended at the end.
+	**/
+	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Int, delimiterString:String):StrBuf {
+		int(vec[0]);
+		for (i in 1...vec.length) {
+			char(separator);
+			int(vec[i]);
+		}
+		str(delimiterString);
+		return this;
+	}
+
 	inline function addDynamic(v:Dynamic):StrBuf {
 		this.add(v);
 		return this;

@@ -29,4 +29,24 @@ abstract StrBuf(#if macro Dynamic #else java.lang.StringBuilder #end)
 
 	public inline function space():StrBuf
 		return char(" ".code);
+
+	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Int, delimiterString:String):StrBuf {
+		str(vec[0]);
+		for (i in 1...vec.length) {
+			char(separator);
+			str(vec[i]);
+		}
+		str(delimiterString);
+		return this;
+	}
+
+	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Int, delimiterString:String):StrBuf {
+		int(vec[0]);
+		for (i in 1...vec.length) {
+			char(separator);
+			int(vec[i]);
+		}
+		str(delimiterString);
+		return this;
+	}
 }

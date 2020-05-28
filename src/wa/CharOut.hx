@@ -1,6 +1,7 @@
 package wa;
 
 import wa.StrBuf;
+import wa.Printer;
 
 /**
 	Buffered character output based on `StrBuf`.
@@ -20,11 +21,11 @@ abstract CharOut(StrBuf) to StrBuf {
 		Prints the buffered string.
 	**/
 	public inline function print():Void
-		Sys.print(this.toString());
+		Printer.print(this.toString());
 
 	/**
 		Prints the buffered string with CR and/or LF.
 	**/
 	public inline function println():Void
-		Sys.println(this.toString());
+		Printer.println(this.toString());
 }

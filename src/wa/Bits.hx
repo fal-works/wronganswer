@@ -1,6 +1,12 @@
 package wa;
 
+/**
+	Bit array based on `Int`.
+**/
 abstract Bits(Int) from Int to Int {
+	/**
+		Casts from `Int` explicitly.
+	**/
 	public static inline function from(v:Int):Bits
 		return v;
 
@@ -22,18 +28,32 @@ abstract Bits(Int) from Int to Int {
 
 	@:op(~A) static function negate(a:Bits):Bits;
 
-	@:op([]) public inline function get(index:Int):Bool {
-		return this & (1 << index) != 0;
-	}
-
+	/**
+		Sets the bit at `index`.
+		@return New `Bits` value.
+	**/
 	public static inline function set(bits:Bits, index:Int):Bits {
 		return bits | (1 << index);
 	}
 
+	/**
+		Unsets the bit at `index`.
+		@return New `Bits` value.
+	**/
 	public static inline function unset(bits:Bits, index:Int):Bits {
 		return bits & ~(1 << index);
 	}
 
+	/**
+		@return `true` if the bit at `index` is set.
+	**/
+	@:op([]) public inline function get(index:Int):Bool {
+		return this & (1 << index) != 0;
+	}
+
+	/**
+		@return Number of bits that are set to `true` (or binary `1`).
+	**/
 	public inline function countOnes():Int {
 		var n = this;
 		n = n - ((n >>> 1) & 0x55555555);
@@ -42,6 +62,9 @@ abstract Bits(Int) from Int to Int {
 		return n;
 	}
 
+	/**
+		@return Number of trailing `0`.
+	**/
 	public inline function trailingZeros():Int {
 		var n = this;
 		var count = 0;
@@ -52,6 +75,9 @@ abstract Bits(Int) from Int to Int {
 		return count;
 	}
 
+	/**
+		@return Number of trailing `1`.
+	**/
 	public inline function trailingOnes():Int {
 		var n = this;
 		var count = 0;
@@ -62,6 +88,9 @@ abstract Bits(Int) from Int to Int {
 		return count;
 	}
 
+	/**
+		Converts `this` to a vector of `Bool` values.
+	**/
 	public inline function toBoolVec(length:Int):haxe.ds.Vector<Bool> {
 		final vec = new haxe.ds.Vector(length);
 		var bitMask = 1;
@@ -72,6 +101,9 @@ abstract Bits(Int) from Int to Int {
 		return vec;
 	}
 
+	/**
+		Runs `callback` for each bit (either `true` or `false`).
+	**/
 	public inline function forEachBit(callback:(flag:Bool) -> Void, length:Int):Void {
 		var bitMask = 1;
 		for (i in 0...length) {
@@ -80,6 +112,10 @@ abstract Bits(Int) from Int to Int {
 		}
 	}
 
+	/**
+		Runs `callback` for each bit (either `true` or `false`)
+		in reversed order i.e. from left to right in a string representation.
+	**/
 	public inline function forEachBitReversed(callback:(flag:Bool) -> Void, length:Int):Void {
 		var bitMask = 1 << (length - 1);
 		for (i in 0...length) {

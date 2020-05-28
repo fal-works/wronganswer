@@ -1,6 +1,7 @@
 package wa;
 
 import wa.CharIn;
+import wa.Chars;
 import wa.Floats;
 
 class CharIns {
@@ -41,7 +42,7 @@ class CharIns {
 
 		readSync(0, buffer, 0, 1, null);
 		var byte = buffer[0];
-		while (@:privateAccess CharIn.isNotWhiteSpace(byte)) {
+		while (Chars.isNotWhiteSpace(byte)) {
 			if (byte == characterCode)
 				++foundCount;
 			if (readSync(0, buffer, 0, 1, null) == 0)

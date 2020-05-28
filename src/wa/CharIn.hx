@@ -1,18 +1,11 @@
 package wa;
 
+import wa.Chars;
+
 /**
 	Character input.
 **/
 abstract CharIn(haxe.io.Input) {
-	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {
-		return switch characterCode {
-			case " ".code | "\t".code | "\n".code | "\r".code:
-				false;
-			default:
-				true;
-		}
-	}
-
 	/**
 		@param bufferCapacity Used on Java target.
 	**/
@@ -50,7 +43,7 @@ abstract CharIn(haxe.io.Input) {
 		var result = "";
 		try {
 			var byte = this.readByte();
-			while (isNotWhiteSpace(byte)) {
+			while (Chars.isNotWhiteSpace(byte)) {
 				result += String.fromCharCode(byte);
 				byte = this.readByte();
 			}
@@ -71,7 +64,7 @@ abstract CharIn(haxe.io.Input) {
 				negative = true;
 				byte = this.readByte();
 			}
-			while (isNotWhiteSpace(byte)) {
+			while (Chars.isNotWhiteSpace(byte)) {
 				final digit = byte - "0".code;
 				#if debug
 				if (digit < 0 || 10 <= digit)
@@ -144,7 +137,7 @@ abstract CharIn(haxe.io.Input) {
 		var result = 0;
 		try {
 			var byte = this.readByte();
-			while (isNotWhiteSpace(byte)) {
+			while (Chars.isNotWhiteSpace(byte)) {
 				final digit = byte - "0".code;
 				#if debug
 				if (digit < 0 || radix <= digit)

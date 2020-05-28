@@ -1,16 +1,9 @@
 package wa;
 
+import wa.Chars;
+
 abstract CharIn(haxe.io.Input) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
-
-	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {
-		return switch characterCode {
-			case " ".code | "\t".code | "\n".code | "\r".code:
-				false;
-			default:
-				true;
-		}
-	}
 
 	public extern inline function new(bufferCapacity:Int) {
 		this = Sys.stdin();
@@ -34,7 +27,7 @@ abstract CharIn(haxe.io.Input) {
 
 		try {
 			var byte = this.readByte();
-			while (isNotWhiteSpace(byte)) {
+			while (Chars.isNotWhiteSpace(byte)) {
 				byteArray[index] = byte;
 				++index;
 				byte = this.readByte();
@@ -57,7 +50,7 @@ abstract CharIn(haxe.io.Input) {
 				negative = true;
 				byte = this.readByte();
 			}
-			while (isNotWhiteSpace(byte)) {
+			while (Chars.isNotWhiteSpace(byte)) {
 				result = 10 * result + byte - "0".code;
 				byte = this.readByte();
 			}
@@ -97,7 +90,7 @@ abstract CharIn(haxe.io.Input) {
 		var result = 0;
 		try {
 			var byte = this.readByte();
-			while (isNotWhiteSpace(byte)) {
+			while (Chars.isNotWhiteSpace(byte)) {
 				result = radix * result + byte - "0".code;
 				byte = this.readByte();
 			}

@@ -1,15 +1,8 @@
 package wa;
 
-abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
-	@:pure static inline function isNotWhiteSpace(characterCode:Int):Bool {
-		return switch characterCode {
-			case " ".code | "\t".code | "\n".code | "\r".code:
-				false;
-			default:
-				true;
-		}
-	}
+import wa.Chars;
 
+abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public extern inline function new(bufferCapacity:Int)
 		this = #if macro null; #else js.node.Buffer.alloc(1); #end
 
@@ -32,7 +25,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
 		var byte = this[0];
-		while (isNotWhiteSpace(byte)) {
+		while (Chars.isNotWhiteSpace(byte)) {
 			result += String.fromCharCode(byte);
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
@@ -55,7 +48,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 			readSync(0, this, 0, 1, null);
 			byte = this[0];
 		}
-		while (isNotWhiteSpace(byte)) {
+		while (Chars.isNotWhiteSpace(byte)) {
 			result = 10 * result + byte - "0".code;
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
@@ -99,7 +92,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
 		var byte = this[0];
-		while (isNotWhiteSpace(byte)) {
+		while (Chars.isNotWhiteSpace(byte)) {
 			result = radix * result + byte - "0".code;
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;

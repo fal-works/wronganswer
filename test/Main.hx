@@ -2,7 +2,7 @@ import haxe.Int64;
 import haxe.Timer;
 import wa.*;
 import wa.naive.CharIn as NaiveCharIn;
-import wa.Delimiter;
+import wa.Whitespace;
 import wa.Printer.*;
 
 using wa.CharIns;

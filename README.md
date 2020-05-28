@@ -68,7 +68,7 @@ You can also use a minimal implementation of `CharIn` to avoid adding a lot of c
 
 ```haxe
 import wa.naive.CharIn;
-import wa.Delimiter; // Includes character codes LF, SP
+import wa.Whitespace; // Includes character codes such as LF, SP
 
 class Main {
 	static function main() {

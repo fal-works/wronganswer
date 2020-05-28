@@ -1,7 +1,5 @@
 package wa;
 
-import wa.StrBuf;
-
 class Util {
 	@:generic public static inline function print<T>(x:T):Void {
 		#if !macro

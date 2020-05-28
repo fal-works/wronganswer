@@ -1,18 +1,6 @@
 package wa;
 
 class Util {
-	@:generic public static inline function print<T>(x:T):Void {
-		#if !macro
-		untyped __java__("java.lang.System.out.print({0});", x);
-		#end
-	}
-
-	@:generic public static inline function println<T>(x:T):Void {
-		#if !macro
-		untyped __java__("java.lang.System.out.println({0});", x);
-		#end
-	}
-
 	@:pure @:noUsing public static inline function imin(a:Int, b:Int):Int
 		return if (a < b) a else b;
 

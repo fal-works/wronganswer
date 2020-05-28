@@ -1,19 +1,6 @@
 package wa;
 
 class Util {
-	@:generic public static inline function print<T>(x:T):Void {
-		#if !macro
-		js.Node.process.stdout.write("" + x);
-		#end
-	}
-
-	@:generic public static inline function println<T>(x:T):Void {
-		#if !macro
-		js.Node.process.stdout.write("" + x);
-		js.Node.process.stdout.write("\n");
-		#end
-	}
-
 	@:pure @:noUsing public static inline function imin(a:Int, b:Int):Int
 		return if (a < b) a else b;
 

@@ -9,7 +9,7 @@ class Main {
 	static final testCaseNo = 0;
 
 	static function main() {
-		Util.println("Start test.");
+		Printer.println("Start test.");
 		Debug.log("This is a debug message.");
 
 		switch testCaseNo {

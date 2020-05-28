@@ -26,14 +26,13 @@ class Bundler {
 		},
 		'$rootPackage.naive.*' => {
 			priority: 0,
-			wildcard: ["CharIn", "Delimiter"]
+			wildcard: ["CharIn"]
 		},
 		'$rootPackage.CharIn' => {priority: 0},
 		'$rootPackage.naive.CharIn' => {priority: 0},
 		'$rootPackage.CharIns' => {priority: 1},
 		'$rootPackage.CharOut' => {priority: 2},
 		'$rootPackage.Delimiter' => {priority: 3},
-		'$rootPackage.naive.Delimiter' => {priority: 3},
 		'$rootPackage.Printer' => {priority: 4, usable: true},
 		'$rootPackage.Calc' => {priority: 10, usable: true},
 		'$rootPackage.Strs' => {priority: 11, usable: true},

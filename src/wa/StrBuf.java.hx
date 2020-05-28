@@ -10,7 +10,7 @@ abstract StrBuf(#if macro Dynamic #else java.lang.StringBuilder #end)
 	}
 
 	public inline function str(s:String):StrBuf
-		return this.append(s);
+		return untyped __java__("{0}.append({1})", this, s);
 
 	public inline function int(v:Int):StrBuf
 		return this.append(v);

@@ -162,12 +162,13 @@ class Bundler {
 	static function processImport(code:String, module:String, buffer:CodeBuffer, target:Target, main:Bool) {
 		code = RegExps.importer.replace(code, "");
 
+		if (main)
+			Sys.println('Replacing: import $module;');
+
 		final bundlingModules = buffer.modules;
 		if (bundlingModules.exists(module)) // already registered
 			return code;
 
-		if (main)
-			Sys.println('Replacing: import $module;');
 		bundlingModules.set(module, true);
 
 		final wildcard = resolvableModules.get(module).wildcard;
@@ -195,12 +196,13 @@ class Bundler {
 	static function processUsing(code:String, module:String, buffer:CodeBuffer, target:Target, main:Bool) {
 		code = RegExps.user.replace(code, "");
 
+		if (main)
+			Sys.println('Replacing: using $module;');
+
 		final usingModules = buffer.usingModules;
 		if (usingModules.exists(module)) // already registered
 			return code;
 
-		if (main)
-			Sys.println('Replacing: using $module;');
 		usingModules.set(module, true);
 
 		final bundlingModules = buffer.modules;

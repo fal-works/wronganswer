@@ -1,6 +1,6 @@
 package wa;
 
-import wa.Chars;
+import wa.Char;
 
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public extern inline function new(bufferCapacity:Int)
@@ -25,7 +25,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
 		var byte = this[0];
-		while (Chars.isNotWhiteSpace(byte)) {
+		while (Char.isNotWhiteSpace(byte)) {
 			result += String.fromCharCode(byte);
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
@@ -48,7 +48,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 			readSync(0, this, 0, 1, null);
 			byte = this[0];
 		}
-		while (Chars.isNotWhiteSpace(byte)) {
+		while (Char.isNotWhiteSpace(byte)) {
 			result = 10 * result + byte - "0".code;
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
@@ -92,7 +92,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
 		var byte = this[0];
-		while (Chars.isNotWhiteSpace(byte)) {
+		while (Char.isNotWhiteSpace(byte)) {
 			result = radix * result + byte - "0".code;
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;

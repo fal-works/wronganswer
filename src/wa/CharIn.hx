@@ -1,6 +1,6 @@
 package wa;
 
-import wa.Chars;
+import wa.Char;
 
 /**
 	Character input.
@@ -43,7 +43,7 @@ abstract CharIn(haxe.io.Input) {
 		var result = "";
 		try {
 			var byte = this.readByte();
-			while (Chars.isNotWhiteSpace(byte)) {
+			while (Char.isNotWhiteSpace(byte)) {
 				result += String.fromCharCode(byte);
 				byte = this.readByte();
 			}
@@ -64,7 +64,7 @@ abstract CharIn(haxe.io.Input) {
 				negative = true;
 				byte = this.readByte();
 			}
-			while (Chars.isNotWhiteSpace(byte)) {
+			while (Char.isNotWhiteSpace(byte)) {
 				final digit = byte - "0".code;
 				#if debug
 				if (digit < 0 || 10 <= digit)
@@ -137,7 +137,7 @@ abstract CharIn(haxe.io.Input) {
 		var result = 0;
 		try {
 			var byte = this.readByte();
-			while (Chars.isNotWhiteSpace(byte)) {
+			while (Char.isNotWhiteSpace(byte)) {
 				final digit = byte - "0".code;
 				#if debug
 				if (digit < 0 || radix <= digit)

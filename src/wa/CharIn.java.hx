@@ -1,6 +1,6 @@
 package wa;
 
-import wa.Chars;
+import wa.Char;
 
 abstract CharIn(haxe.io.Input) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
@@ -27,7 +27,7 @@ abstract CharIn(haxe.io.Input) {
 
 		try {
 			var byte = this.readByte();
-			while (Chars.isNotWhiteSpace(byte)) {
+			while (Char.isNotWhiteSpace(byte)) {
 				byteArray[index] = byte;
 				++index;
 				byte = this.readByte();
@@ -50,7 +50,7 @@ abstract CharIn(haxe.io.Input) {
 				negative = true;
 				byte = this.readByte();
 			}
-			while (Chars.isNotWhiteSpace(byte)) {
+			while (Char.isNotWhiteSpace(byte)) {
 				result = 10 * result + byte - "0".code;
 				byte = this.readByte();
 			}
@@ -90,7 +90,7 @@ abstract CharIn(haxe.io.Input) {
 		var result = 0;
 		try {
 			var byte = this.readByte();
-			while (Chars.isNotWhiteSpace(byte)) {
+			while (Char.isNotWhiteSpace(byte)) {
 				result = radix * result + byte - "0".code;
 				byte = this.readByte();
 			}

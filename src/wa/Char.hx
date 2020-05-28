@@ -1,15 +1,9 @@
 package wa;
 
 /**
-	Utility static functions for character codes.
+	Character code.
 **/
-class Chars {
-	/**
-		Converts `characterCode` to `String`.
-	**/
-	@:pure public static inline function ctoa(characterCode:Int):String
-		return String.fromCharCode(characterCode);
-
+abstract Char(Int) from Int to Int {
 	/**
 		@return `true` if `characterCode` is not a whitespace (SP, HT, LF or CR).
 	**/
@@ -21,4 +15,10 @@ class Chars {
 				true;
 		}
 	}
+
+	/**
+		Converts `this` to `String`.
+	**/
+	public inline function toString():String
+		return String.fromCharCode(this);
 }

@@ -17,7 +17,7 @@ class CharIns {
 		readSync(0, buffer, 0, 1, null);
 		var character:Char = buffer[0];
 		while (character != delimiter) {
-			result += String.fromCharCode(character);
+			result += character.toString();
 			if (readSync(0, buffer, 0, 1, null) == 0)
 				break;
 			character = buffer[0];

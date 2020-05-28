@@ -20,11 +20,9 @@ class CharIns {
 	public static inline function until(cin:CharIn, delimiter:Char):String {
 		var result = "";
 		try {
-			var character = cin.char();
-			while (character != delimiter) {
-				result += String.fromCharCode(character);
-				character = cin.char();
-			}
+			var character:Char;
+			while ((character = cin.char()) != delimiter)
+				result += character.toString();
 		} catch (e:haxe.io.Eof) {}
 
 		return StringTools.rtrim(result);

@@ -24,11 +24,9 @@ abstract CharIn(haxe.io.Input) {
 	public inline function str():String {
 		var result = "";
 		try {
-			var character = char();
-			while (character.isNotWhiteSpace()) {
+			var character:Char;
+			while ((character = char()).isNotWhiteSpace())
 				result += character.toString();
-				character = char();
-			}
 		} catch (e:haxe.io.Eof) {}
 
 		return result;
@@ -118,15 +116,14 @@ abstract CharIn(haxe.io.Input) {
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		try {
-			var character = char();
-			while (character.isNotWhiteSpace()) {
+			var character:Char;
+			while ((character = char()).isNotWhiteSpace()) {
 				final digit = character.toDigit();
 				#if debug
 				if (digit < 0 || radix <= digit)
 					throw "Failed to parse.";
 				#end
 				result = radix * result + digit;
-				character = char();
 			}
 		} catch (e:haxe.io.Eof) {}
 

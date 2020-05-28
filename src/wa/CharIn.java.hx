@@ -20,12 +20,9 @@ abstract CharIn(haxe.io.Input) {
 		var index = 0;
 
 		try {
-			var character = char();
-			while (character.isNotWhiteSpace()) {
-				byteArray[index] = character;
-				++index;
-				character = char();
-			}
+			var character:Char;
+			while ((character = char()).isNotWhiteSpace())
+				byteArray[index++] = character;
 		} catch (e:haxe.io.Eof) {}
 
 		try {
@@ -83,11 +80,9 @@ abstract CharIn(haxe.io.Input) {
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		try {
-			var character = char();
-			while (character.isNotWhiteSpace()) {
+			var character:Char;
+			while ((character = char()).isNotWhiteSpace())
 				result = radix * result + character.toDigit();
-				character = char();
-			}
 		} catch (e:haxe.io.Eof) {}
 
 		return result;

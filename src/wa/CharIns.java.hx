@@ -13,12 +13,9 @@ class CharIns {
 		var index = 0;
 
 		try {
-			var character = cin.char();
-			while (character != delimiter) {
-				byteArray[index] = character;
-				++index;
-				character = cin.char();
-			}
+			var character:Char;
+			while ((character = cin.char()) != delimiter)
+				byteArray[index++] = character;
 		} catch (e:haxe.io.Eof) {}
 
 		try {
@@ -38,11 +35,10 @@ class CharIns {
 	public static inline function count(cin:CharIn, characterToCount:Char):Int {
 		var foundCount = 0;
 		try {
-			var character = cin.char();
-			while (character.isNotWhiteSpace()) {
+			var character:Char;
+			while ((character = cin.char()).isNotWhiteSpace()) {
 				if (character == characterToCount)
 					++foundCount;
-				character = cin.char();
 			}
 		} catch (e:haxe.io.Eof) {}
 

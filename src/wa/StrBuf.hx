@@ -1,5 +1,7 @@
 package wa;
 
+import wa.Char;
+
 /**
 	Buffer object for building `String` by appending small elements.
 **/
@@ -24,7 +26,7 @@ abstract StrBuf(StringBuf) from StringBuf {
 	/**
 		Appends an ASCII character.
 	**/
-	public inline function char(characterCode:Int):StrBuf {
+	public inline function char(characterCode:Char):StrBuf {
 		this.addChar(characterCode);
 		return this;
 	}
@@ -44,9 +46,8 @@ abstract StrBuf(StringBuf) from StringBuf {
 	/**
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
-		@param separator Character code to be inserted between elements.
 	**/
-	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Int):StrBuf {
+	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Char):StrBuf {
 		str(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);
@@ -58,9 +59,8 @@ abstract StrBuf(StringBuf) from StringBuf {
 	/**
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
-		@param separator Character code to be inserted between elements.
 	**/
-	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Int):StrBuf {
+	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Char):StrBuf {
 		int(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);

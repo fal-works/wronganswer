@@ -1,5 +1,6 @@
 package wa;
 
+import wa.Char;
 import wa.StrBuf;
 import wa.Floats;
 
@@ -29,9 +30,8 @@ class StrBufs {
 	/**
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
-		@param separator Character code to be inserted between elements.
 	**/
-	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Int):StrBuf {
+	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Char):StrBuf {
 		int64(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
@@ -43,9 +43,8 @@ class StrBufs {
 	/**
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
-		@param separator Character code to be inserted between elements.
 	**/
-	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Int):StrBuf {
+	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Char):StrBuf {
 		float(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
@@ -56,16 +55,14 @@ class StrBufs {
 
 	/**
 		Appends all values from `vec` formatted with `scale`.
-		@param separator Character code to be inserted between elements.
-		@param delimiterString String to be appended at the end.
+		Note that nothing will be appended at the end.
 	**/
-	public static inline function floatVecWithScale(buf:StrBuf, vec:haxe.ds.Vector<Float>, scale:Int, separator:Int, delimiterString:String):StrBuf {
+	public static inline function floatVecWithScale(buf:StrBuf, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char):StrBuf {
 		floatWithScale(buf, vec[0], scale);
 		for (i in 1...vec.length) {
 			buf.char(separator);
 			floatWithScale(buf, vec[i], scale);
 		}
-		buf.str(delimiterString);
 		return buf;
 	}
 }

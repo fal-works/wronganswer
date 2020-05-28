@@ -3,7 +3,7 @@ package wronganswer;
 /**
 	Utility static functions.
 **/
-class Ut {
+class Util {
 	/**
 		Prints `x`.
 	**/

@@ -1,6 +1,6 @@
 package wronganswer;
 
-import wronganswer.Ut;
+import wronganswer.Util;
 import wronganswer.StringBuffer;
 import wronganswer.Delimiter;
 
@@ -71,7 +71,7 @@ abstract CharIn(haxe.io.Input) {
 	}
 
 	public inline function float():Float
-		return Ut.atof(token());
+		return Util.atof(token());
 
 	public inline function tokenVec(length:Int):haxe.ds.Vector<String> {
 		final vec = new haxe.ds.Vector<String>(length);

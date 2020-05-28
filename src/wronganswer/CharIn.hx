@@ -1,6 +1,6 @@
 package wronganswer;
 
-import wronganswer.Ut;
+import wronganswer.Util;
 import wronganswer.Delimiter;
 
 /**
@@ -92,7 +92,7 @@ abstract CharIn(haxe.io.Input) {
 		Reads a `Float` value.
 	**/
 	public inline function float():Float
-		return Ut.atof(token());
+		return Util.atof(token());
 
 	/**
 		Reads a sequence of `String` values separated by any whitespace characters (SP, HL, CR or LF).

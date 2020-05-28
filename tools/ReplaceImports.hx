@@ -3,7 +3,7 @@ package tools;
 import sys.FileSystem;
 import sys.io.File;
 import tools.Statics.*;
-import wronganswer.Ut;
+import wronganswer.Util;
 
 using StringTools;
 
@@ -14,7 +14,7 @@ class ReplaceImports {
 	static final importableModules:Map<String, ModuleDescription> = [
 		'$libName.*' => {
 			priority: 0,
-			wildcard: ["CharIn", "CharOut", "Delimiter", "Ut", "StringBuffer", "Vec", "Bits", "Debug"]
+			wildcard: ["CharIn", "CharOut", "Delimiter", "Util", "StringBuffer", "Vec", "Bits", "Debug"]
 		},
 		'$libName.naive.*' => {
 			priority: 0,
@@ -25,7 +25,7 @@ class ReplaceImports {
 		'$libName.CharOut' => {priority: 1},
 		'$libName.Delimiter' => {priority: 2},
 		'$libName.naive.Delimiter' => {priority: 2},
-		'$libName.Ut' => {priority: 10},
+		'$libName.Util' => {priority: 10},
 		'$libName.StringBuffer' => {priority: 11},
 		'$libName.Vec' => {priority: 12},
 		'$libName.Bits' => {priority: 13},
@@ -193,7 +193,7 @@ class ReplaceImports {
 	static function showResolvableModules() {
 		Sys.println("statements that can be resolved:");
 		final modules = [for (module in importableModules.keys()) module];
-		modules.sort(Ut.compareString);
+		modules.sort(Util.compareString);
 		for (module in modules)
 			Sys.println('  import $module;');
 		Sys.println("");

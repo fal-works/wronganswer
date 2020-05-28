@@ -16,7 +16,7 @@ abstract StringBuffer(StringBuf) from StringBuf {
 		return addDynamic(v);
 
 	public inline function floatWithScale(v:Float, scale:Int):StringBuffer
-		return addDynamic(Ut.ftoa(v, scale));
+		return addDynamic(Util.ftoa(v, scale));
 
 	public inline function int64(v:haxe.Int64):StringBuffer
 		return addDynamic(Std.string(v));

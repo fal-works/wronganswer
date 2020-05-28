@@ -1,6 +1,6 @@
 package wronganswer;
 
-import wronganswer.Ut;
+import wronganswer.Util;
 import wronganswer.Delimiter;
 
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
@@ -70,7 +70,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	}
 
 	public inline function float():Float
-		return Ut.atof(token());
+		return Util.atof(token());
 
 	public inline function str(delimiter:Delimiter):String {
 		var result = "";

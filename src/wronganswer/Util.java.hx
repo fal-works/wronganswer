@@ -2,7 +2,7 @@ package wronganswer;
 
 import wronganswer.StringBuffer;
 
-class Ut {
+class Util {
 	@:generic public static inline function print<T>(x:T):Void {
 		#if !macro
 		untyped __java__("java.lang.System.out.print({0});", x);

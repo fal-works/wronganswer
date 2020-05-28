@@ -32,7 +32,7 @@ abstract StringBuffer(StringBuf) from StringBuf {
 		@param scale The number of fractional digits.
 	**/
 	public inline function floatWithScale(v:Float, scale:Int):StringBuffer
-		return addDynamic(Ut.ftoa(v, scale));
+		return addDynamic(Util.ftoa(v, scale));
 
 	/**
 		Appends an `Int64` value.

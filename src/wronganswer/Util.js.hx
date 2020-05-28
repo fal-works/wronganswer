@@ -1,6 +1,6 @@
 package wronganswer;
 
-class Ut {
+class Util {
 	@:generic public static inline function print<T>(x:T):Void {
 		#if !macro
 		js.Node.process.stdout.write("" + x);

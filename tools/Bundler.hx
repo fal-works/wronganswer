@@ -3,7 +3,8 @@ package tools;
 import sys.FileSystem;
 import sys.io.File;
 import tools.Statics.*;
-import wa.Util;
+import wa.Strs;
+import wa.Calc;
 
 using StringTools;
 
@@ -20,7 +21,7 @@ class Bundler {
 		'$rootPackage.*' => {
 			priority: 0,
 			wildcard: [
-				"CharIn", "CharIns", "CharOut", "Delimiter", "Printer", "Util", "Floats", "StrBuf", "StrBufs", "Vecs", "Bits", "Debug"
+				"CharIn", "CharIns", "CharOut", "Delimiter", "Printer", "Calc", "Strs", "Floats", "StrBuf", "StrBufs", "Vecs", "Bits", "Debug"
 			]
 		},
 		'$rootPackage.naive.*' => {
@@ -34,8 +35,9 @@ class Bundler {
 		'$rootPackage.Delimiter' => {priority: 3},
 		'$rootPackage.naive.Delimiter' => {priority: 3},
 		'$rootPackage.Printer' => {priority: 4, usable: true},
-		'$rootPackage.Util' => {priority: 10, usable: true},
-		'$rootPackage.Floats' => {priority: 11, usable: true},
+		'$rootPackage.Calc' => {priority: 10, usable: true},
+		'$rootPackage.Strs' => {priority: 11, usable: true},
+		'$rootPackage.Floats' => {priority: 12, usable: true},
 		'$rootPackage.StrBuf' => {priority: 20},
 		'$rootPackage.StrBufs' => {priority: 21, usable: true},
 		'$rootPackage.Vecs' => {priority: 30, usable: true},
@@ -119,7 +121,7 @@ class Bundler {
 		Extracts the module name from `filePath`.
 	**/
 	static function moduleFromPath(filePath:String) {
-		final lastSlashPosition = Util.imax(filePath.lastIndexOf("/"), filePath.lastIndexOf("\\"));
+		final lastSlashPosition = Calc.imax(filePath.lastIndexOf("/"), filePath.lastIndexOf("\\"));
 		final fileName = filePath.substr(lastSlashPosition + 1);
 		return fileName.substr(0, fileName.indexOf("."));
 	}
@@ -250,14 +252,15 @@ class Bundler {
 		Sys.println("statements that can be resolved:");
 
 		final modules = [for (module in resolvableModules.keys()) module];
-		modules.sort(Util.compareString);
+		modules.sort(Strs.compareString);
 		for (module in modules)
 			Sys.println('  import $module;');
 
 		final usableModules = [
-			for (module => desc in resolvableModules.keyValueIterator()) if (desc.usable) module
+			for (module => desc in resolvableModules.keyValueIterator())
+				if (desc.usable) module
 		];
-		usableModules.sort(Util.compareString);
+		usableModules.sort(Strs.compareString);
 		for (module in usableModules)
 			Sys.println('  using $module;');
 

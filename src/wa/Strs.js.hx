@@ -1,15 +1,6 @@
 package wa;
 
-class Util {
-	@:pure @:noUsing public static inline function imin(a:Int, b:Int):Int
-		return if (a < b) a else b;
-
-	@:pure @:noUsing public static inline function imax(a:Int, b:Int):Int
-		return if (a < b) b else a;
-
-	@:pure public static inline function idiv(n:Int, divisor:Int):Int
-		return Std.int(n / divisor);
-
+class Strs {
 	@:pure public static inline function atoi(s:String):Int
 		return #if macro 0; #else js.Syntax.code("parseInt({0})", s); #end
 

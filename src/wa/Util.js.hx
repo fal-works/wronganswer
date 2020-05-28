@@ -14,6 +14,12 @@ class Util {
 		#end
 	}
 
+	@:pure @:noUsing public static inline function imin(a:Int, b:Int):Int
+		return if (a < b) a else b;
+
+	@:pure @:noUsing public static inline function imax(a:Int, b:Int):Int
+		return if (a < b) b else a;
+
 	@:pure public static inline function idiv(n:Int, divisor:Int):Int
 		return Std.int(n / divisor);
 

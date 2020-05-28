@@ -17,12 +17,6 @@ class Strs {
 	}
 
 	/**
-		Converts `characterCode` to `String`.
-	**/
-	@:pure public static inline function ctoa(characterCode:Int):String
-		return String.fromCharCode(characterCode);
-
-	/**
 		Compares two strings in dictionary order.
 		@return Negative if `a` comes before `b`. `0` if equal.
 	**/

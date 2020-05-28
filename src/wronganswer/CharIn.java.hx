@@ -1,7 +1,7 @@
 package wronganswer;
 
 import wronganswer.Util;
-import wronganswer.StringBuffer;
+import wronganswer.StrBuf;
 import wronganswer.Delimiter;
 
 abstract CharIn(haxe.io.Input) {

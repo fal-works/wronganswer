@@ -19,7 +19,7 @@ class Bundler {
 	static final resolvableModules:Map<String, ModuleDescription> = [
 		'$libName.*' => {
 			priority: 0,
-			wildcard: ["CharIn", "CharOut", "Delimiter", "Util", "StringBuffer", "Vec", "Bits", "Debug"]
+			wildcard: ["CharIn", "CharOut", "Delimiter", "Util", "StrBuf", "Vec", "Bits", "Debug"]
 		},
 		'$libName.naive.*' => {
 			priority: 0,
@@ -31,7 +31,7 @@ class Bundler {
 		'$libName.Delimiter' => {priority: 2},
 		'$libName.naive.Delimiter' => {priority: 2},
 		'$libName.Util' => {priority: 10, usable: true},
-		'$libName.StringBuffer' => {priority: 11},
+		'$libName.StrBuf' => {priority: 11},
 		'$libName.Vec' => {priority: 12, usable: true},
 		'$libName.Bits' => {priority: 13},
 		'$libName.Debug' => {priority: 100}

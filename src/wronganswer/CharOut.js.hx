@@ -1,11 +1,11 @@
 package wronganswer;
 
-import wronganswer.StringBuffer;
+import wronganswer.StrBuf;
 
 @:forward
-abstract CharOut(StringBuffer) {
+abstract CharOut(StrBuf) {
 	public inline function new(capacity = 1024) {
-		this = new StringBuffer(capacity);
+		this = new StrBuf(capacity);
 	}
 
 	public inline function print():Void {

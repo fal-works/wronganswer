@@ -1,6 +1,6 @@
 package wronganswer;
 
-import wronganswer.StringBuffer;
+import wronganswer.StrBuf;
 
 class Util {
 	@:generic public static inline function print<T>(x:T):Void {
@@ -28,7 +28,7 @@ class Util {
 		return String.fromCharCode(characterCode);
 
 	@:pure public static inline function ftoa(v:Float, scale:Int):String {
-		final buffer = new StringBuffer(15 + scale);
+		final buffer = new StrBuf(15 + scale);
 		buffer.floatWithScale(v, scale);
 		return buffer.toString();
 	}

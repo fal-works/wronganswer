@@ -1,19 +1,19 @@
 package wronganswer;
 
-import wronganswer.StringBuffer;
+import wronganswer.StrBuf;
 
 /**
-	Buffered character output based on `StringBuffer`.
+	Buffered character output based on `StrBuf`.
 
 	Use `print()` or `println()` to output the buffered data.
 **/
 @:forward
-abstract CharOut(StringBuffer) {
+abstract CharOut(StrBuf) {
 	/**
 		@param capacity Used on Java target.
 	**/
 	public inline function new(capacity = 1024) {
-		this = new StringBuffer(capacity);
+		this = new StrBuf(capacity);
 	}
 
 	/**

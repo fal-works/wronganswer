@@ -18,7 +18,7 @@ Supports following targets with the same API:
 - Standard output (`CharOut`)
 - General utility (`Util`)
 - Vector operation (`Vec`)
-- Optimized string buffer (`StringBuffer`)
+- Optimized string buffer (`StrBuf`)
 - Some other types (such as `Bits`)
 - Debug logger (`Debug`)
 - Command for bundling wronganswer modules via import statements (`bundle`)

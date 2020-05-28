@@ -104,7 +104,7 @@ class Main {
 		final vec = haxe.ds.Vector.fromArrayCopy([for (i in 0...10000) Std.int(100 * Math.random())]);
 		Sys.println("sorting...");
 		Timer.measure(() -> {
-			Vec.quicksort(vec, (a, b) -> a - b);
+			Vecs.quicksort(vec, (a, b) -> a - b);
 		});
 		Sys.println("first: " + vec[0]);
 		Sys.println("last: " + vec[vec.length - 1]);
@@ -112,7 +112,7 @@ class Main {
 		Sys.println("");
 		Sys.println("dedup...");
 		final vec2 = haxe.ds.Vector.fromArrayCopy([0, 1, 1, 2, 2, 3]);
-		final deduplicated = Vec.dedup(vec2, vec2);
+		final deduplicated = Vecs.dedup(vec2, vec2);
 		Sys.println(vec2.toArray());
 		Sys.println(deduplicated + " elements after dedup.");
 }

@@ -17,7 +17,7 @@ Supports following targets with the same API:
 - Standard input (`wa.CharIn`)
 - Standard output (`wa.CharOut`)
 - General utility (`wa.Util`)
-- Vector operation (`wa.Vec`)
+- Vector operation (`wa.Vecs`)
 - Optimized string buffer (`wa.StrBuf`)
 - Some other types (such as `wa.Bits`)
 - Debug logger (`wa.Debug`)

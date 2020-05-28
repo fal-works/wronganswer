@@ -1,6 +1,9 @@
 package wa;
 
-class Vec {
+/**
+	Utility static functions for `haxe.ds.Vector`.
+**/
+class Vecs {
 	/**
 		Internal stack for recursion in `quicksort()`.
 	**/

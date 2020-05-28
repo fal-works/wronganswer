@@ -6,6 +6,7 @@ import wa.Delimiter;
 import wa.Printer.*;
 
 using wa.CharIns;
+using wa.StrBufs;
 
 class Main {
 	static final testCaseNo = 0;

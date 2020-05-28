@@ -22,18 +22,6 @@ abstract StrBuf(StringBuf) from StringBuf {
 		return addDynamic(v);
 
 	/**
-		Appends a `Float` value.
-	**/
-	public inline function float(v:Float):StrBuf
-		return addDynamic(v);
-
-	/**
-		Appends an `Int64` value.
-	**/
-	public inline function int64(v:haxe.Int64):StrBuf
-		return addDynamic(Std.string(v));
-
-	/**
 		Appends an ASCII character.
 	**/
 	public inline function char(characterCode:Int):StrBuf {

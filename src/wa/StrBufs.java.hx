@@ -3,6 +3,12 @@ package wa;
 import wa.StrBuf;
 
 class StrBufs {
+	public static inline function float(buf:StrBuf, v:Float):StrBuf
+		return @:privateAccess buf.builder().append(v);
+
+	public static inline function int64(buf:StrBuf, v:haxe.Int64):StrBuf
+		return @:privateAccess buf.builder().append(v);
+
 	public static inline function floatWithScale(buf:StrBuf, v:Float, scale:Int):StrBuf {
 		if (v < 0) {
 			buf.char("-".code);
@@ -10,7 +16,7 @@ class StrBufs {
 		}
 		v += Math.pow(10.0, -scale) / 2.0;
 
-		buf.int64(cast(v, haxe.Int64));
+		int64(buf, cast(v, haxe.Int64));
 		if (scale != 0) {
 			buf.char(".".code);
 			v -= cast(cast(v, haxe.Int64), Float);

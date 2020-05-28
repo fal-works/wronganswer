@@ -83,7 +83,7 @@ class Main {
 		for (i in 0...1000)
 			int64Value += 1000000000;
 		cout.int64(int64Value).lf();
-		cout.intVec(haxe.ds.Vector.fromArrayCopy([1,2,3]), SP, "\n");
+		cout.intVec(haxe.ds.Vector.fromArrayCopy([1,2,3]), SP);
 		cout.print();
 	}
 

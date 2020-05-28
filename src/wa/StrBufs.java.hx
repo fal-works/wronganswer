@@ -31,33 +31,30 @@ class StrBufs {
 		return buf;
 	}
 
-	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Int, delimiterString:String):StrBuf {
+	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Int):StrBuf {
 		int64(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
 			int64(buf, vec[i]);
 		}
-		buf.str(delimiterString);
 		return buf;
 	}
 
-	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Int, delimiterString:String):StrBuf {
+	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Int):StrBuf {
 		float(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
 			float(buf, vec[i]);
 		}
-		buf.str(delimiterString);
 		return buf;
 	}
 
-	public static inline function floatVecWithScale(buf:StrBuf, vec:haxe.ds.Vector<Float>, scale:Int, separator:Int, delimiterString:String):StrBuf {
+	public static inline function floatVecWithScale(buf:StrBuf, vec:haxe.ds.Vector<Float>, scale:Int, separator:Int):StrBuf {
 		floatWithScale(buf, vec[0], scale);
 		for (i in 1...vec.length) {
 			buf.char(separator);
 			floatWithScale(buf, vec[i], scale);
 		}
-		buf.str(delimiterString);
 		return buf;
 	}
 }

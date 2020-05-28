@@ -28,31 +28,29 @@ class StrBufs {
 
 	/**
 		Appends all values from `vec`.
+		Note that nothing will be appended at the end.
 		@param separator Character code to be inserted between elements.
-		@param delimiterString String to be appended at the end.
 	**/
-	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Int, delimiterString:String):StrBuf {
+	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Int):StrBuf {
 		int64(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
 			int64(buf, vec[i]);
 		}
-		buf.str(delimiterString);
 		return buf;
 	}
 
 	/**
 		Appends all values from `vec`.
+		Note that nothing will be appended at the end.
 		@param separator Character code to be inserted between elements.
-		@param delimiterString String to be appended at the end.
 	**/
-	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Int, delimiterString:String):StrBuf {
+	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Int):StrBuf {
 		float(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
 			float(buf, vec[i]);
 		}
-		buf.str(delimiterString);
 		return buf;
 	}
 

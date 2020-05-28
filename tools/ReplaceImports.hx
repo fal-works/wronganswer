@@ -10,7 +10,15 @@ class ReplaceImports {
 	/**
 		Modules to be replaced.
 	**/
-	static final importableModules = [
+	static final importableModules:Map<String, ModuleDescription> = [
+		'$libName.*' => {
+			priority: 0,
+			wildcard: ["CharIn", "CharOut", "Delimiter", "Ut", "StringBuffer", "Vec", "Bits", "Debug"]
+		},
+		'$libName.naive.*' => {
+			priority: 0,
+			wildcard: ["CharIn", "Delimiter"]
+		},
 		'$libName.CharIn' => {priority: 0},
 		'$libName.naive.CharIn' => {priority: 0},
 		'$libName.CharOut' => {priority: 1},
@@ -130,6 +138,14 @@ class ReplaceImports {
 			Sys.println('Replacing: import $module;');
 		bundlingModules.set(module, true);
 
+		final wildcard = importableModules.get(module).wildcard;
+		if (wildcard != null) {
+			final packagePath = module.substr(0, module.length - 1);
+			for (moduleName in wildcard)
+				code = processImport(code, packagePath + moduleName, buffer, target, false);
+			return code;
+		}
+
 		final srcCode = readSrcCode(getSrcFilePath(module, target));
 		final processedSrcCode = processCode(srcCode, buffer, target, false); // process recursively
 		buffer.codeBlocks.push({
@@ -246,6 +262,14 @@ enum abstract Target(String) {
 	final Java = ".java";
 	final Js = ".js";
 	final Eval = "";
+}
+
+/**
+	Description for a wronganswer module.
+**/
+typedef ModuleDescription = {
+	final priority:Int;
+	final ?wildcard:Array<String>;
 }
 
 /**

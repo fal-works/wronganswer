@@ -27,12 +27,6 @@ class Util {
 	@:pure public static inline function ctoa(characterCode:Int):String
 		return String.fromCharCode(characterCode);
 
-	@:pure public static inline function ftoa(v:Float, scale:Int):String {
-		final buffer = new StrBuf(15 + scale);
-		buffer.floatWithScale(v, scale);
-		return buffer.toString();
-	}
-
 	@:pure public static inline function compareString(a:String, b:String):Int
 		return if (a < b) -1 else if (b < a) 1 else 0;
 }

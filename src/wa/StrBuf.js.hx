@@ -15,9 +15,6 @@ abstract StrBuf(StringBuf) from StringBuf {
 	public inline function float(v:Float):StrBuf
 		return addDynamic(v);
 
-	public inline function floatWithScale(v:Float, scale:Int):StrBuf
-		return addDynamic(Util.ftoa(v, scale));
-
 	public inline function int64(v:haxe.Int64):StrBuf
 		return addDynamic(Std.string(v));
 

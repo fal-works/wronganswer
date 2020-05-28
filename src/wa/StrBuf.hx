@@ -28,13 +28,6 @@ abstract StrBuf(StringBuf) from StringBuf {
 		return addDynamic(v);
 
 	/**
-		Appends a `Float` value with `scale`.
-		@param scale The number of fractional digits.
-	**/
-	public inline function floatWithScale(v:Float, scale:Int):StrBuf
-		return addDynamic(Util.ftoa(v, scale));
-
-	/**
 		Appends an `Int64` value.
 	**/
 	public inline function int64(v:haxe.Int64):StrBuf

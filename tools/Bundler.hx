@@ -19,7 +19,9 @@ class Bundler {
 	static final resolvableModules:Map<String, ModuleDescription> = [
 		'$rootPackage.*' => {
 			priority: 0,
-			wildcard: ["CharIn", "CharOut", "Delimiter", "Util", "StrBuf", "Vec", "Bits", "Debug"]
+			wildcard: [
+				"CharIn", "CharOut", "Delimiter", "Util", "Floats", "StrBuf", "StrBufs", "Vec", "Bits", "Debug"
+			]
 		},
 		'$rootPackage.naive.*' => {
 			priority: 0,
@@ -31,9 +33,11 @@ class Bundler {
 		'$rootPackage.Delimiter' => {priority: 2},
 		'$rootPackage.naive.Delimiter' => {priority: 2},
 		'$rootPackage.Util' => {priority: 10, usable: true},
-		'$rootPackage.StrBuf' => {priority: 11},
-		'$rootPackage.Vec' => {priority: 12, usable: true},
-		'$rootPackage.Bits' => {priority: 13},
+		'$rootPackage.Floats' => {priority: 11, usable: true},
+		'$rootPackage.StrBuf' => {priority: 20},
+		'$rootPackage.StrBufs' => {priority: 21, usable: true},
+		'$rootPackage.Vec' => {priority: 30, usable: true},
+		'$rootPackage.Bits' => {priority: 40},
 		'$rootPackage.Debug' => {priority: 100}
 	];
 
@@ -246,7 +250,9 @@ class Bundler {
 		for (module in modules)
 			Sys.println('  import $module;');
 
-		final usableModules = [for (module => desc in resolvableModules.keyValueIterator()) if (desc.usable) module];
+		final usableModules = [
+			for (module => desc in resolvableModules.keyValueIterator()) if (desc.usable) module
+		];
 		usableModules.sort(Util.compareString);
 		for (module in usableModules)
 			Sys.println('  using $module;');

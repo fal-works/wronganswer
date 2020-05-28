@@ -18,28 +18,6 @@ abstract StrBuf(#if macro Dynamic #else java.lang.StringBuilder #end)
 	public inline function float(v:Float):StrBuf
 		return this.append(v);
 
-	public inline function floatWithScale(v:Float, scale:Int):StrBuf {
-		if (v < 0) {
-			this.appendCodePoint("-".code);
-			v = -v;
-		}
-		v += Math.pow(10.0, -scale) / 2.0;
-
-		this.append(cast(v, haxe.Int64));
-		if (scale != 0) {
-			this.appendCodePoint(".".code);
-			v -= cast(cast(v, haxe.Int64), Float);
-
-			for (i in 0...scale) {
-				v *= 10.0;
-				this.append(((cast v) : Int));
-				v -= Std.int(v);
-			}
-		}
-
-		return this;
-	}
-
 	public inline function int64(v:haxe.Int64):StrBuf
 		return this.append(v);
 

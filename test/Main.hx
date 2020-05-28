@@ -1,16 +1,14 @@
 import haxe.Int64;
 import haxe.Timer;
-import wronganswer.Lib;
-import wronganswer.Vec;
-import wronganswer.naive.Lib.CharIn as NaiveCharIn;
-import wronganswer.extra.Bits;
-import wronganswer.Debug;
+import wronganswer.*;
+import wronganswer.naive.CharIn as NaiveCharIn;
+import wronganswer.naive.Delimiter;
 
 class Main {
 	static final testCaseNo = 5;
 
 	static function main() {
-		Ut.println("Start test.");
+		Util.println("Start test.");
 		Debug.log("This is a debug message.");
 
 		switch testCaseNo {

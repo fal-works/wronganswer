@@ -7,11 +7,16 @@ import wronganswer.Util;
 
 using StringTools;
 
-class ReplaceImports {
+class Bundler {
 	/**
-		Modules to be replaced.
+		The command name.
 	**/
-	static final importableModules:Map<String, ModuleDescription> = [
+	public static inline final command = "bundle";
+
+	/**
+		Modules that can be resolved.
+	**/
+	static final resolvableModules:Map<String, ModuleDescription> = [
 		'$libName.*' => {
 			priority: 0,
 			wildcard: ["CharIn", "CharOut", "Delimiter", "Util", "StringBuffer", "Vec", "Bits", "Debug"]
@@ -36,11 +41,6 @@ class ReplaceImports {
 		The banner comment to be inserted when replacing.
 	**/
 	static inline final bannerComment = '/**\n\t$libName v$version / CC0\n\t$repositoryUrl\n**/';
-
-	/**
-		The command name.
-	**/
-	static inline final command = "replace-imports";
 
 	/**
 		The directory path of the source code of wronganswer.
@@ -104,7 +104,7 @@ class ReplaceImports {
 		}
 
 		final resultCode = '$processedMainCode\n\n\n$bundlingCode\n';
-		final newFilePath = mainFilePath + ".replaced";
+		final newFilePath = mainFilePath.replace(".hx", "") + ".bundle.hx";
 		createFile(newFilePath, resultCode);
 		Sys.println('Create file: $newFilePath');
 		Sys.println("Completed.");
@@ -119,7 +119,7 @@ class ReplaceImports {
 		while (RegExps.importer.matchSub(code, currentPosition)) {
 			final module = RegExps.importer.matched(1);
 
-			if (importableModules.exists(module)) {
+			if (resolvableModules.exists(module)) {
 				code = processImport(code, module, buffer, target, main);
 			} else {
 				final matchedPos = RegExps.importer.matchedPos();
@@ -145,7 +145,7 @@ class ReplaceImports {
 			Sys.println('Replacing: import $module;');
 		bundlingModules.set(module, true);
 
-		final wildcard = importableModules.get(module).wildcard;
+		final wildcard = resolvableModules.get(module).wildcard;
 		if (wildcard != null) {
 			final packagePath = module.substr(0, module.length - 1);
 			for (moduleName in wildcard)
@@ -157,7 +157,7 @@ class ReplaceImports {
 		final processedSrcCode = processCode(srcCode, buffer, target, false); // process recursively
 		buffer.codeBlocks.push({
 			code: processedSrcCode,
-			priority: importableModules.get(module).priority
+			priority: resolvableModules.get(module).priority
 		});
 
 		return code;
@@ -192,7 +192,7 @@ class ReplaceImports {
 	**/
 	static function showResolvableModules() {
 		Sys.println("statements that can be resolved:");
-		final modules = [for (module in importableModules.keys()) module];
+		final modules = [for (module in resolvableModules.keys()) module];
 		modules.sort(Util.compareString);
 		for (module in modules)
 			Sys.println('  import $module;');

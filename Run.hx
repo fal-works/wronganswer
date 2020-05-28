@@ -1,12 +1,13 @@
 import tools.Statics.*;
+import tools.Bundler;
 
 class Run {
 	static function main() {
 		final args = Sys.args();
 
 		if (args.length > 0) {
-			if (args[0].toLowerCase() == "replace-imports") {
-				tools.ReplaceImports.tryRun(args);
+			if (args[0].toLowerCase() == Bundler.command) {
+				Bundler.tryRun(args);
 				return;
 			}
 		}

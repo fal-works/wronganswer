@@ -18,7 +18,7 @@ Supports the following targets with the same API:
 - Standard output (`CharOut`)
 - Utility functions (`Ut`)
 - Debug logger (`Debug`)
-- Command for replacing import statements (`replace-imports`)
+- Command for bundling wronganswer modules via import statements (`bundle`)
 - (More to be added. Maybe.)
 
 ## Caveats
@@ -67,34 +67,33 @@ class Main {
 }
 ```
 
-## `replace-imports` command
+## `bundle` command
 
-In order to submit your code to a contest, you have to remove the import statements (e.g. `import wronganswer.Lib;`) and append the actual implementation instead.
+In order to submit your code to a contest, you might have to bundle it to a single file, i.e. remove import statements (e.g. `import wronganswer.CharIn;`) and append the actual implementation instead.
 
 This can be automatically done with the command below:
 
 ```
-haxelib run wronganswer replace-imports [full path of your hx file] [target (java/js/eval)]
+haxelib run wronganswer bundle [full path of your hx file] [target (java/js/eval)]
 ```
 
 ### Example
 
 ```
-haxelib run wronganswer replace-imports C:/yourDirectory/Main.hx java
+haxelib run wronganswer bundle C:/yourDirectory/Main.hx java
 ```
 
-In the same directory the above creates a new file `Main.hx.replaced` which includes the code of wronganswer for Java target.
+In the same directory the above creates a new file `Main.bundle.hx` which includes code of wronganswer for Java target.
 
 And you might also want to do more automation, such as:
 
 ```Batchfile
-:: replace-imports.bat (only for Windows!)
-haxelib run wronganswer replace-imports %~dp0Main.hx java
-clip < %~dp0Main.hx.replaced
+:: bundle.bat (only for Windows!)
+haxelib run wronganswer bundle %~dp0Main.hx java
+clip < %~dp0Main.bundle.hx
 ```
 
 ### Caveats
 
-- This command supports only module-level imports. Avoid importing wildcards or sub-types.
 - `using` statements are not supported.
 - Make sure that the emitted code is working properly before submitting it.

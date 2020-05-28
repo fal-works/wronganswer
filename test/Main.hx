@@ -9,7 +9,7 @@ using wa.CharIns;
 using wa.StrBufs;
 
 class Main {
-	static final testCaseNo = 0;
+	static final testCaseNo = 2;
 
 	static function main() {
 		Printer.println("Start test.");

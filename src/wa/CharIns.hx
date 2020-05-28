@@ -17,13 +17,13 @@ class CharIns {
 	/**
 		Reads until `delimiter`.
 	**/
-	public static inline function until(cin:CharIn, delimiter:Int):String {
+	public static inline function until(cin:CharIn, delimiter:Char):String {
 		var result = "";
 		try {
-			var byte = cin.byte();
-			while (byte != delimiter) {
-				result += String.fromCharCode(byte);
-				byte = cin.byte();
+			var character = cin.char();
+			while (character != delimiter) {
+				result += String.fromCharCode(character);
+				character = cin.char();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -43,17 +43,17 @@ class CharIns {
 
 	/**
 		Reads a string separated by any whitespace character (SP, HL, CR or LF)
-		and counts the number of `characterCode`.
+		and counts the number of `characterToCount`.
 	**/
-	public static inline function count(cin:CharIn, characterCode:Int):Int {
+	public static inline function count(cin:CharIn, characterToCount:Char):Int {
 		var foundCount = 0;
 		try {
-			var byte = cin.byte();
-			while (Char.isNotWhiteSpace(byte)) {
-				if (byte == characterCode)
+			var character = cin.char();
+			while (character.isNotWhiteSpace()) {
+				if (character == characterToCount)
 					++foundCount;
 
-				byte = cin.byte();
+				character = cin.char();
 			}
 		} catch (e:haxe.io.Eof) {}
 

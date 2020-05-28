@@ -8,19 +8,19 @@ class CharIns {
 	public static inline function float(cin:CharIn):Float
 		return Floats.atof(cin.str());
 
-	public static inline function until(cin:CharIn, delimiter:Int):String {
+	public static inline function until(cin:CharIn, delimiter:Char):String {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		@:privateAccess final buffer = cin.buffer();
 
 		readSync(0, buffer, 0, 1, null);
-		var byte = buffer[0];
-		while (byte != delimiter) {
-			result += String.fromCharCode(byte);
+		var character:Char = buffer[0];
+		while (character != delimiter) {
+			result += String.fromCharCode(character);
 			if (readSync(0, buffer, 0, 1, null) == 0)
 				break;
-			byte = buffer[0];
+			character = buffer[0];
 		}
 		#end
 
@@ -34,20 +34,20 @@ class CharIns {
 		return vec;
 	}
 
-	public static inline function count(cin:CharIn, characterCode:Int):Int {
+	public static inline function count(cin:CharIn, characterToCount:Char):Int {
 		var foundCount = 0;
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		@:privateAccess final buffer = cin.buffer();
 
 		readSync(0, buffer, 0, 1, null);
-		var byte = buffer[0];
-		while (Char.isNotWhiteSpace(byte)) {
-			if (byte == characterCode)
+		var character:Char = buffer[0];
+		while (character.isNotWhiteSpace()) {
+			if (character == characterToCount)
 				++foundCount;
 			if (readSync(0, buffer, 0, 1, null) == 0)
 				break;
-			byte = buffer[0];
+			character = buffer[0];
 		}
 		#end
 

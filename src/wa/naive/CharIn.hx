@@ -14,26 +14,20 @@ abstract CharIn(haxe.io.Input) {
 		return this.readByte();
 
 	/**
-		Reads 1 decimal digit.
-	**/
-	public inline function digit()
-		return byte() - "0".code;
-
-	/**
 		Reads 1 ASCII character.
 	**/
-	public inline function char()
-		return String.fromCharCode(byte());
+	public inline function char():Char
+		return byte();
 
 	/**
 		Reads until `delimiter`.
 	**/
-	public inline function str(delimiter:Int) {
+	public inline function str(delimiter:Char) {
 		final buffer = new haxe.io.BytesBuffer();
 		try {
-			var byte:Int;
-			while ((byte = this.readByte()) != delimiter)
-				buffer.addByte(byte);
+			var character:Char;
+			while ((character = char()) != delimiter)
+				buffer.addByte(character);
 		} catch (e:haxe.io.Eof) {}
 
 		return buffer.getBytes().toString();
@@ -42,6 +36,6 @@ abstract CharIn(haxe.io.Input) {
 	/**
 		Reads an `Int` value until `delimiter`.
 	**/
-	public inline function int(delimiter:Int):Int
+	public inline function int(delimiter:Char):Int
 		return Std.parseInt(str(delimiter));
 }

@@ -8,16 +8,16 @@ class CharIns {
 	public static inline function float(cin:CharIn):Float
 		return Floats.atof(cin.str());
 
-	public static inline function until(cin:CharIn, delimiter:Int):String {
+	public static inline function until(cin:CharIn, delimiter:Char):String {
 		@:privateAccess final byteArray = CharIn.byteArray;
 		var index = 0;
 
 		try {
-			var byte = cin.byte();
-			while (byte != delimiter) {
-				byteArray[index] = byte;
+			var character = cin.char();
+			while (character != delimiter) {
+				byteArray[index] = character;
 				++index;
-				byte = cin.byte();
+				character = cin.char();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -35,14 +35,14 @@ class CharIns {
 		return vec;
 	}
 
-	public static inline function count(cin:CharIn, characterCode:Int):Int {
+	public static inline function count(cin:CharIn, characterToCount:Char):Int {
 		var foundCount = 0;
 		try {
-			var byte = cin.byte();
-			while (Char.isNotWhiteSpace(byte)) {
-				if (byte == characterCode)
+			var character = cin.char();
+			while (character.isNotWhiteSpace()) {
+				if (character == characterToCount)
 					++foundCount;
-				byte = cin.byte();
+				character = cin.char();
 			}
 		} catch (e:haxe.io.Eof) {}
 

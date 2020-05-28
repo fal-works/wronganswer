@@ -7,23 +7,20 @@ abstract CharIn(haxe.io.Input) {
 	public inline function byte()
 		return this.readByte();
 
-	public inline function digit()
-		return byte() - "0".code;
+	public inline function char():Char
+		return byte();
 
-	public inline function char()
-		return String.fromCharCode(byte());
-
-	public inline function str(delimiter:Int) {
+	public inline function str(delimiter:Char) {
 		final buffer = new haxe.io.BytesBuffer();
 		try {
-			var byte:Int;
-			while ((byte = this.readByte()) != delimiter)
-				buffer.addByte(byte);
+			var character:Char;
+			while ((character = char()) != delimiter)
+				buffer.addByte(character);
 		} catch (e:haxe.io.Eof) {}
 
 		return buffer.getBytes().toString();
 	}
 
-	public inline function int(delimiter:Int):Int
+	public inline function int(delimiter:Char):Int
 		return Std.parseInt(str(delimiter));
 }

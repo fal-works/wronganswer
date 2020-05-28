@@ -19,22 +19,10 @@ abstract CharIn(haxe.io.Input) {
 		return this.readByte();
 
 	/**
-		Reads 1 decimal digit.
-	**/
-	public inline function digit():Int {
-		final charCode = byte();
-		#if debug
-		if (charCode < "0".code || charCode > "9".code)
-			throw 'Failed to parse: $charCode';
-		#end
-		return charCode - "0".code;
-	}
-
-	/**
 		Reads 1 ASCII character.
 	**/
-	public inline function char():String
-		return String.fromCharCode(byte());
+	public inline function char():Char
+		return byte();
 
 	/**
 		Reads a string separated by any whitespace character (SP, HL, CR or LF).
@@ -42,10 +30,10 @@ abstract CharIn(haxe.io.Input) {
 	public inline function str():String {
 		var result = "";
 		try {
-			var byte = this.readByte();
-			while (Char.isNotWhiteSpace(byte)) {
-				result += String.fromCharCode(byte);
-				byte = this.readByte();
+			var character = char();
+			while (character.isNotWhiteSpace()) {
+				result += character.toString();
+				character = char();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -59,19 +47,19 @@ abstract CharIn(haxe.io.Input) {
 		var result = 0;
 		var negative = false;
 		try {
-			var byte = this.readByte();
-			if (byte == "-".code) {
+			var character = char();
+			if (character == "-".code) {
 				negative = true;
-				byte = this.readByte();
+				character = char();
 			}
-			while (Char.isNotWhiteSpace(byte)) {
-				final digit = byte - "0".code;
+			while (character.isNotWhiteSpace()) {
+				final digit = character.toDigit();
 				#if debug
 				if (digit < 0 || 10 <= digit)
 					throw "Failed to parse.";
 				#end
 				result = 10 * result + digit;
-				byte = this.readByte();
+				character = char();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -136,15 +124,15 @@ abstract CharIn(haxe.io.Input) {
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		try {
-			var byte = this.readByte();
-			while (Char.isNotWhiteSpace(byte)) {
-				final digit = byte - "0".code;
+			var character = char();
+			while (character.isNotWhiteSpace()) {
+				final digit = character.toDigit();
 				#if debug
 				if (digit < 0 || radix <= digit)
 					throw "Failed to parse.";
 				#end
 				result = radix * result + digit;
-				byte = this.readByte();
+				character = char();
 			}
 		} catch (e:haxe.io.Eof) {}
 

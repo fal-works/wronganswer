@@ -15,22 +15,19 @@ abstract CharIn(haxe.io.Input) {
 	public inline function byte():Int
 		return this.readByte();
 
-	public inline function digit():Int
-		return byte() - "0".code;
-
-	public inline function char():String
-		return String.fromCharCode(byte());
+	public inline function char():Char
+		return byte();
 
 	public inline function str():String {
 		final byteArray = CharIn.byteArray;
 		var index = 0;
 
 		try {
-			var byte = this.readByte();
-			while (Char.isNotWhiteSpace(byte)) {
-				byteArray[index] = byte;
+			var character = char();
+			while (character.isNotWhiteSpace()) {
+				byteArray[index] = character;
 				++index;
-				byte = this.readByte();
+				character = char();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -45,14 +42,14 @@ abstract CharIn(haxe.io.Input) {
 		var result = 0;
 		var negative = false;
 		try {
-			var byte = this.readByte();
-			if (byte == '-'.code) {
+			var character = char();
+			if (character == '-'.code) {
 				negative = true;
-				byte = this.readByte();
+				character = char();
 			}
-			while (Char.isNotWhiteSpace(byte)) {
-				result = 10 * result + byte - "0".code;
-				byte = this.readByte();
+			while (character.isNotWhiteSpace()) {
+				result = 10 * result + character.toDigit();
+				character = char();
 			}
 		} catch (e:haxe.io.Eof) {}
 
@@ -89,10 +86,10 @@ abstract CharIn(haxe.io.Input) {
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		try {
-			var byte = this.readByte();
-			while (Char.isNotWhiteSpace(byte)) {
-				result = radix * result + byte - "0".code;
-				byte = this.readByte();
+			var character = char();
+			while (character.isNotWhiteSpace()) {
+				result = radix * result + character.toDigit();
+				character = char();
 			}
 		} catch (e:haxe.io.Eof) {}
 

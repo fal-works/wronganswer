@@ -13,23 +13,20 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		return this[0];
 	}
 
-	public inline function digit():Int
-		return byte() - "0".code;
-
-	public inline function char():String
-		return String.fromCharCode(byte());
+	public inline function char():Char
+		return byte();
 
 	public inline function str():String {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
-		var byte = this[0];
-		while (Char.isNotWhiteSpace(byte)) {
-			result += String.fromCharCode(byte);
+		var character:Char = this[0];
+		while (character.isNotWhiteSpace()) {
+			result += character.toString();
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
-			byte = this[0];
+			character = this[0];
 		}
 		#end
 
@@ -42,17 +39,17 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
-		var byte = this[0];
-		if (byte == "-".code) {
+		var character:Char = this[0];
+		if (character == "-".code) {
 			negative = true;
 			readSync(0, this, 0, 1, null);
-			byte = this[0];
+			character = this[0];
 		}
-		while (Char.isNotWhiteSpace(byte)) {
-			result = 10 * result + byte - "0".code;
+		while (character.isNotWhiteSpace()) {
+			result = 10 * result + character.toDigit();
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
-			byte = this[0];
+			character = this[0];
 		}
 		#end
 
@@ -91,12 +88,12 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
-		var byte = this[0];
-		while (Char.isNotWhiteSpace(byte)) {
-			result = radix * result + byte - "0".code;
+		var character:Char = this[0];
+		while (character.isNotWhiteSpace()) {
+			result = radix * result + character.toDigit();
 			if (readSync(0, this, 0, 1, null) == 0)
 				break;
-			byte = this[0];
+			character = this[0];
 		}
 		#end
 

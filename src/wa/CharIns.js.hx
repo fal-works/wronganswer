@@ -8,6 +8,19 @@ class CharIns {
 	public static inline function float(cin:CharIn):Float
 		return Floats.atof(cin.str());
 
+	public static inline function all(cin:CharIn):String {
+		var result = "";
+		#if !macro
+		final readSync = js.node.Fs.readSync;
+		@:privateAccess final buffer = cin.buffer();
+
+		while (readSync(0, buffer, 0, 1, null) != 0)
+			result += (buffer[0]:Char32).toString();
+		#end
+
+		return result;
+	}
+
 	public static inline function until(cin:CharIn, delimiter:Char32):String {
 		var result = "";
 		#if !macro
@@ -24,7 +37,7 @@ class CharIns {
 		}
 		#end
 
-		return StringTools.rtrim(result);
+		return result;
 	}
 
 	public static inline function floatVec(cin:CharIn, length:Int):haxe.ds.Vector<Float> {

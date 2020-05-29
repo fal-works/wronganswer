@@ -8,6 +8,22 @@ class CharIns {
 	public static inline function float(cin:CharIn):Float
 		return Floats.atof(cin.str());
 
+	public static inline function all(cin:CharIn):String {
+		@:privateAccess final byteArray = CharIn.byteArray;
+		var index = 0;
+
+		try {
+			while (true)
+				byteArray[index++] = cin.char();
+		} catch (e:haxe.io.Eof) {}
+
+		try {
+			return #if macro ""; #else new String(byteArray, 0, index, "UTF-8"); #end
+		} catch (e:Dynamic) {
+			throw e;
+		}
+	}
+
 	public static inline function until(cin:CharIn, delimiter:Char32):String {
 		@:privateAccess final byteArray = CharIn.byteArray;
 		var index = 0;

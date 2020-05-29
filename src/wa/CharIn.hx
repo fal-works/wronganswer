@@ -129,4 +129,7 @@ abstract CharIn(haxe.io.Input) {
 
 		return result;
 	}
+
+	inline function internal()
+		return this;
 }

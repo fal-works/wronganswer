@@ -15,6 +15,12 @@ class CharIns {
 		return Floats.atof(cin.str());
 
 	/**
+		Reads all data as `String`.
+	**/
+	public static inline function all(cin:CharIn):String
+		return @:privateAccess cin.internal().readAll().toString();
+
+	/**
 		Reads until `delimiter`.
 	**/
 	public static inline function until(cin:CharIn, delimiter:Char32):String {
@@ -25,7 +31,7 @@ class CharIns {
 				result += character.toString();
 		} catch (e:haxe.io.Eof) {}
 
-		return StringTools.rtrim(result);
+		return result;
 	}
 
 	/**

@@ -132,6 +132,8 @@ class Bundler {
 		@return `code` with the import statements removed.
 	**/
 	static function processCode(code:String, buffer:CodeBuffer, target:Target, main:Bool) {
+		code = RegExps.commentedImportUsing.replace(code, "");
+
 		var currentPosition = 0;
 		while (RegExps.importer.matchSub(code, currentPosition)) {
 			final module = RegExps.importer.matched(1);
@@ -344,13 +346,18 @@ class RegExps {
 		Regular expression for matching any import statement.
 		After matched, the module can be extracted by `importer.matched(1)`.
 	**/
-	public static final importer = new EReg('^[^/\n]*import\\s+($rootPackage\\..+)\\s*;[ \\t]*\n?', "im");
+	public static final importer = new EReg('import\\s+($rootPackage\\.[^;]+)\\s*;[ \\t]*\n?', "i");
 
 	/**
 		Regular expression for matching any using statement.
 		After matched, the module can be extracted by `user.matched(1)`.
 	**/
-	public static final user = new EReg('^[^/\n]*using\\s+($rootPackage\\..+)\\s*;[ \\t]*\n?', "im");
+	public static final user = new EReg('using\\s+($rootPackage\\.[^;]+)\\s*;[ \\t]*\n?', "i");
+
+	/**
+		Regular expression for matching any single-line commented import/using statement.
+	**/
+	public static final commentedImportUsing = new EReg('//[^\n]*(?:import|using)\\s+$rootPackage\\..+\\s*;[ \\t]*\n?', "ig");
 }
 
 /**

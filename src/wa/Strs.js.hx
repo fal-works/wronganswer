@@ -2,7 +2,7 @@ package wa;
 
 class Strs {
 	@:pure public static inline function atoi(s:String):Int
-		return #if macro 0; #else js.Syntax.code("parseInt({0})", s); #end
+		return #if macro 0; #else js.Syntax.code("Number({0})", s); #end
 
 	@:pure public static inline function toCharVec(s:String):haxe.ds.Vector<Char16> {
 		final length = s.length;

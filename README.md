@@ -8,15 +8,15 @@ Requires **Haxe 4**.
 
 Supports following targets with the same API:
 
-- **Java** (recommended)
+- **Java**
 - **JavaScript**
 - **Eval**
 
 ## Features
 
-- Standard input (`wa.CharIn`, `wa.CharIns`)
-- Standard output (`wa.CharOut`)
-- General utility classes (`wa.Printer, Calc, Strs, Floats`)
+- Standard input (`wa.CharIn`, `wa.CharIns`, `wa.naive.CharIn`, `wa.naive.CharIns`)
+- Standard output with buffering (`wa.CharOut`)
+- General utility classes (`wa.Printer, wa.Calc, wa.Strs, wa.Floats`)
 - String buffer (`wa.StrBuf`, `wa.StrBufs`)
 - Vector operation (`wa.Vecs`)
 - Some other types (e.g. `wa.Bits`)
@@ -92,6 +92,9 @@ This can be automatically done with the command below:
 haxelib run wronganswer bundle [full path of your hx file] [target (java/js/eval)]
 ```
 
+*Note: `bundle` cannot ignore `import`/`using` in multiline comments (`/* ... */`).*  
+*Use singleline comment (`// ...`) for commenting them out.*
+
 ### Example
 
 ```
@@ -114,7 +117,7 @@ clip < %~dp0Main.bundle.hx
 haxelib run wronganswer bundle help
 ```
 
-The above will display a list of import statements that can be resolved.
+The above will display a list of import/using statements that can be resolved.
 
 - As you can see by the `help` command, `bundle` works only with module-level imports of wronganswer modules.
 - Make sure that the emitted code is working properly before submitting it.

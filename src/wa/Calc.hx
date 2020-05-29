@@ -21,4 +21,10 @@ class Calc {
 	**/
 	@:pure public static inline function idiv(n:Int, divisor:Int):Int
 		return Std.int(n / divisor);
+
+	/**
+		@return Absolute value of `n`.
+	**/
+	@:pure public static inline function iabs(n:Int):Int
+		return if (n < 0) -n else n;
 }

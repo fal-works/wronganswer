@@ -9,4 +9,7 @@ class Calc {
 
 	@:pure public static inline function idiv(n:Int, divisor:Int):Int
 		return #if macro 0; #else untyped __java__("{0} / {1}", n, divisor); #end
+
+	@:pure public static inline function iabs(n:Int):Int
+		return #if macro 0; #else java.lang.Math.abs(n); #end
 }

@@ -1,5 +1,8 @@
 package wa;
 
+import wa.CharOut;
+import wa.Char16;
+
 class CharOuts {
 	public static inline function int64(cout:CharOut, v:haxe.Int64):CharOut {
 		@:privateAccess cout.internal().print(v);
@@ -33,7 +36,7 @@ class CharOuts {
 		return cout;
 	}
 
-	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<haxe.Int64>, separator:Char32):CharOut {
+	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<haxe.Int64>, separator:Char16):CharOut {
 		int64(cout, vec[0]);
 		for (i in 1...vec.length) {
 			cout.char(separator);
@@ -42,7 +45,7 @@ class CharOuts {
 		return cout;
 	}
 
-	public static inline function floatVec(cout:CharOut, vec:haxe.ds.Vector<Float>, separator:Char32):CharOut {
+	public static inline function floatVec(cout:CharOut, vec:haxe.ds.Vector<Float>, separator:Char16):CharOut {
 		float(cout, vec[0]);
 		for (i in 1...vec.length) {
 			cout.char(separator);
@@ -51,7 +54,7 @@ class CharOuts {
 		return cout;
 	}
 
-	public static inline function floatVecWithScale(cout:CharOut, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char32):CharOut {
+	public static inline function floatVecWithScale(cout:CharOut, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char16):CharOut {
 		floatWithScale(cout, vec[0], scale);
 		for (i in 1...vec.length) {
 			cout.char(separator);

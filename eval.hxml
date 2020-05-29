@@ -1,2 +1,3 @@
 common.hxml
+--interp
 --cmd "haxe -p src -p test -m Main --interp --debug < test/testdata.txt"

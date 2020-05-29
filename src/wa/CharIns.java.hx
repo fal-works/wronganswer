@@ -13,8 +13,11 @@ class CharIns {
 		var index = 0;
 
 		try {
-			while (true)
-				byteArray[index++] = cin.char();
+			var character:Char32;
+			while (true) {
+				character = cin.char();
+				byteArray[index++] = character;
+			}
 		} catch (e:haxe.io.Eof) {}
 
 		try {

@@ -26,6 +26,6 @@ class Strs {
 	/**
 		@return The character code at `index`.
 	**/
-	@:pure public static inline function charAt(s:String, index:Int):Char16
+	@:pure public static inline function characterAt(s:String, index:Int):Char16
 		return StringTools.fastCodeAt(s, index);
 }

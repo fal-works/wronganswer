@@ -1,6 +1,6 @@
 package wa;
 
-import wa.Char;
+import wa.Char32;
 import wa.StrBuf;
 
 class StrBufs {
@@ -32,7 +32,7 @@ class StrBufs {
 		return buf;
 	}
 
-	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Char):StrBuf {
+	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Char32):StrBuf {
 		int64(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
@@ -41,7 +41,7 @@ class StrBufs {
 		return buf;
 	}
 
-	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Char):StrBuf {
+	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Char32):StrBuf {
 		float(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
@@ -50,7 +50,7 @@ class StrBufs {
 		return buf;
 	}
 
-	public static inline function floatVecWithScale(buf:StrBuf, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char):StrBuf {
+	public static inline function floatVecWithScale(buf:StrBuf, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char32):StrBuf {
 		floatWithScale(buf, vec[0], scale);
 		for (i in 1...vec.length) {
 			buf.char(separator);

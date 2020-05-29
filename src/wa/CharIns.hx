@@ -1,7 +1,7 @@
 package wa;
 
 import wa.CharIn;
-import wa.Char;
+import wa.Char32;
 import wa.Floats;
 
 /**
@@ -17,10 +17,10 @@ class CharIns {
 	/**
 		Reads until `delimiter`.
 	**/
-	public static inline function until(cin:CharIn, delimiter:Char):String {
+	public static inline function until(cin:CharIn, delimiter:Char32):String {
 		var result = "";
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = cin.char()) != delimiter)
 				result += character.toString();
 		} catch (e:haxe.io.Eof) {}
@@ -43,7 +43,7 @@ class CharIns {
 		Reads a string separated by any whitespace character (SP, HL, CR or LF)
 		and counts the number of `characterToCount`.
 	**/
-	public static inline function count(cin:CharIn, characterToCount:Char):Int {
+	public static inline function count(cin:CharIn, characterToCount:Char32):Int {
 		var foundCount = 0;
 		try {
 			var character = cin.char();

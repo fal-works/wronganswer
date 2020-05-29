@@ -17,7 +17,7 @@ abstract CharOut(#if macro Dynamic #else java.io.PrintWriter #end) #if !macro fr
 		return this;
 	}
 
-	public inline function char(character:Char):CharOut {
+	public inline function char(character:Char32):CharOut {
 		#if !macro
 		this.append(@:privateAccess character.char16());
 		#end
@@ -30,7 +30,7 @@ abstract CharOut(#if macro Dynamic #else java.io.PrintWriter #end) #if !macro fr
 	public inline function space():CharOut
 		return char(" ".code);
 
-	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Char):CharOut {
+	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Char32):CharOut {
 		str(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);
@@ -39,7 +39,7 @@ abstract CharOut(#if macro Dynamic #else java.io.PrintWriter #end) #if !macro fr
 		return this;
 	}
 
-	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Char):CharOut {
+	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Char32):CharOut {
 		int(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);

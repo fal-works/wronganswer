@@ -33,7 +33,7 @@ class CharOuts {
 		return cout;
 	}
 
-	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<haxe.Int64>, separator:Char):CharOut {
+	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<haxe.Int64>, separator:Char32):CharOut {
 		int64(cout, vec[0]);
 		for (i in 1...vec.length) {
 			cout.char(separator);
@@ -42,7 +42,7 @@ class CharOuts {
 		return cout;
 	}
 
-	public static inline function floatVec(cout:CharOut, vec:haxe.ds.Vector<Float>, separator:Char):CharOut {
+	public static inline function floatVec(cout:CharOut, vec:haxe.ds.Vector<Float>, separator:Char32):CharOut {
 		float(cout, vec[0]);
 		for (i in 1...vec.length) {
 			cout.char(separator);
@@ -51,7 +51,7 @@ class CharOuts {
 		return cout;
 	}
 
-	public static inline function floatVecWithScale(cout:CharOut, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char):CharOut {
+	public static inline function floatVecWithScale(cout:CharOut, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char32):CharOut {
 		floatWithScale(cout, vec[0], scale);
 		for (i in 1...vec.length) {
 			cout.char(separator);

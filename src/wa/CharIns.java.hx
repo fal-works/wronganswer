@@ -1,19 +1,19 @@
 package wa;
 
 import wa.CharIn;
-import wa.Char;
+import wa.Char32;
 import wa.Floats;
 
 class CharIns {
 	public static inline function float(cin:CharIn):Float
 		return Floats.atof(cin.str());
 
-	public static inline function until(cin:CharIn, delimiter:Char):String {
+	public static inline function until(cin:CharIn, delimiter:Char32):String {
 		@:privateAccess final byteArray = CharIn.byteArray;
 		var index = 0;
 
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = cin.char()) != delimiter)
 				byteArray[index++] = character;
 		} catch (e:haxe.io.Eof) {}
@@ -32,10 +32,10 @@ class CharIns {
 		return vec;
 	}
 
-	public static inline function count(cin:CharIn, characterToCount:Char):Int {
+	public static inline function count(cin:CharIn, characterToCount:Char32):Int {
 		var foundCount = 0;
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = cin.char()).isNotWhiteSpace()) {
 				if (character == characterToCount)
 					++foundCount;

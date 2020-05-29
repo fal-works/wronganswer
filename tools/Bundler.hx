@@ -21,7 +21,7 @@ class Bundler {
 		'$rootPackage.*' => {
 			priority: 0,
 			wildcard: [
-				"CharIn", "CharIns", "CharOut", "CharOuts", "Char", "Whitespace", "Printer", "Calc", "Strs", "Floats", "StrBuf", "StrBufs", "Vecs", "Bits", "Debug"
+				"CharIn", "CharIns", "CharOut", "CharOuts", "Char32", "Whitespace", "Printer", "Calc", "Strs", "Floats", "StrBuf", "StrBufs", "Vecs", "Bits", "Debug"
 			]
 		},
 		'$rootPackage.naive.*' => {
@@ -34,7 +34,7 @@ class Bundler {
 		'$rootPackage.naive.CharIns' => {priority: 1, usable: true},
 		'$rootPackage.CharOut' => {priority: 2},
 		'$rootPackage.CharOuts' => {priority: 3, usable: true},
-		'$rootPackage.Char' => {priority: 4},
+		'$rootPackage.Char32' => {priority: 4},
 		'$rootPackage.Whitespace' => {priority: 5},
 		'$rootPackage.Printer' => {priority: 6, usable: true},
 		'$rootPackage.Calc' => {priority: 10, usable: true},

@@ -1,6 +1,6 @@
 package wa.naive;
 
-import wa.Char;
+import wa.Char32;
 import wa.naive.CharIn;
 
 /**
@@ -10,14 +10,14 @@ class CharIns {
 	/**
 		Reads until `delimiter`.
 	**/
-	public static inline function until(cin:CharIn, delimiter:Char):String {
+	public static inline function until(cin:CharIn, delimiter:Char32):String {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		@:privateAccess final buffer = cin.buffer();
 
 		readSync(0, buffer, 0, 1, null);
-		var character:Char = buffer[0];
+		var character:Char32 = buffer[0];
 		while (character != delimiter) {
 			result += character.toString();
 			if (readSync(0, buffer, 0, 1, null) == 0)

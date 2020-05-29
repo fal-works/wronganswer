@@ -1,12 +1,12 @@
 package wa;
 
-import wa.Char;
+import wa.Char32;
 
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public extern inline function new(bufferCapacity:Int)
 		this = #if macro null; #else js.node.Buffer.alloc(1); #end
 
-	public inline function char():Char {
+	public inline function char():Char32 {
 		#if !macro
 		js.node.Fs.readSync(0, this, 0, 1, null);
 		#end
@@ -18,7 +18,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
-		var character:Char = this[0];
+		var character:Char32 = this[0];
 		while (character.isNotWhiteSpace()) {
 			result += character.toString();
 			if (readSync(0, this, 0, 1, null) == 0)
@@ -36,7 +36,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
-		var character:Char = this[0];
+		var character:Char32 = this[0];
 		if (character == "-".code) {
 			negative = true;
 			readSync(0, this, 0, 1, null);
@@ -85,7 +85,7 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		#if !macro
 		final readSync = js.node.Fs.readSync;
 		readSync(0, this, 0, 1, null);
-		var character:Char = this[0];
+		var character:Char32 = this[0];
 		while (character.isNotWhiteSpace()) {
 			result = radix * result + character.toDigit();
 			if (readSync(0, this, 0, 1, null) == 0)

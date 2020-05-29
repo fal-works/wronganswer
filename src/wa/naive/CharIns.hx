@@ -1,6 +1,6 @@
 package wa.naive;
 
-import wa.Char;
+import wa.Char32;
 import wa.naive.CharIn;
 
 /**
@@ -10,10 +10,10 @@ class CharIns {
 	/**
 		Reads until `delimiter`.
 	**/
-	public static inline function until(cin:CharIn, delimiter:Char):String {
+	public static inline function until(cin:CharIn, delimiter:Char32):String {
 		final buffer = new haxe.io.BytesBuffer();
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = cin.char()) != delimiter)
 				buffer.addByte(cast character);
 		} catch (e:haxe.io.Eof) {}

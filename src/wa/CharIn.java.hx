@@ -1,6 +1,6 @@
 package wa;
 
-import wa.Char;
+import wa.Char32;
 
 abstract CharIn(#if macro Dynamic #else java.io.InputStream #end) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
@@ -12,7 +12,7 @@ abstract CharIn(#if macro Dynamic #else java.io.InputStream #end) {
 		#end
 	}
 
-	public inline function char():Char {
+	public inline function char():Char32 {
 		final byte = this.read();
 		if (byte == -1)
 			throw new haxe.io.Eof();
@@ -24,7 +24,7 @@ abstract CharIn(#if macro Dynamic #else java.io.InputStream #end) {
 		var index = 0;
 
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = char()).isNotWhiteSpace())
 				byteArray[index++] = character;
 		} catch (e:haxe.io.Eof) {}
@@ -84,7 +84,7 @@ abstract CharIn(#if macro Dynamic #else java.io.InputStream #end) {
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = char()).isNotWhiteSpace())
 				result = radix * result + character.toDigit();
 		} catch (e:haxe.io.Eof) {}

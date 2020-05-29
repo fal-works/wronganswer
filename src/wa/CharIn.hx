@@ -1,6 +1,6 @@
 package wa;
 
-import wa.Char;
+import wa.Char32;
 
 /**
 	Character input.
@@ -15,7 +15,7 @@ abstract CharIn(haxe.io.Input) {
 	/**
 		Reads 1 byte ASCII character.
 	**/
-	public inline function char():Char
+	public inline function char():Char32
 		return this.readByte();
 
 	/**
@@ -24,7 +24,7 @@ abstract CharIn(haxe.io.Input) {
 	public inline function str():String {
 		var result = "";
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = char()).isNotWhiteSpace())
 				result += character.toString();
 		} catch (e:haxe.io.Eof) {}
@@ -116,7 +116,7 @@ abstract CharIn(haxe.io.Input) {
 	inline function uintWithRadix(radix:Int):Int {
 		var result = 0;
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = char()).isNotWhiteSpace()) {
 				final digit = character.toDigit();
 				#if debug

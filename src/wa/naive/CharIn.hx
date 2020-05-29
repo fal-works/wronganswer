@@ -1,6 +1,6 @@
 package wa.naive;
 
-import wa.Char;
+import wa.Char32;
 
 /**
 	Character input.
@@ -12,7 +12,7 @@ abstract CharIn(haxe.io.Input) {
 	/**
 		Reads 1 byte ASCII character.
 	**/
-	public inline function char():Char
+	public inline function char():Char32
 		return this.readByte();
 
 	/**
@@ -21,7 +21,7 @@ abstract CharIn(haxe.io.Input) {
 	public inline function str() {
 		final buffer = new haxe.io.BytesBuffer();
 		try {
-			var character:Char;
+			var character:Char32;
 			while ((character = char()).isNotWhiteSpace())
 				buffer.addByte(cast character);
 		} catch (e:haxe.io.Eof) {}

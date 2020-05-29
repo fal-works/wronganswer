@@ -1,9 +1,9 @@
 package wa;
 
 /**
-	Character code.
+	Character code based on `Int`.
 **/
-abstract Char(Int) from Int to Int {
+abstract Char32(Int) from Int to Int {
 	/**
 		@return `true` if `characterCode` is not a whitespace (SP, HT, LF or CR).
 	**/

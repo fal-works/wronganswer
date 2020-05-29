@@ -1,6 +1,6 @@
 package wa;
 
-abstract Char(Int) from Int to Int {
+abstract Char32(Int) from Int to Int {
 	public inline function isNotWhiteSpace():Bool {
 		return switch this {
 			case " ".code | "\t".code | "\n".code | "\r".code:

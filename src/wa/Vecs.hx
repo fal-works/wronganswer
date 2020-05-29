@@ -26,6 +26,19 @@ class Vecs {
 	}
 
 	/**
+		Creates a reversed vector. This does not change the original vector.
+	**/
+	@:generic
+	public static inline function reverse<T>(vec:haxe.ds.Vector<T>):haxe.ds.Vector<T> {
+		final length = vec.length;
+		final newVec = new haxe.ds.Vector<T>(length);
+		final lastIndex = length - 1;
+		for (i in 0...length)
+			newVec[i] = vec[lastIndex - i];
+		return newVec;
+	}
+
+	/**
 		Sets the stack capacity for recursion in `quicksort()`.
 		The capacity required is twice the depth of the recurrence.
 	**/

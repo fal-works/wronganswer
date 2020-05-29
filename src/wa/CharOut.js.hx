@@ -3,9 +3,9 @@ package wa;
 import wa.StrBuf;
 
 @:forward
-abstract CharOut(StrBuf) to StrBuf {
+abstract CharOut(StrBuf) from StrBuf to StrBuf {
 	public inline function new() {
-		this = new StrBuf(capacity);
+		this = new StrBuf();
 	}
 
 	public inline function print():Void {

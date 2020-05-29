@@ -344,13 +344,13 @@ class RegExps {
 		Regular expression for matching any import statement.
 		After matched, the module can be extracted by `importer.matched(1)`.
 	**/
-	public static final importer = new EReg('import\\s+(.+)\\s*;', "i");
+	public static final importer = new EReg('^[^/\n]*import\\s+($rootPackage\\..+)\\s*;[ \\t]*\n?', "im");
 
 	/**
 		Regular expression for matching any using statement.
 		After matched, the module can be extracted by `user.matched(1)`.
 	**/
-	public static final user = new EReg('using\\s+(.+)\\s*;', "i");
+	public static final user = new EReg('^[^/\n]*using\\s+($rootPackage\\..+)\\s*;[ \\t]*\n?', "im");
 }
 
 /**

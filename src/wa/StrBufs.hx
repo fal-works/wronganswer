@@ -29,7 +29,6 @@ class StrBufs {
 
 	/**
 		Appends all values from `vec`.
-		Note that nothing will be appended at the end.
 	**/
 	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Char):StrBuf {
 		int64(buf, vec[0]);
@@ -42,7 +41,6 @@ class StrBufs {
 
 	/**
 		Appends all values from `vec`.
-		Note that nothing will be appended at the end.
 	**/
 	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Char):StrBuf {
 		float(buf, vec[0]);
@@ -55,7 +53,6 @@ class StrBufs {
 
 	/**
 		Appends all values from `vec` formatted with `scale`.
-		Note that nothing will be appended at the end.
 	**/
 	public static inline function floatVecWithScale(buf:StrBuf, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char):StrBuf {
 		floatWithScale(buf, vec[0], scale);

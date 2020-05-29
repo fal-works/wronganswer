@@ -6,7 +6,7 @@ import wa.Whitespace;
 import wa.Printer.*;
 
 using wa.CharIns;
-using wa.StrBufs;
+using wa.CharOuts;
 using wa.naive.CharIns;
 
 class Main {

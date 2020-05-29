@@ -34,7 +34,8 @@ Super unstable!
 
 These provide optimized standard I/O.
 
-`CharOut` works as a string buffer. At the end of the program you have to call `print()`/`println()` explicitly.
+`CharOut` works as a string buffer (on java target, it's based on `PrintWriter`).  
+At the end of the program you have to call `print()`/`println()` explicitly.
 
 ```haxe
 import wa.CharIn;

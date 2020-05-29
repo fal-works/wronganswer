@@ -4,7 +4,7 @@ import wa.Char32;
 
 abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public extern inline function new(bufferCapacity:Int)
-		this = #if macro null; #else js.node.Buffer.alloc(1); #end
+		this = #if macro null; #else js.node.Buffer.alloc(bufferCapacity); #end
 
 	public inline function char():Char32 {
 		#if !macro

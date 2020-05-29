@@ -7,7 +7,7 @@ import wa.Char32;
 **/
 abstract CharIn(haxe.io.Input) {
 	/**
-		@param bufferCapacity Used on Java target.
+		@param bufferCapacity Used on java/js targets.
 	**/
 	public extern inline function new(bufferCapacity:Int)
 		this = Sys.stdin();

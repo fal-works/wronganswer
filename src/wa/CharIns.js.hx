@@ -9,18 +9,9 @@ class CharIns {
 		return Floats.atof(cin.str());
 
 	public static inline function all(cin:CharIn):String {
-		var result = "";
-		#if !macro
-		final readSync = js.node.Fs.readSync;
 		@:privateAccess final buffer = cin.buffer();
-
-		try {
-			while (readSync(0, buffer, 0, 1, null) != 0)
-				result += (buffer[0] : Char32).toString();
-		} catch (e:Dynamic) {}
-		#end
-
-		return result;
+		final size = js.node.Fs.readSync(0, buffer, 0, buffer.length, null);
+		return buffer.toString("utf8", 0, size);
 	}
 
 	public static inline function until(cin:CharIn, delimiter:Char32):String {

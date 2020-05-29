@@ -1,8 +1,8 @@
 package wa;
 
-abstract CharOut(java.io.PrintWriter) from java.io.PrintWriter {
+abstract CharOut(#if macro Dynamic #else java.io.PrintWriter #end) #if !macro from java.io.PrintWriter #end {
 	public inline function new() {
-		this = new java.io.PrintWriter(java.lang.System.out);
+		this = #if macro null; #else new java.io.PrintWriter(java.lang.System.out); #end
 	}
 
 	public inline function str(s:String):CharOut {

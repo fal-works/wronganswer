@@ -19,25 +19,24 @@ abstract Char(#if macro Int #else java.types.Int8 #end) from Int #if !macro to j
 	/**
 		Converts `this` to an decimal integer digit.
 	**/
-	public inline function toDigit():Int {
-		return (cast this) - "0".code;
-	}
+	public inline function toDigit():Int
+		return int32() - "0".code;
 
 	/**
 		Converts `this` to `String`.
 	**/
 	public inline function toString():String
-		return String.fromCharCode(cast this);
+		return String.fromCharCode(int32());
 
 	/**
 		Casts `this` to `Int`.
 	**/
 	@:to inline function int32():Int
-		return #if macro this #else untyped __java__("(int) {0}", this); #end
+		return #if macro this; #else untyped __java__("(int) {0}", this); #end
 
 	/**
 		Casts `this` to 16bit char.
 	**/
 	inline function char16():#if macro Int #else java.types.Char16 #end
-		return #if macro this #else untyped __java__("(char) {0}", this); #end
+		return #if macro this; #else untyped __java__("(char) {0}", this); #end
 }

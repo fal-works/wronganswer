@@ -1,5 +1,7 @@
 package wa;
 
+import wa.Char16;
+
 /**
 	Utility static function for `String` type.
 **/
@@ -14,6 +16,17 @@ class Strs {
 			throw 'Failed to parse: $s';
 		#end
 		return i;
+	}
+
+	/**
+		Converts `s` to a vector of `Char16`.
+	**/
+	@:pure public static inline function toCharVec(s:String):haxe.ds.Vector<Char16> {
+		final length = s.length;
+		final vec = new haxe.ds.Vector<Char16>(length);
+		for (i in 0...length)
+			vec[i] = characterAt(s, i);
+		return vec;
 	}
 
 	/**

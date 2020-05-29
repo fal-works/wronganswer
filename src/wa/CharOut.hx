@@ -11,7 +11,7 @@ import wa.Printer;
 @:forward
 abstract CharOut(StrBuf) from StrBuf to StrBuf {
 	public inline function new() {
-		this = new StrBuf(capacity);
+		this = new StrBuf();
 	}
 
 	/**

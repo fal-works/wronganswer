@@ -6,4 +6,7 @@ package wa;
 	- On java, based on 16bit integer (or `char`).
 	- On eval/js, based on `Int` (same as `Char32`).
 **/
-abstract Char16(Int) from Int to Int {}
+abstract Char16(Int) from Int {
+	@:to public inline function toInt():Int
+		return this;
+}

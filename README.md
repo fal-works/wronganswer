@@ -61,6 +61,28 @@ class Main {
 }
 ```
 
+### Read all at once
+
+On js target, sequential loading can lead to performance problems.  
+So you might also want to read all data at once:
+
+```haxe
+import wa.CharIn;
+using wa.CharIns; // for all() and other additional methods
+
+class Main {
+	static function main() {
+		final inputBufferCapacity = 65536;
+		final cin = new CharIn(inputBufferCapacity);
+
+		final data:String = cin.all();
+		final lines:Array<String> = data.split("\n");
+
+		// ...
+	}
+}
+```
+
 ## Usage > naive `CharIn`
 
 You can also use a minimal (but not quite optimized) implementation of `CharIn` to reduce code to be appended when you submit.

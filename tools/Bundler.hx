@@ -26,11 +26,12 @@ class Bundler {
 		},
 		'$rootPackage.naive.*' => {
 			priority: 0,
-			wildcard: ["CharIn"]
+			wildcard: ["CharIn", "CharIns"]
 		},
 		'$rootPackage.CharIn' => {priority: 0},
 		'$rootPackage.naive.CharIn' => {priority: 0},
 		'$rootPackage.CharIns' => {priority: 1},
+		'$rootPackage.naive.CharIns' => {priority: 1},
 		'$rootPackage.CharOut' => {priority: 2},
 		'$rootPackage.Char' => {priority: 3},
 		'$rootPackage.Whitespace' => {priority: 4},

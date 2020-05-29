@@ -17,14 +17,16 @@ abstract CharIn(#if macro Null<Dynamic> #else js.node.buffer.Buffer #end) {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		readSync(0, this, 0, 1, null);
-		var character:Char32 = this[0];
-		while (character.isNotWhiteSpace()) {
-			result += character.toString();
-			if (readSync(0, this, 0, 1, null) == 0)
-				break;
-			character = this[0];
-		}
+		try {
+			readSync(0, this, 0, 1, null);
+			var character:Char32 = this[0];
+			while (character.isNotWhiteSpace()) {
+				result += character.toString();
+				if (readSync(0, this, 0, 1, null) == 0)
+					break;
+				character = this[0];
+			}
+		} catch (e:Dynamic) {}
 		#end
 		return result;
 	}

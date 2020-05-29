@@ -17,14 +17,16 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		var result = "";
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		readSync(0, this, 0, 1, null);
-		var character:Char32 = this[0];
-		while (character.isNotWhiteSpace()) {
-			result += character.toString();
-			if (readSync(0, this, 0, 1, null) == 0)
-				break;
-			character = this[0];
-		}
+		try {
+			readSync(0, this, 0, 1, null);
+			var character:Char32 = this[0];
+			while (character.isNotWhiteSpace()) {
+				result += character.toString();
+				if (readSync(0, this, 0, 1, null) == 0)
+					break;
+				character = this[0];
+			}
+		} catch (e:Dynamic) {}
 		#end
 
 		return result;
@@ -35,19 +37,21 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		var negative = false;
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		readSync(0, this, 0, 1, null);
-		var character:Char32 = this[0];
-		if (character == "-".code) {
-			negative = true;
+		try {
 			readSync(0, this, 0, 1, null);
-			character = this[0];
-		}
-		while (character.isNotWhiteSpace()) {
-			result = 10 * result + character.toDigit();
-			if (readSync(0, this, 0, 1, null) == 0)
-				break;
-			character = this[0];
-		}
+			var character:Char32 = this[0];
+			if (character == "-".code) {
+				negative = true;
+				readSync(0, this, 0, 1, null);
+				character = this[0];
+			}
+			while (character.isNotWhiteSpace()) {
+				result = 10 * result + character.toDigit();
+				if (readSync(0, this, 0, 1, null) == 0)
+					break;
+				character = this[0];
+			}
+		} catch (e:Dynamic) {}
 		#end
 
 		return if (negative) -result else result;
@@ -84,14 +88,16 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 		var result = 0;
 		#if !macro
 		final readSync = js.node.Fs.readSync;
-		readSync(0, this, 0, 1, null);
-		var character:Char32 = this[0];
-		while (character.isNotWhiteSpace()) {
-			result = radix * result + character.toDigit();
-			if (readSync(0, this, 0, 1, null) == 0)
-				break;
-			character = this[0];
-		}
+		try {
+			readSync(0, this, 0, 1, null);
+			var character:Char32 = this[0];
+			while (character.isNotWhiteSpace()) {
+				result = radix * result + character.toDigit();
+				if (readSync(0, this, 0, 1, null) == 0)
+					break;
+				character = this[0];
+			}
+		} catch (e:Dynamic) {}
 		#end
 
 		return result;

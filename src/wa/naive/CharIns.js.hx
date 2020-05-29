@@ -16,14 +16,16 @@ class CharIns {
 		final readSync = js.node.Fs.readSync;
 		@:privateAccess final buffer = cin.buffer();
 
-		readSync(0, buffer, 0, 1, null);
-		var character:Char32 = buffer[0];
-		while (character != delimiter) {
-			result += character.toString();
-			if (readSync(0, buffer, 0, 1, null) == 0)
-				break;
-			character = buffer[0];
-		}
+		try {
+			readSync(0, buffer, 0, 1, null);
+			var character:Char32 = buffer[0];
+			while (character != delimiter) {
+				result += character.toString();
+				if (readSync(0, buffer, 0, 1, null) == 0)
+					break;
+				character = buffer[0];
+			}
+		} catch (e:Dynamic) {}
 		#end
 
 		return StringTools.rtrim(result);

@@ -22,4 +22,10 @@ class Strs {
 	**/
 	@:pure public static inline function compareString(a:String, b:String):Int
 		return if (a < b) -1 else if (b < a) 1 else 0;
+
+	/**
+		@return The character code at `index`.
+	**/
+	@:pure public static inline function charAt(s:String, index:Int):Char16
+		return StringTools.fastCodeAt(s, index);
 }

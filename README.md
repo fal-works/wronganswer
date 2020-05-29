@@ -92,9 +92,6 @@ This can be automatically done with the command below:
 haxelib run wronganswer bundle [full path of your hx file] [target (java/js/eval)]
 ```
 
-*Note: `bundle` cannot ignore `import`/`using` in multiline comments (`/* ... */`).*  
-*Use singleline comment (`// ...`) for commenting them out.*
-
 ### Example
 
 ```
@@ -119,5 +116,10 @@ haxelib run wronganswer bundle help
 
 The above will display a list of import/using statements that can be resolved.
 
-- As you can see by the `help` command, `bundle` works only with module-level imports of wronganswer modules.
-- Make sure that the emitted code is working properly before submitting it.
+### Notes
+
+- As you can see by the `help` command, `bundle` works only with module-level imports of wronganswer modules.  
+Also avoid using wronganswer features without importing (e.g. `new wa.CharIn(16)`), which cannot be resolved.
+- `bundle` cannot ignore `import`/`using` in multiline comments (`/* ... */`).  
+Use singleline comment (`// ...`) for commenting them out.
+- Make sure that the emitted code is working properly before submitting it!

@@ -17,8 +17,10 @@ abstract CharOut(java.io.PrintWriter) from java.io.PrintWriter {
 		return this;
 	}
 
-	public inline function char(code:Char):CharOut {
-		this.write(code);
+	public inline function char(character:Char):CharOut {
+		#if !macro
+		this.append(@:privateAccess character.char16());
+		#end
 		return this;
 	}
 

@@ -10,7 +10,7 @@ using wa.CharOuts;
 using wa.naive.CharIns;
 
 class Main {
-	static final testCaseNo = 2;
+	static final testCaseNo = 3;
 
 	static function main() {
 		Printer.println("Start test.");

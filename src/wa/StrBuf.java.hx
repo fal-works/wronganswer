@@ -17,8 +17,8 @@ abstract StrBuf(#if macro Dynamic #else java.lang.StringBuilder #end)
 	public inline function int(v:Int):StrBuf
 		return this.append(v);
 
-	public inline function char(code:Char):StrBuf
-		return this.appendCodePoint(code);
+	public inline function char(character:Char):StrBuf
+		return this.append(@:privateAccess character.char16());
 
 	public inline function lf():StrBuf
 		return char("\n".code);

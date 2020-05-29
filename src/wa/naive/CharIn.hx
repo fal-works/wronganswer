@@ -23,7 +23,7 @@ abstract CharIn(haxe.io.Input) {
 		try {
 			var character:Char;
 			while ((character = char()).isNotWhiteSpace())
-				buffer.addByte(character);
+				buffer.addByte(cast character);
 		} catch (e:haxe.io.Eof) {}
 
 		return buffer.getBytes().toString();

@@ -15,7 +15,7 @@ class CharIns {
 		try {
 			var character:Char;
 			while ((character = cin.char()) != delimiter)
-				buffer.addByte(character);
+				buffer.addByte(cast character);
 		} catch (e:haxe.io.Eof) {}
 
 		return buffer.getBytes().toString();

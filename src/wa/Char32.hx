@@ -1,9 +1,12 @@
 package wa;
 
+import wa.Char16;
+
 /**
 	Character code based on `Int`.
+	Mainly used as input character.
 **/
-abstract Char32(Int) from Int to Int {
+abstract Char32(Int) from Int to Int to Char16 {
 	/**
 		@return `true` if `characterCode` is not a whitespace (SP, HT, LF or CR).
 	**/

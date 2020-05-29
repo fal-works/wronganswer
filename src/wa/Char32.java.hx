@@ -1,6 +1,11 @@
 package wa;
 
-abstract Char32(Int) from Int to Int {
+import wa.Char16;
+
+abstract Char32(Int) from Int to Int to Char16 {
+	@:to inline function char16():Char16
+		return #if macro this; #else untyped __java__("(char) {0}", this); #end
+
 	public inline function isNotWhiteSpace():Bool {
 		return switch this {
 			case " ".code | "\t".code | "\n".code | "\r".code:
@@ -15,7 +20,4 @@ abstract Char32(Int) from Int to Int {
 
 	public inline function toString():String
 		return String.fromCharCode(this);
-
-	inline function char16():#if macro Int #else java.types.Char16 #end
-		return #if macro this; #else untyped __java__("(char) {0}", this); #end
 }

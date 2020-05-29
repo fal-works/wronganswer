@@ -2,18 +2,22 @@ package wa;
 
 import wa.Char;
 
-abstract CharIn(haxe.io.Input) {
+abstract CharIn(#if macro Dynamic #else java.io.InputStream #end) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
 
 	public extern inline function new(bufferCapacity:Int) {
-		this = Sys.stdin();
 		#if !macro
+		this = untyped __java__("java.lang.System.in");
 		byteArray = new java.NativeArray(bufferCapacity);
 		#end
 	}
 
-	public inline function char():Char
-		return this.readByte();
+	public inline function char():Char {
+		final byte = this.read();
+		if (byte == -1)
+			throw new haxe.io.Eof();
+		return byte;
+	}
 
 	public inline function str():String {
 		final byteArray = CharIn.byteArray;

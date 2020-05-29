@@ -4,7 +4,7 @@ import wa.StrBuf;
 
 @:forward
 abstract CharOut(StrBuf) to StrBuf {
-	public inline function new(capacity = 1024) {
+	public inline function new() {
 		this = new StrBuf(capacity);
 	}
 

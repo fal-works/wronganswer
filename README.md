@@ -49,8 +49,7 @@ class Main {
 		final intVal = cin.int(); // Ditto + casts to Int
 		final strVal2 = cin.until(LF); // Reads until next LF
 
-		final outputBufferCapacity = 32;
-		final cout = new CharOut(outputBufferCapacity);
+		final cout = new CharOut();
 
 		cout.str(strVal); // Appends `String` to the buffer
 		cout.space(); // Appends a space

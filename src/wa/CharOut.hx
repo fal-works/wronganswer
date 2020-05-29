@@ -10,10 +10,7 @@ import wa.Printer;
 **/
 @:forward
 abstract CharOut(StrBuf) from StrBuf to StrBuf {
-	/**
-		@param capacity Used on Java target.
-	**/
-	public inline function new(capacity = 1024) {
+	public inline function new() {
 		this = new StrBuf(capacity);
 	}
 

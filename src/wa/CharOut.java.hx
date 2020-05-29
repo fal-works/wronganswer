@@ -1,22 +1,59 @@
 package wa;
 
-import wa.StrBuf;
-
-@:forward
-abstract CharOut(StrBuf) to StrBuf {
-	public inline function new(capacity = 1024) {
-		this = new StrBuf(capacity);
+abstract CharOut(java.io.PrintWriter) from java.io.PrintWriter {
+	public inline function new() {
+		this = new java.io.PrintWriter(java.lang.System.out);
 	}
 
-	public inline function print():Void {
+	public inline function str(s:String):CharOut {
 		#if !macro
-		java.lang.System.out.print(this.toString());
+		untyped __java__("{0}.print({1})", this, s);
 		#end
+		return this;
 	}
+
+	public inline function int(v:Int):CharOut {
+		this.print(v);
+		return this;
+	}
+
+	public inline function char(code:Char):CharOut {
+		this.write(code);
+		return this;
+	}
+
+	public inline function lf():CharOut
+		return char("\n".code);
+
+	public inline function space():CharOut
+		return char(" ".code);
+
+	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Char):CharOut {
+		str(vec[0]);
+		for (i in 1...vec.length) {
+			char(separator);
+			str(vec[i]);
+		}
+		return this;
+	}
+
+	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Char):CharOut {
+		int(vec[0]);
+		for (i in 1...vec.length) {
+			char(separator);
+			int(vec[i]);
+		}
+		return this;
+	}
+
+	public inline function print():Void
+		this.flush();
 
 	public inline function println():Void {
-		#if !macro
-		java.lang.System.out.println(this.toString());
-		#end
+		lf();
+		print();
 	}
+
+	inline function internal()
+		return this;
 }

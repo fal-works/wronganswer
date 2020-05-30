@@ -20,7 +20,7 @@ abstract Char32(Int) from Int to Int to Char16 {
 	}
 
 	/**
-		Converts `this` to an decimal integer digit.
+		Converts `this` to an integer digit.
 	**/
 	public inline function toDigit():Int
 		return this - "0".code;

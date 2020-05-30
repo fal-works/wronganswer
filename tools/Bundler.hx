@@ -59,6 +59,11 @@ class Bundler {
 	static final srcDirectory = FileSystem.absolutePath("src") + "/";
 
 	/**
+		If `true`, prints verbose logs.
+	**/
+	static var verbose = false;
+
+	/**
 		Validates `args` and then calls `run()`.
 	**/
 	public static function tryRun(args:Array<String>) {
@@ -95,14 +100,16 @@ class Bundler {
 				return;
 		}
 
-		run(filePath, target);
+		verbose = args.length > 3 && args[3] == "verbose";
+
+		run(filePath, target, verbose);
 	}
 
 	/**
 		Replaces import statements in the code at `mainFilePath`
 		and writes the result to a new file.
 	**/
-	static function run(mainFilePath:String, target:Target) {
+	static function run(mainFilePath:String, target:Target, verbose:Bool) {
 		final mainCode = readFile(mainFilePath);
 
 		final buffer:CodeBuffer = {codeBlocks: [], modules: [], usingModules: []};
@@ -110,14 +117,14 @@ class Bundler {
 
 		final resultCode = buildResultCode(moduleFromPath(mainFilePath), processedMainCode, buffer);
 		if (resultCode.length == 0) {
-			Sys.println("Found no code to be replaced.");
+			log("Found no code to be replaced.");
 			return;
 		}
 
 		final newFilePath = mainFilePath.replace(".hx", "") + ".bundle.hx";
 		createFile(newFilePath, resultCode);
 		Sys.println('Create file: $newFilePath');
-		Sys.println("Completed.");
+		log("Completed.");
 	}
 
 	/**
@@ -171,7 +178,7 @@ class Bundler {
 		code = RegExps.importer.replace(code, "");
 
 		if (main)
-			Sys.println('Replacing: import $module;');
+			log('Replacing: import $module;');
 
 		final bundlingModules = buffer.modules;
 		if (bundlingModules.exists(module)) // already registered
@@ -205,7 +212,7 @@ class Bundler {
 		code = RegExps.user.replace(code, "");
 
 		if (main)
-			Sys.println('Replacing: using $module;');
+			log('Replacing: using $module;');
 
 		final usingModules = buffer.usingModules;
 		if (usingModules.exists(module)) // already registered
@@ -331,6 +338,12 @@ class Bundler {
 		}
 		newFile.close();
 	}
+
+	/**
+		Prints `message` if `verbose` is `true`.
+	**/
+	static function log(message:String)
+		if (verbose) Sys.println(message);
 }
 
 class RegExps {

@@ -26,6 +26,13 @@ class Vecs {
 	}
 
 	/**
+		@return An empty vector with `length`.
+	**/
+	@:generic @:noUsing
+	public static inline function alloc<T>(length:Int):haxe.ds.Vector<T>
+		return new haxe.ds.Vector<T>(length);
+
+	/**
 		Creates a reversed vector. This does not change the original vector.
 	**/
 	@:generic

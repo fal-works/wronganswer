@@ -3,6 +3,7 @@ package wa;
 import wa.CharOut;
 import wa.StrBufs;
 import wa.Char16;
+import wa.Int64;
 
 /**
 	Utility static functions for `CharOuts` type.
@@ -11,7 +12,7 @@ class CharOuts {
 	/**
 		Appends an `Int64` value.
 	**/
-	public static inline function int64(cout:CharOut, v:haxe.Int64):CharOut
+	public static inline function int64(cout:CharOut, v:Int64):CharOut
 		return StrBufs.int64(cout, v);
 
 	/**
@@ -31,7 +32,7 @@ class CharOuts {
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
 	**/
-	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<haxe.Int64>, separator:Char16):CharOut
+	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<Int64>, separator:Char16):CharOut
 		return StrBufs.int64Vec(cout, vec, separator);
 
 	/**

@@ -21,7 +21,8 @@ class Bundler {
 		'$rootPackage.*' => {
 			priority: 0,
 			wildcard: [
-				"CharIn", "CharIns", "CharOut", "CharOuts", "Char16", "Char32", "Whitespace", "Printer", "Ints", "Strs", "Floats", "StrBuf", "StrBufs", "Vec", "Vecs", "Bits", "Debug"
+				"CharIn", "CharIns", "CharOut", "CharOuts", "Char16", "Char32", "Whitespace", "Printer", "Ints", "Strs", "Floats", "Int64", "Int64s", "StrBuf",
+				"StrBufs", "Vec", "Vecs", "Bits", "Debug"
 			]
 		},
 		'$rootPackage.naive.*' => {
@@ -41,6 +42,8 @@ class Bundler {
 		'$rootPackage.Ints' => {priority: 10, usable: true},
 		'$rootPackage.Strs' => {priority: 11, usable: true},
 		'$rootPackage.Floats' => {priority: 12, usable: true},
+		'$rootPackage.Int64' => {priority: 13},
+		'$rootPackage.Int64s' => {priority: 14, usable: true},
 		'$rootPackage.StrBuf' => {priority: 20},
 		'$rootPackage.StrBufs' => {priority: 21, usable: true},
 		'$rootPackage.Vec' => {priority: 30},
@@ -344,7 +347,8 @@ class Bundler {
 		Prints `message` if `verbose` is `true`.
 	**/
 	static function log(message:String)
-		if (verbose) Sys.println(message);
+		if (verbose)
+			Sys.println(message);
 }
 
 class RegExps {

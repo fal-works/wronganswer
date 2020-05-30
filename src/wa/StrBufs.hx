@@ -3,6 +3,7 @@ package wa;
 import wa.Char16;
 import wa.StrBuf;
 import wa.Floats;
+import wa.Int64;
 
 /**
 	Utility static functions for `StrBuf` type.
@@ -11,7 +12,7 @@ class StrBufs {
 	/**
 		Appends an `Int64` value.
 	**/
-	public static inline function int64(buf:StrBuf, v:haxe.Int64):StrBuf
+	public static inline function int64(buf:StrBuf, v:Int64):StrBuf
 		return @:privateAccess buf.addDynamic(Std.string(v));
 
 	/**
@@ -30,7 +31,7 @@ class StrBufs {
 	/**
 		Appends all values from `vec`.
 	**/
-	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<haxe.Int64>, separator:Char16):StrBuf {
+	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<Int64>, separator:Char16):StrBuf {
 		int64(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);

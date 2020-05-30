@@ -2,9 +2,10 @@ package wa;
 
 import wa.CharOut;
 import wa.Char16;
+import wa.Int64;
 
 class CharOuts {
-	public static inline function int64(cout:CharOut, v:haxe.Int64):CharOut {
+	public static inline function int64(cout:CharOut, v:Int64):CharOut {
 		@:privateAccess cout.internal().print(v);
 		return cout;
 	}
@@ -21,10 +22,10 @@ class CharOuts {
 		}
 		v += Math.pow(10.0, -scale) / 2.0;
 
-		int64(cout, cast(v, haxe.Int64));
+		int64(cout, cast(v, Int64));
 		if (scale != 0) {
 			cout.char(".".code);
-			v -= cast(cast(v, haxe.Int64), Float);
+			v -= cast(cast(v, Int64), Float);
 
 			for (i in 0...scale) {
 				v *= 10.0;
@@ -36,7 +37,7 @@ class CharOuts {
 		return cout;
 	}
 
-	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<haxe.Int64>, separator:Char16):CharOut {
+	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<Int64>, separator:Char16):CharOut {
 		int64(cout, vec[0]);
 		for (i in 1...vec.length) {
 			cout.char(separator);

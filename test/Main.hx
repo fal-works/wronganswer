@@ -1,4 +1,3 @@
-import haxe.Int64;
 import haxe.Timer;
 import wa.*;
 import wa.naive.CharIn as NaiveCharIn;

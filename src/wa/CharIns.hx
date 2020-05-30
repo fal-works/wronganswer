@@ -3,11 +3,18 @@ package wa;
 import wa.CharIn;
 import wa.Char32;
 import wa.Floats;
+import wa.Bits;
 
 /**
 	Utility static functions for `CharIn`.
 **/
 class CharIns {
+	/**
+		Reads a binary integer separated by any whitespace character (SP, HL, CR or LF).
+	**/
+	public static inline function bits(cin:CharIn):Bits
+		return @:privateAccess cin.uintWithRadix(2);
+
 	/**
 		Reads a `Float` value separated by any whitespace character (SP, HL, CR or LF).
 	**/

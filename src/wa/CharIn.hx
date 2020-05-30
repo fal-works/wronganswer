@@ -66,12 +66,6 @@ abstract CharIn(haxe.io.Input) {
 		return uintWithRadix(10);
 
 	/**
-		Reads a binary integer separated by any whitespace character (SP, HL, CR or LF).
-	**/
-	public inline function binary():Int
-		return uintWithRadix(2);
-
-	/**
 		Reads a sequence of `String` values separated by any whitespace characters (SP, HL, CR or LF).
 
 		Note:

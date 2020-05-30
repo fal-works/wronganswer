@@ -60,9 +60,6 @@ abstract CharIn(#if macro Dynamic #else js.node.buffer.Buffer #end) {
 	public inline function uint():Int
 		return uintWithRadix(10);
 
-	public inline function binary():Int
-		return uintWithRadix(2);
-
 	public inline function strVec(length:Int):haxe.ds.Vector<String> {
 		final vec = new haxe.ds.Vector<String>(length);
 		for (i in 0...length)

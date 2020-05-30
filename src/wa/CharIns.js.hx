@@ -3,8 +3,12 @@ package wa;
 import wa.CharIn;
 import wa.Char32;
 import wa.Floats;
+import wa.Bits;
 
 class CharIns {
+	public static inline function bits(cin:CharIn):Bits
+		return @:privateAccess cin.uintWithRadix(2);
+
 	public static inline function float(cin:CharIn):Float
 		return Floats.atof(cin.str());
 

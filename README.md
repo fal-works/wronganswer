@@ -15,11 +15,11 @@ Supports following targets with the same API:
 ## Features
 
 - Standard input (`wa.CharIn`, `wa.CharIns`, `wa.naive.CharIn`, `wa.naive.CharIns`)
-- Standard output with buffering (`wa.CharOut`)
-- General utility classes (`wa.Printer, wa.Calc, wa.Strs, wa.Floats`)
+- Standard output (`wa.CharOut`, `wa.CharOuts`)
+- Utility static functions (`wa.Calc, wa.Strs, wa.Floats`, `wa.Vecs`)
+- Abstracted primitives (`wa.Char16`, `wa.Char32`, `wa.Bits`)
 - String buffer (`wa.StrBuf`, `wa.StrBufs`)
-- Vector operation (`wa.Vecs`)
-- Some other types (e.g. `wa.Bits`)
+- Other (`wa.Printer`, `wa.Whitespace`)
 - Debug logger (`wa.Debug`)
 - Command for bundling wronganswer modules via import statements (`bundle`)
 - (More to be added. Maybe.)

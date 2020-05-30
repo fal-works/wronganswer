@@ -48,8 +48,7 @@ class Main {
 		final cin = new CharIn(inputBufferCapacity);
 
 		final strVal = cin.str(); // Reads until next whitespace
-		final intVal = cin.int(); // Ditto + casts to Int
-		final strVal2 = cin.until(LF); // Reads until next LF
+		final intVal = cin.int(); // Ditto
 
 		final cout = new CharOut();
 

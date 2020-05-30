@@ -193,8 +193,10 @@ class Bundler {
 		final wildcard = resolvableModules.get(module).wildcard;
 		if (wildcard != null) {
 			final packagePath = module.substr(0, module.length - 1);
-			for (moduleName in wildcard)
-				code = processImport(code, packagePath + moduleName, buffer, target, false);
+			for (moduleName in wildcard) {
+				if (new EReg('\\W$moduleName\\W', "i").match(code))
+					code = processImport(code, packagePath + moduleName, buffer, target, false);
+			}
 			return code;
 		}
 

@@ -85,7 +85,7 @@ class Main {
 		for (i in 0...1000)
 			int64Value += 1000000000;
 		cout.int64(int64Value).lf();
-		cout.intVec(haxe.ds.Vector.fromArrayCopy([1, 2, 3]), SP);
+		cout.intVec(Vec.fromArrayCopy([1, 2, 3]), SP);
 		cout.print();
 	}
 
@@ -108,7 +108,7 @@ class Main {
 	static function vec() {
 		println("\n[vec]");
 
-		final vec = haxe.ds.Vector.fromArrayCopy([for (i in 0...10000) Std.int(100 * Math.random())]);
+		final vec = Vec.fromArrayCopy([for (i in 0...10000) Std.int(100 * Math.random())]);
 		println("sorting...");
 		Timer.measure(() -> {
 			Vecs.quicksort(vec, (a, b) -> a - b);
@@ -118,7 +118,7 @@ class Main {
 
 		println("");
 		println("dedup...");
-		final vec2 = haxe.ds.Vector.fromArrayCopy([0, 1, 1, 2, 2, 3]);
+		final vec2 = Vec.fromArrayCopy([0, 1, 1, 2, 2, 3]);
 		final deduplicated = Vecs.dedup(vec2, vec2);
 		println(vec2.toArray());
 		println(deduplicated + " elements after dedup.");
@@ -130,7 +130,7 @@ class Main {
 		println("abs 10:  " + Ints.abs(10));
 		println("abs -10: " + Ints.abs(-10));
 
-		final values = haxe.ds.Vector.fromArrayCopy([for (i in 0...1000000) Std.int(Math.random())]);
+		final values = Vec.fromArrayCopy([for (i in 0...1000000) Std.int(Math.random())]);
 
 		Timer.measure(() -> {
 			for (i in 0...values.length - 1)

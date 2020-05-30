@@ -3,6 +3,7 @@ package wa;
 import wa.CharOut;
 import wa.StrBufs;
 import wa.Char16;
+import wa.Vec;
 import wa.Int64;
 
 /**
@@ -32,20 +33,20 @@ class CharOuts {
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
 	**/
-	public static inline function int64Vec(cout:CharOut, vec:haxe.ds.Vector<Int64>, separator:Char16):CharOut
+	public static inline function int64Vec(cout:CharOut, vec:Vec<Int64>, separator:Char16):CharOut
 		return StrBufs.int64Vec(cout, vec, separator);
 
 	/**
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
 	**/
-	public static inline function floatVec(cout:CharOut, vec:haxe.ds.Vector<Float>, separator:Char16):CharOut
+	public static inline function floatVec(cout:CharOut, vec:Vec<Float>, separator:Char16):CharOut
 		return StrBufs.floatVec(cout, vec, separator);
 
 	/**
 		Appends all values from `vec` formatted with `scale`.
 		Note that nothing will be appended at the end.
 	**/
-	public static inline function floatVecWithScale(cout:CharOut, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char16):CharOut
+	public static inline function floatVecWithScale(cout:CharOut, vec:Vec<Float>, scale:Int, separator:Char16):CharOut
 		return StrBufs.floatVecWithScale(cout, vec, scale, separator);
 }

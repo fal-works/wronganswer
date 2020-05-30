@@ -1,12 +1,15 @@
 package wa;
 
+import wa.Char16;
+import wa.Vec;
+
 class Strs {
 	@:pure public static inline function atoi(s:String):Int
 		return #if macro 0; #else js.Syntax.code("Number({0})", s); #end
 
-	@:pure public static inline function toCharVec(s:String):haxe.ds.Vector<Char16> {
+	@:pure public static inline function toCharVec(s:String):Vec<Char16> {
 		final length = s.length;
-		final vec = new haxe.ds.Vector<Char16>(length);
+		final vec = new Vec<Char16>(length);
 		for (i in 0...length)
 			vec[i] = characterAt(s, i);
 		return vec;

@@ -2,6 +2,7 @@ package wa;
 
 import wa.CharIn;
 import wa.Char32;
+import wa.Vec;
 import wa.Int64;
 import wa.Bits;
 import wa.Floats;
@@ -74,8 +75,8 @@ class CharIns {
 		Reads a sequence of `Int64` values separated by any whitespace characters (SP, HL, CR or LF).
 		@see `strVec()` for notes.
 	**/
-	public static inline function int64Vec(cin:CharIn, length:Int):haxe.ds.Vector<Int64> {
-		final vec = new haxe.ds.Vector<Int64>(length);
+	public static inline function int64Vec(cin:CharIn, length:Int):Vec<Int64> {
+		final vec = new Vec<Int64>(length);
 		for (i in 0...length)
 			vec[i] = int64(cin);
 		return vec;
@@ -86,8 +87,8 @@ class CharIns {
 		separated by any whitespace characters (SP, HL, CR or LF).
 		@see `strVec()` for notes.
 	**/
-	public static inline function uint64Vec(cin:CharIn, length:Int):haxe.ds.Vector<Int64> {
-		final vec = new haxe.ds.Vector<Int64>(length);
+	public static inline function uint64Vec(cin:CharIn, length:Int):Vec<Int64> {
+		final vec = new Vec<Int64>(length);
 		for (i in 0...length)
 			vec[i] = uint64(cin);
 		return vec;
@@ -97,8 +98,8 @@ class CharIns {
 		Reads a sequence of `Float` values separated by any whitespace characters (SP, HL, CR or LF).
 		@see `strVec()` for notes.
 	**/
-	public static inline function floatVec(cin:CharIn, length:Int):haxe.ds.Vector<Float> {
-		final vec = new haxe.ds.Vector<Float>(length);
+	public static inline function floatVec(cin:CharIn, length:Int):Vec<Float> {
+		final vec = new Vec<Float>(length);
 		for (i in 0...length)
 			vec[i] = float(cin);
 		return vec;

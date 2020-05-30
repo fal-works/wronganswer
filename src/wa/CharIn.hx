@@ -1,6 +1,7 @@
 package wa;
 
 import wa.Char32;
+import wa.Vec;
 
 /**
 	Character input.
@@ -73,8 +74,8 @@ abstract CharIn(haxe.io.Input) {
 		  On JS target there might be some tradeoffs here.
 		- On Java target, `Vector` cannot be directly converted to `String`.
 	**/
-	public inline function strVec(length:Int):haxe.ds.Vector<String> {
-		final vec = new haxe.ds.Vector<String>(length);
+	public inline function strVec(length:Int):Vec<String> {
+		final vec = new Vec<String>(length);
 		for (i in 0...length)
 			vec[i] = str();
 		return vec;
@@ -84,8 +85,8 @@ abstract CharIn(haxe.io.Input) {
 		Reads a sequence of `Int` values separated by any whitespace characters (SP, HL, CR or LF).
 		@see `strVec()` for notes.
 	**/
-	public inline function intVec(length:Int):haxe.ds.Vector<Int> {
-		final vec = new haxe.ds.Vector<Int>(length);
+	public inline function intVec(length:Int):Vec<Int> {
+		final vec = new Vec<Int>(length);
 		for (i in 0...length)
 			vec[i] = int();
 		return vec;
@@ -96,8 +97,8 @@ abstract CharIn(haxe.io.Input) {
 		separated by any whitespace characters (SP, HL, CR or LF).
 		@see `strVec()` for notes.
 	**/
-	public inline function uintVec(length:Int):haxe.ds.Vector<Int> {
-		final vec = new haxe.ds.Vector<Int>(length);
+	public inline function uintVec(length:Int):Vec<Int> {
+		final vec = new Vec<Int>(length);
 		for (i in 0...length)
 			vec[i] = uint();
 		return vec;

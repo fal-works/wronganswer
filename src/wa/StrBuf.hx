@@ -1,6 +1,7 @@
 package wa;
 
 import wa.Char16;
+import wa.Vec;
 
 /**
 	Buffer object for building `String` by appending small elements.
@@ -47,7 +48,7 @@ abstract StrBuf(StringBuf) from StringBuf {
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
 	**/
-	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Char16):StrBuf {
+	public inline function strVec(vec:Vec<String>, separator:Char16):StrBuf {
 		str(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);
@@ -60,7 +61,7 @@ abstract StrBuf(StringBuf) from StringBuf {
 		Appends all values from `vec`.
 		Note that nothing will be appended at the end.
 	**/
-	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Char16):StrBuf {
+	public inline function intVec(vec:Vec<Int>, separator:Char16):StrBuf {
 		int(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);

@@ -1,5 +1,7 @@
 package wa;
 
+import wa.Vec;
+
 abstract Bits(Int) from Int to Int {
 	public static inline function from(v:Int):Bits
 		return v;
@@ -43,8 +45,8 @@ abstract Bits(Int) from Int to Int {
 	public inline function trailingOnes():Int
 		return #if macro 0; #else java.lang.Integer.numberOfTrailingZeros(~this); #end
 
-	public inline function toBoolVec(length:Int):haxe.ds.Vector<Bool> {
-		final vec = new haxe.ds.Vector(length);
+	public inline function toBoolVec(length:Int):Vec<Bool> {
+		final vec = new Vec(length);
 		var bitMask = 1;
 		for (i in 0...length) {
 			vec[i] = this & bitMask != 0;

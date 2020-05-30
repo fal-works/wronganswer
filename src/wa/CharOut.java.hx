@@ -1,6 +1,7 @@
 package wa;
 
 import wa.Char16;
+import wa.Vec;
 
 abstract CharOut(#if macro Dynamic #else java.io.PrintWriter #end) #if !macro from java.io.PrintWriter #end {
 	public inline function new() {
@@ -32,7 +33,7 @@ abstract CharOut(#if macro Dynamic #else java.io.PrintWriter #end) #if !macro fr
 	public inline function space():CharOut
 		return char(" ".code);
 
-	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Char16):CharOut {
+	public inline function strVec(vec:Vec<String>, separator:Char16):CharOut {
 		str(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);
@@ -41,7 +42,7 @@ abstract CharOut(#if macro Dynamic #else java.io.PrintWriter #end) #if !macro fr
 		return this;
 	}
 
-	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Char16):CharOut {
+	public inline function intVec(vec:Vec<Int>, separator:Char16):CharOut {
 		int(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);

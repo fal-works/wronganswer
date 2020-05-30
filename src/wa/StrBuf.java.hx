@@ -1,6 +1,7 @@
 package wa;
 
 import wa.Char32;
+import wa.Vec;
 
 @:forward(length, toString)
 abstract StrBuf(#if macro Dynamic #else java.lang.StringBuilder #end)
@@ -26,7 +27,7 @@ abstract StrBuf(#if macro Dynamic #else java.lang.StringBuilder #end)
 	public inline function space():StrBuf
 		return char(" ".code);
 
-	public inline function strVec(vec:haxe.ds.Vector<String>, separator:Char32):StrBuf {
+	public inline function strVec(vec:Vec<String>, separator:Char32):StrBuf {
 		str(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);
@@ -35,7 +36,7 @@ abstract StrBuf(#if macro Dynamic #else java.lang.StringBuilder #end)
 		return this;
 	}
 
-	public inline function intVec(vec:haxe.ds.Vector<Int>, separator:Char32):StrBuf {
+	public inline function intVec(vec:Vec<Int>, separator:Char32):StrBuf {
 		int(vec[0]);
 		for (i in 1...vec.length) {
 			char(separator);

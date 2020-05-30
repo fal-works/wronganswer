@@ -1,5 +1,7 @@
 package wa;
 
+import wa.Vec;
+
 /**
 	Bit array based on `Int`.
 **/
@@ -93,8 +95,8 @@ abstract Bits(Int) from Int to Int {
 	/**
 		Converts `this` to a vector of `Bool` values.
 	**/
-	public inline function toBoolVec(length:Int):haxe.ds.Vector<Bool> {
-		final vec = new haxe.ds.Vector(length);
+	public inline function toBoolVec(length:Int):Vec<Bool> {
+		final vec = new Vec(length);
 		var bitMask = 1;
 		for (i in 0...length) {
 			vec[i] = this & bitMask != 0;

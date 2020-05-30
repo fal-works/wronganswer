@@ -2,6 +2,7 @@ package wa;
 
 import wa.Char32;
 import wa.StrBuf;
+import wa.Vec;
 import wa.Int64;
 
 class StrBufs {
@@ -33,7 +34,7 @@ class StrBufs {
 		return buf;
 	}
 
-	public static inline function int64Vec(buf:StrBuf, vec:haxe.ds.Vector<Int64>, separator:Char32):StrBuf {
+	public static inline function int64Vec(buf:StrBuf, vec:Vec<Int64>, separator:Char32):StrBuf {
 		int64(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
@@ -42,7 +43,7 @@ class StrBufs {
 		return buf;
 	}
 
-	public static inline function floatVec(buf:StrBuf, vec:haxe.ds.Vector<Float>, separator:Char32):StrBuf {
+	public static inline function floatVec(buf:StrBuf, vec:Vec<Float>, separator:Char32):StrBuf {
 		float(buf, vec[0]);
 		for (i in 1...vec.length) {
 			buf.char(separator);
@@ -51,7 +52,7 @@ class StrBufs {
 		return buf;
 	}
 
-	public static inline function floatVecWithScale(buf:StrBuf, vec:haxe.ds.Vector<Float>, scale:Int, separator:Char32):StrBuf {
+	public static inline function floatVecWithScale(buf:StrBuf, vec:Vec<Float>, scale:Int, separator:Char32):StrBuf {
 		floatWithScale(buf, vec[0], scale);
 		for (i in 1...vec.length) {
 			buf.char(separator);

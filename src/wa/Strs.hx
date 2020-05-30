@@ -1,6 +1,7 @@
 package wa;
 
 import wa.Char16;
+import wa.Vec;
 
 /**
 	Utility static function for `String` type.
@@ -21,9 +22,9 @@ class Strs {
 	/**
 		Converts `s` to a vector of `Char16`.
 	**/
-	@:pure public static inline function toCharVec(s:String):haxe.ds.Vector<Char16> {
+	@:pure public static inline function toCharVec(s:String):Vec<Char16> {
 		final length = s.length;
-		final vec = new haxe.ds.Vector<Char16>(length);
+		final vec = new Vec<Char16>(length);
 		for (i in 0...length)
 			vec[i] = characterAt(s, i);
 		return vec;

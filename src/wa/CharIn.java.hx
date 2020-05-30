@@ -1,6 +1,7 @@
 package wa;
 
 import wa.Char32;
+import wa.Vec;
 
 abstract CharIn(#if macro Dynamic #else java.io.InputStream #end) {
 	static var byteArray:#if macro Dynamic; #else java.NativeArray<java.types.Int8>; #end
@@ -57,22 +58,22 @@ abstract CharIn(#if macro Dynamic #else java.io.InputStream #end) {
 	public inline function uint():Int
 		return uintWithRadix(10);
 
-	public inline function strVec(length:Int):haxe.ds.Vector<String> {
-		final vec = new haxe.ds.Vector<String>(length);
+	public inline function strVec(length:Int):Vec<String> {
+		final vec = new Vec<String>(length);
 		for (i in 0...length)
 			vec[i] = str();
 		return vec;
 	}
 
-	public inline function intVec(length:Int):haxe.ds.Vector<Int> {
-		final vec = new haxe.ds.Vector<Int>(length);
+	public inline function intVec(length:Int):Vec<Int> {
+		final vec = new Vec<Int>(length);
 		for (i in 0...length)
 			vec[i] = int();
 		return vec;
 	}
 
-	public inline function uintVec(length:Int):haxe.ds.Vector<Int> {
-		final vec = new haxe.ds.Vector<Int>(length);
+	public inline function uintVec(length:Int):Vec<Int> {
+		final vec = new Vec<Int>(length);
 		for (i in 0...length)
 			vec[i] = uint();
 		return vec;

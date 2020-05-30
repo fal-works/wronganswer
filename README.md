@@ -14,7 +14,8 @@ Supports following targets with the same API:
 
 ## Features
 
-- Standard input (`wa.CharIn`, `wa.CharIns`, `wa.naive.CharIn`, `wa.naive.CharIns`)
+- Standard input (`wa.CharIn`, `wa.CharIns`, `wa.CharInsInt64`, `wa.CharInsFloat`)
+- Standard input - naive (`wa.naive.CharIn`, `wa.naive.CharIns`)
 - Standard output (`wa.CharOut`, `wa.CharOuts`)
 - Utility static functions (`wa.Ints, wa.Strs, wa.Floats`, `wa.Vecs`)
 - Abstracted primitives (`wa.Char16`, `wa.Char32`, `wa.Bits`)

@@ -21,8 +21,10 @@ class Bundler {
 		'$rootPackage.*' => {
 			priority: 0,
 			wildcard: [
-				"CharIn", "CharIns", "CharOut", "CharOuts", "Char16", "Char32", "Whitespace", "Printer", "Ints", "Strs", "Floats", "Int64", "Int64s", "StrBuf",
-				"StrBufs", "Vec", "Vecs", "Bits", "Debug"
+				"CharIn", "CharIns", "CharInsInt64", "CharInsFloat", "CharOut", "CharOuts",
+				"Char16", "Char32", "Whitespace", "Printer",
+				"Ints", "Strs", "Floats", "Int64", "Int64s",
+				"StrBuf", "StrBufs", "Vec", "Vecs", "Bits", "Debug"
 			]
 		},
 		'$rootPackage.naive.*' => {
@@ -33,22 +35,24 @@ class Bundler {
 		'$rootPackage.naive.CharIn' => {priority: 0},
 		'$rootPackage.CharIns' => {priority: 1, usable: true},
 		'$rootPackage.naive.CharIns' => {priority: 1, usable: true},
-		'$rootPackage.CharOut' => {priority: 2},
-		'$rootPackage.CharOuts' => {priority: 3, usable: true},
-		'$rootPackage.Char16' => {priority: 4},
-		'$rootPackage.Char32' => {priority: 5},
-		'$rootPackage.Whitespace' => {priority: 6},
-		'$rootPackage.Printer' => {priority: 7, usable: true},
-		'$rootPackage.Ints' => {priority: 10, usable: true},
-		'$rootPackage.Strs' => {priority: 11, usable: true},
-		'$rootPackage.Floats' => {priority: 12, usable: true},
-		'$rootPackage.Int64' => {priority: 13},
-		'$rootPackage.Int64s' => {priority: 14, usable: true},
-		'$rootPackage.StrBuf' => {priority: 20},
-		'$rootPackage.StrBufs' => {priority: 21, usable: true},
-		'$rootPackage.Vec' => {priority: 30},
-		'$rootPackage.Vecs' => {priority: 31, usable: true},
-		'$rootPackage.Bits' => {priority: 40},
+		'$rootPackage.CharInsInt64' => {priority: 2, usable: true},
+		'$rootPackage.CharInsFloat' => {priority: 3, usable: true},
+		'$rootPackage.CharOut' => {priority: 4},
+		'$rootPackage.CharOuts' => {priority: 5, usable: true},
+		'$rootPackage.Char16' => {priority: 10},
+		'$rootPackage.Char32' => {priority: 11},
+		'$rootPackage.Whitespace' => {priority: 12},
+		'$rootPackage.Printer' => {priority: 13, usable: true},
+		'$rootPackage.Ints' => {priority: 20, usable: true},
+		'$rootPackage.Strs' => {priority: 21, usable: true},
+		'$rootPackage.Floats' => {priority: 22, usable: true},
+		'$rootPackage.Int64' => {priority: 23},
+		'$rootPackage.Int64s' => {priority: 24, usable: true},
+		'$rootPackage.StrBuf' => {priority: 30},
+		'$rootPackage.StrBufs' => {priority: 31, usable: true},
+		'$rootPackage.Vec' => {priority: 40},
+		'$rootPackage.Vecs' => {priority: 41, usable: true},
+		'$rootPackage.Bits' => {priority: 50},
 		'$rootPackage.Debug' => {priority: 100}
 	];
 

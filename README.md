@@ -142,6 +142,8 @@ The above will display a list of import/using statements that can be resolved.
 
 - As you can see by the `help` command, `bundle` works only with module-level imports of wronganswer modules.  
 Also avoid using wronganswer features without importing (e.g. `new wa.CharIn(16)`), which cannot be resolved.
+- Pay attension to the shadowing of functions (especially if you have `using`) which can lead to inconsistent behavior before/after bundling.
 - `bundle` cannot ignore `import`/`using` in multiline comments (`/* ... */`).  
 Use singleline comment (`// ...`) for commenting them out.
-- Make sure that the emitted code is working properly before submitting it!
+- Make sure that the emitted code is working properly before submitting it!  
+If not, um, good luck.

@@ -13,4 +13,12 @@ class Ints {
 	@:pure public static inline function abs(n:Int):Int {
 		return (n ^ (n >> 31)) - (n >> 31);
 	}
+
+	@:pure public static inline function isEven(n:Int):Bool {
+		return n & 1 == 0;
+	}
+
+	@:pure public static inline function isOdd(n:Int):Bool {
+		return n & 1 == 1;
+	}
 }

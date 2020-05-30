@@ -10,7 +10,7 @@ using wa.CharOuts;
 using wa.naive.CharIns;
 
 class Main {
-	static final testCaseNo = 3;
+	static final testCaseNo = 0;
 
 	static function main() {
 		Printer.println("Start test.");
@@ -30,7 +30,9 @@ class Main {
 			case 5:
 				vec();
 			case 6:
-				extra();
+				ints();
+			case 7:
+				bits();
 			default:
 		}
 	}
@@ -84,7 +86,7 @@ class Main {
 		for (i in 0...1000)
 			int64Value += 1000000000;
 		cout.int64(int64Value).lf();
-		cout.intVec(haxe.ds.Vector.fromArrayCopy([1,2,3]), SP);
+		cout.intVec(haxe.ds.Vector.fromArrayCopy([1, 2, 3]), SP);
 		cout.print();
 	}
 
@@ -121,10 +123,24 @@ class Main {
 		final deduplicated = Vecs.dedup(vec2, vec2);
 		println(vec2.toArray());
 		println(deduplicated + " elements after dedup.");
-}
+	}
 
-	static function extra() {
-		println("\n[extra]");
+	static function ints() {
+		println("\n[ints]");
+
+		println("abs 10:  " + Calc.iabs(10));
+		println("abs -10: " + Calc.iabs(-10));
+
+		final values = haxe.ds.Vector.fromArrayCopy([for (i in 0...1000000) Std.int(Math.random())]);
+
+		Timer.measure(() -> {
+			for (i in 0...values.length - 1)
+				final abs = Calc.iabs(values[i]);
+		});
+	}
+
+	static function bits() {
+		println("\n[bits]");
 		var bits:Bits = 0;
 		bits = Bits.set(bits, 2);
 		println(bits.toBoolVec(3).toArray()); // false, false, true

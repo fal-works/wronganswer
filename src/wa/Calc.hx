@@ -25,6 +25,7 @@ class Calc {
 	/**
 		@return Absolute value of `n`.
 	**/
-	@:pure public static inline function iabs(n:Int):Int
-		return if (n < 0) -n else n;
+	@:pure public static inline function iabs(n:Int):Int {
+		return (n ^ (n >> 31)) - (n >> 31);
+	}
 }

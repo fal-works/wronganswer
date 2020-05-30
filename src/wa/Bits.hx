@@ -63,10 +63,10 @@ abstract Bits(Int) from Int to Int {
 	}
 
 	/**
-		@return Number of trailing `0`.
+		@return Number of trailing `0`. If `this == 0`, returns `32`.
 	**/
 	public inline function trailingZeros():Int {
-		return if (this == 0) 0 else {
+		return if (this == 0) 32 else {
 			var n = this;
 			var count = 0;
 			while (n & 1 == 0) {

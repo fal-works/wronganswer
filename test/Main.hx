@@ -128,14 +128,14 @@ class Main {
 	static function ints() {
 		println("\n[ints]");
 
-		println("abs 10:  " + Calc.iabs(10));
-		println("abs -10: " + Calc.iabs(-10));
+		println("abs 10:  " + Ints.abs(10));
+		println("abs -10: " + Ints.abs(-10));
 
 		final values = haxe.ds.Vector.fromArrayCopy([for (i in 0...1000000) Std.int(Math.random())]);
 
 		Timer.measure(() -> {
 			for (i in 0...values.length - 1)
-				final abs = Calc.iabs(values[i]);
+				final abs = Ints.abs(values[i]);
 		});
 	}
 

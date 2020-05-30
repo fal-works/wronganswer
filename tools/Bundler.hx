@@ -4,7 +4,7 @@ import sys.FileSystem;
 import sys.io.File;
 import tools.Statics.*;
 import wa.Strs;
-import wa.Calc;
+import wa.Ints;
 
 using StringTools;
 
@@ -21,7 +21,7 @@ class Bundler {
 		'$rootPackage.*' => {
 			priority: 0,
 			wildcard: [
-				"CharIn", "CharIns", "CharOut", "CharOuts", "Char16", "Char32", "Whitespace", "Printer", "Calc", "Strs", "Floats", "StrBuf", "StrBufs", "Vecs", "Bits", "Debug"
+				"CharIn", "CharIns", "CharOut", "CharOuts", "Char16", "Char32", "Whitespace", "Printer", "Ints", "Strs", "Floats", "StrBuf", "StrBufs", "Vecs", "Bits", "Debug"
 			]
 		},
 		'$rootPackage.naive.*' => {
@@ -38,7 +38,7 @@ class Bundler {
 		'$rootPackage.Char32' => {priority: 5},
 		'$rootPackage.Whitespace' => {priority: 6},
 		'$rootPackage.Printer' => {priority: 7, usable: true},
-		'$rootPackage.Calc' => {priority: 10, usable: true},
+		'$rootPackage.Ints' => {priority: 10, usable: true},
 		'$rootPackage.Strs' => {priority: 11, usable: true},
 		'$rootPackage.Floats' => {priority: 12, usable: true},
 		'$rootPackage.StrBuf' => {priority: 20},
@@ -124,7 +124,7 @@ class Bundler {
 		Extracts the module name from `filePath`.
 	**/
 	static function moduleFromPath(filePath:String) {
-		final lastSlashPosition = Calc.imax(filePath.lastIndexOf("/"), filePath.lastIndexOf("\\"));
+		final lastSlashPosition = Ints.max(filePath.lastIndexOf("/"), filePath.lastIndexOf("\\"));
 		final fileName = filePath.substr(lastSlashPosition + 1);
 		return fileName.substr(0, fileName.indexOf("."));
 	}

@@ -66,13 +66,15 @@ abstract Bits(Int) from Int to Int {
 		@return Number of trailing `0`.
 	**/
 	public inline function trailingZeros():Int {
-		var n = this;
-		var count = 0;
-		while (n & 1 == 0) {
-			++count;
-			n >>>= 1;
-		}
-		return count;
+		return if (this == 0) 0 else {
+			var n = this;
+			var count = 0;
+			while (n & 1 == 0) {
+				++count;
+				n >>>= 1;
+			}
+			count;
+		};
 	}
 
 	/**

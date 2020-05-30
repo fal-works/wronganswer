@@ -4,9 +4,9 @@
 	"license": "Public",
 	"tags": [],
 	"description": "Haxe library for AtCoder and other competitive programming contests.",
-	"version": "0.2.0-alpha",
+	"version": "0.2.0",
 	"classPath": "src/",
-	"releasenote": "Initial release. Everything may change in future.",
+	"releasenote": "Optimize. Add several features.",
 	"contributors": [
 		"fal-works"
 	],

@@ -28,6 +28,32 @@ class Vecs {
 	}
 
 	/**
+		@return An empty 2-dimensional vector (actually array of arrays), of which elements can be accessed by `vec[row][column]`.
+	**/
+	@:generic @:noUsing
+	public static inline function allocTable<T>(rows:Int, columns:Int):Vec<Vec<T>> {
+		final table = new Vec<Vec<T>>(rows);
+		for (row in 0...rows)
+			table[row] = new Vec<T>(columns);
+		return table;
+	}
+
+	/**
+		@return A 2-dimensional vector with elements returned from `factory()`, which can be accessed by `vec[row][column]`.
+	**/
+	@:generic @:noUsing
+	public static inline function createTable<T>(rows:Int, columns:Int, factory:(row:Int, column:Int)->T):Vec<Vec<T>> {
+		final table = new Vec<Vec<T>>(rows);
+		for (row in 0...rows) {
+			final rowVec = new Vec<T>(columns);
+			for (column in 0...columns)
+				rowVec[column] = factory(row, column);
+			table[row] = rowVec;
+		}
+		return table;
+	}
+
+	/**
 		@return The sum of all values in `vec`.
 	**/
 	public static inline function sum(vec:Vec<Int>):Int {

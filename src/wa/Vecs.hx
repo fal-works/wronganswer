@@ -28,13 +28,6 @@ class Vecs {
 	}
 
 	/**
-		@return An empty vector with `length`.
-	**/
-	@:generic @:noUsing
-	public static inline function alloc<T>(length:Int):Vec<T>
-		return new Vec<T>(length);
-
-	/**
 		@return The sum of all values in `vec`.
 	**/
 	public static inline function sum(vec:Vec<Int>):Int {

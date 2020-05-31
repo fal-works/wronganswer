@@ -24,7 +24,7 @@ class Bundler {
 				"CharIn", "CharIns", "CharInsInt64", "CharInsFloat", "CharOut", "CharOuts",
 				"Char16", "Char32", "Whitespace", "Printer",
 				"Ints", "Strs", "Floats", "Int64", "Int64s",
-				"StrBuf", "StrBufs", "Vec", "Vecs", "Bits", "Debug"
+				"StrBuf", "StrBufs", "Vec", "Vecs", "VecsInt", "VecsSort", "Bits", "Debug"
 			]
 		},
 		'$rootPackage.naive.*' => {
@@ -51,7 +51,9 @@ class Bundler {
 		'$rootPackage.StrBuf' => {priority: 30},
 		'$rootPackage.StrBufs' => {priority: 31, usable: true},
 		'$rootPackage.Vec' => {priority: 40},
-		'$rootPackage.Vecs' => {priority: 41, usable: true},
+		'$rootPackage.Vecs' => {priority: 41},
+		'$rootPackage.VecsInt' => {priority: 42, usable: true},
+		'$rootPackage.VecsSort' => {priority: 43, usable: true},
 		'$rootPackage.Bits' => {priority: 50},
 		'$rootPackage.Debug' => {priority: 100}
 	];

@@ -7,6 +7,7 @@ import wa.Printer.*;
 using wa.CharIns;
 using wa.CharOuts;
 using wa.naive.CharIns;
+using wa.CharInsFloat;
 
 class Main {
 	static final testCaseNo = 0;
@@ -111,7 +112,7 @@ class Main {
 		final vec = Vec.fromArrayCopy([for (i in 0...10000) Std.int(100 * Math.random())]);
 		println("sorting...");
 		Timer.measure(() -> {
-			Vecs.quicksort(vec, (a, b) -> a - b);
+			VecsSort.quicksort(vec, (a, b) -> a - b);
 		});
 		println("first: " + vec[0]);
 		println("last: " + vec[vec.length - 1]);
@@ -119,7 +120,7 @@ class Main {
 		println("");
 		println("dedup...");
 		final vec2 = Vec.fromArrayCopy([0, 1, 1, 2, 2, 3]);
-		final deduplicated = Vecs.dedup(vec2, vec2);
+		final deduplicated = VecsSort.dedup(vec2, vec2);
 		println(vec2.toArray());
 		println(deduplicated + " elements after dedup.");
 	}

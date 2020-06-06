@@ -109,7 +109,7 @@ class Bundler {
 	}
 
 	/**
-		Replaces import statements in the code at `mainFilePath`
+		Replaces import statements in the code at `mainFile`
 		and writes the result to a new file.
 	**/
 	static function run(mainFile:FileRef, target:Target, verbose:Bool) {
@@ -118,7 +118,8 @@ class Bundler {
 		final buffer:CodeBuffer = {codeBlocks: [], modules: [], usingModules: []};
 		final processedMainCode = processCode(mainCode, buffer, target, true);
 
-		final resultCode = buildResultCode(moduleFromPath(mainFile.path), processedMainCode, buffer);
+		final mainModuleName = mainFile.path.getNameWithoutExtension();
+		final resultCode = buildResultCode(mainModuleName, processedMainCode, buffer);
 		if (resultCode.length == 0) {
 			log("Found no code to be replaced.");
 			return;
@@ -128,14 +129,6 @@ class Bundler {
 		newFilePath.saveContent(resultCode);
 		Sys.println('Create file: $newFilePath');
 		log("Completed.");
-	}
-
-	/**
-		Extracts the module name from `filePath`.
-	**/
-	static function moduleFromPath(filePath:FilePath) {
-		final fileName = filePath.getName();
-		return fileName.substr(0, fileName.indexOf("."));
 	}
 
 	/**
@@ -198,7 +191,7 @@ class Bundler {
 			return code;
 		}
 
-		final srcCode = readSrcCode(getSrcFilePath(module, target));
+		final srcCode = readSrcCode(getSrcFile(module, target));
 		final processedSrcCode = processCode(srcCode, buffer, target, false); // process recursively
 		buffer.codeBlocks.push({
 			code: processedSrcCode,
@@ -286,26 +279,9 @@ class Bundler {
 	}
 
 	/**
-		@return the content of the file at `fullPath`.
+		@return The source code file for `module`.
 	**/
-	static function readFile(fullPath:String) {
-		final file = File.read(fullPath, false);
-		var content:String;
-		try {
-			content = file.readAll().toString();
-		} catch (e:Dynamic) {
-			Sys.println('Error while reading file: $fullPath');
-			file.close();
-			throw e;
-		}
-		file.close();
-		return content;
-	}
-
-	/**
-		@return the file path of the source code for `module`.
-	**/
-	static function getSrcFilePath(module:String, target:Target) {
+	static function getSrcFile(module:String, target:Target) {
 		final modulePath = module.replace(".", "/");
 		var srcFilePath = srcDirectory.makeFilePath('$modulePath$target.hx');
 		var srcFile = srcFilePath.tryFind();
@@ -323,7 +299,7 @@ class Bundler {
 
 	/**
 		Reads The content of the source code file,
-		removing the package declaration.
+		removing comments and package declaration.
 	**/
 	static function readSrcCode(file:FileRef) {
 		var srcCode = file.getContent();

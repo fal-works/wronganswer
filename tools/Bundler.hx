@@ -273,6 +273,8 @@ class Bundler {
 		Shows a list of import statements that can be resolved.
 	**/
 	static function showResolvableModules() {
+		// TODO: verbose mode, improve argument syntax
+
 		Sys.println("statements that can be resolved:");
 
 		final modules = [for (module in resolvableModules.keys()) module];

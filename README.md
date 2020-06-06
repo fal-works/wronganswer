@@ -148,3 +148,8 @@ Also avoid using wronganswer features without importing (e.g. `new wa.CharIn(16)
 Use singleline comment (`// ...`) for commenting them out.
 - Make sure that the emitted code is working properly before submitting it!  
 If not, um, good luck.
+
+
+## Dependency
+
+- [locator](https://github.com/fal-works/locator) v0.2.0 or compatible (used in `bundle` command)

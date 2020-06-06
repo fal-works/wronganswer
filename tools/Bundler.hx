@@ -113,7 +113,7 @@ class Bundler {
 		and writes the result to a new file.
 	**/
 	static function run(mainFile:FileRef, target:Target, verbose:Bool) {
-		final mainCode = mainFile.getContent();
+		final mainCode = RegExps.lineBreaks.replace(mainFile.getContent(), "\n");
 
 		final buffer:CodeBuffer = {codeBlocks: [], modules: [], usingModules: []};
 		final processedMainCode = processCode(mainCode, buffer, target, true);
@@ -322,11 +322,12 @@ class Bundler {
 	}
 
 	/**
-		Reads The content of the source code file at `fullPath`,
+		Reads The content of the source code file,
 		removing the package declaration.
 	**/
 	static function readSrcCode(file:FileRef) {
 		var srcCode = file.getContent();
+		srcCode = RegExps.lineBreaks.replace(srcCode, "\n");
 		srcCode = RegExps.pkg.replace(srcCode, "");
 		srcCode = RegExps.comment.replace(srcCode, "");
 		return srcCode.trim() + "\n";
@@ -367,6 +368,11 @@ class RegExps {
 		Regular expression for matching any single-line commented import/using statement.
 	**/
 	public static final commentedImportUsing = new EReg('//[^\n]*(?:import|using)\\s+$rootPackage\\..+\\s*;[ \\t]*\n?', "ig");
+
+	/**
+		Regular expression for matching any line break (CRLF, LF or CR).
+	**/
+	public static final lineBreaks = ~/\r\n|\n|\r/g;
 }
 
 /**

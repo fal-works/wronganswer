@@ -10,5 +10,7 @@
 	"contributors": [
 		"fal-works"
 	],
-	"dependencies": {}
+	"dependencies": {
+		"locator": ""
+	}
 }

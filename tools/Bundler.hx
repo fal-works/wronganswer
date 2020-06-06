@@ -1,10 +1,9 @@
 package tools;
 
-import sys.FileSystem;
 import sys.io.File;
 import tools.Statics.*;
 import wa.Strs;
-import wa.Ints;
+import locator.*;
 
 using StringTools;
 
@@ -66,7 +65,7 @@ class Bundler {
 	/**
 		The directory path of the source code of wronganswer.
 	**/
-	static final srcDirectory = FileSystem.absolutePath("src") + "/";
+	static final srcDirectory = DirectoryRef.from("src");
 
 	/**
 		If `true`, prints verbose logs.
@@ -88,13 +87,7 @@ class Bundler {
 			return;
 		}
 
-		final filePath = args[1];
-
-		if (!FileSystem.exists(filePath)) {
-			Sys.println('File not found: $filePath');
-			showInstruction();
-			return;
-		}
+		final file = FileRef.from(args[1]);
 
 		final targetString = args[2];
 		final target = switch targetString.toLowerCase() {
@@ -112,27 +105,27 @@ class Bundler {
 
 		verbose = args.length > 3 && args[3] == "verbose";
 
-		run(filePath, target, verbose);
+		run(file, target, verbose);
 	}
 
 	/**
 		Replaces import statements in the code at `mainFilePath`
 		and writes the result to a new file.
 	**/
-	static function run(mainFilePath:String, target:Target, verbose:Bool) {
-		final mainCode = readFile(mainFilePath);
+	static function run(mainFile:FileRef, target:Target, verbose:Bool) {
+		final mainCode = mainFile.getContent();
 
 		final buffer:CodeBuffer = {codeBlocks: [], modules: [], usingModules: []};
 		final processedMainCode = processCode(mainCode, buffer, target, true);
 
-		final resultCode = buildResultCode(moduleFromPath(mainFilePath), processedMainCode, buffer);
+		final resultCode = buildResultCode(moduleFromPath(mainFile.path), processedMainCode, buffer);
 		if (resultCode.length == 0) {
 			log("Found no code to be replaced.");
 			return;
 		}
 
-		final newFilePath = mainFilePath.replace(".hx", "") + ".bundle.hx";
-		createFile(newFilePath, resultCode);
+		final newFilePath = mainFile.path.setExtension("bundle.hx");
+		newFilePath.saveContent(resultCode);
 		Sys.println('Create file: $newFilePath');
 		log("Completed.");
 	}
@@ -140,9 +133,8 @@ class Bundler {
 	/**
 		Extracts the module name from `filePath`.
 	**/
-	static function moduleFromPath(filePath:String) {
-		final lastSlashPosition = Ints.max(filePath.lastIndexOf("/"), filePath.lastIndexOf("\\"));
-		final fileName = filePath.substr(lastSlashPosition + 1);
+	static function moduleFromPath(filePath:FilePath) {
+		final fileName = filePath.getName();
 		return fileName.substr(0, fileName.indexOf("."));
 	}
 
@@ -315,42 +307,29 @@ class Bundler {
 	**/
 	static function getSrcFilePath(module:String, target:Target) {
 		final modulePath = module.replace(".", "/");
-		var srcFilePath = FileSystem.absolutePath('$srcDirectory$modulePath$target.hx');
+		var srcFilePath = srcDirectory.makeFilePath('$modulePath$target.hx');
+		var srcFile = srcFilePath.tryFind();
 
-		if (!FileSystem.exists(srcFilePath))
-			srcFilePath = FileSystem.absolutePath('$srcDirectory$modulePath.hx');
+		if (srcFile.isSome())
+			return srcFile.unwrap();
 
-		if (!FileSystem.exists(srcFilePath))
-			throw 'File not found for module: $module';
+		srcFilePath = srcDirectory.makeFilePath('$modulePath.hx');
+		srcFile = srcFilePath.tryFind();
+		if (srcFile.isSome())
+			return srcFile.unwrap();
 
-		return srcFilePath;
+		throw 'File not found for module: $module';
 	}
 
 	/**
 		Reads The content of the source code file at `fullPath`,
 		removing the package declaration.
 	**/
-	static function readSrcCode(fullPath:String) {
-		var srcCode = readFile(fullPath);
+	static function readSrcCode(file:FileRef) {
+		var srcCode = file.getContent();
 		srcCode = RegExps.pkg.replace(srcCode, "");
 		srcCode = RegExps.comment.replace(srcCode, "");
 		return srcCode.trim() + "\n";
-	}
-
-	/**
-		Creates a file with `content` at `fullPath`.
-		Overwrites the file if it already exists.
-	**/
-	static function createFile(fullPath:String, content:String) {
-		final newFile = File.write(fullPath, true);
-		try {
-			newFile.writeString(content, UTF8);
-		} catch (e:Dynamic) {
-			Sys.println('Error while creating file: $fullPath');
-			newFile.close();
-			throw e;
-		}
-		newFile.close();
 	}
 
 	/**
